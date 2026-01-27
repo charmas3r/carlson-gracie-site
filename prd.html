@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Requirements Document - San Diego BJJ Academy</title>
+    <style>
+        @media print {
+            body {
+                max-width: 100%;
+                padding: 0.5in;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            pre, table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #ffffff;
+        }
+        
+        h1 {
+            color: #782626;
+            border-bottom: 3px solid #782626;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            color: #782626;
+            border-bottom: 2px solid #d4d4d4;
+            padding-bottom: 0.3rem;
+            margin-top: 2rem;
+            font-size: 2rem;
+        }
+        
+        h3 {
+            color: #787878;
+            margin-top: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        h4 {
+            color: #797979;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        code {
+            background-color: #f6f6f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #782626;
+        }
+        
+        pre {
+            background-color: #f6f6f6;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #782626;
+            overflow-x: auto;
+        }
+        
+        pre code {
+            background: none;
+            padding: 0;
+            color: #333;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        
+        table th {
+            background-color: #782626;
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        table td {
+            border: 1px solid #d4d4d4;
+            padding: 0.75rem;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        ul, ol {
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        blockquote {
+            border-left: 4px solid #782626;
+            padding-left: 1rem;
+            margin-left: 0;
+            color: #666;
+            font-style: italic;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #d4d4d4;
+            margin: 2rem 0;
+        }
+        
+        strong {
+            color: #782626;
+            font-weight: 600;
+        }
+        
+        a {
+            color: #782626;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .header-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Requirements Document</h1>
+<h2>San Diego Brazilian Jiu-Jitsu Academy Website</h2>
+<p><strong>Version</strong>: 1.0<br />
+<strong>Date</strong>: January 25, 2026<br />
+<strong>Status</strong>: Ready for Development</p>
+<hr />
+<h2>1. Executive Summary</h2>
+<p>This PRD defines requirements for building a world-class, conversion-optimized website for a San Diego Brazilian Jiu-Jitsu academy. The site will leverage cutting-edge web technologies (Next.js 15, Framer Motion) to create an immersive, cinematic experience that differentiates the academy from local competition.</p>
+<p>The website focuses on acquiring new students through exceptional UX, aggressive SEO, and conversion-optimized design. With a target conversion rate of 8-12% (vs. industry standard 0.2-0.5%), the site is projected to generate $60,000-100,000 in additional annual revenue.</p>
+<p><strong>Core Value Proposition</strong>: The fastest, most visually stunning, and highest-converting BJJ website in San Diego, featuring a dedicated kids program page, system-aware dark mode, and personalized lead capture—all while maintaining sub-2-second load times.</p>
+<hr />
+<h2>2. Mission</h2>
+<p><strong>Product Mission</strong>: Create a digital experience so compelling and user-friendly that it becomes the academy's #1 source of new student acquisition while simultaneously building community and retention among existing members.</p>
+<h3>Core Principles</h3>
+<ol>
+<li><strong>Performance is Non-Negotiable</strong>: Every feature must maintain sub-2-second load times</li>
+<li><strong>Mobile-First Always</strong>: 60-70% of traffic will be mobile; optimize accordingly</li>
+<li><strong>Conversion Over Beauty</strong>: Aesthetic serves conversion, not vice versa</li>
+<li><strong>Data-Driven Decisions</strong>: Use analytics to optimize continuously</li>
+<li><strong>Simplicity &amp; Focus</strong>: Launch with core features that drive acquisition</li>
+</ol>
+<hr />
+<h2>3. Target Users</h2>
+<h3>Primary User Personas</h3>
+<h4>Persona A: "The Curious Beginner" (Adult, 25-45)</h4>
+<ul>
+<li><strong>Technical Comfort</strong>: Moderate (uses smartphone daily, browses on mobile)</li>
+<li><strong>Key Needs</strong>: </li>
+<li>Clear explanation of what BJJ is and what to expect</li>
+<li>Transparent pricing and class schedule</li>
+<li>Low-friction way to try a class</li>
+<li>Reassurance about safety and skill level</li>
+<li><strong>Pain Points</strong>: </li>
+<li>Fear of being out of shape or too old</li>
+<li>Uncertainty about first class experience</li>
+<li>Intimidation about martial arts in general</li>
+</ul>
+<h4>Persona B: "The Parent Researcher" (30-45, with kids 4-15)</h4>
+<ul>
+<li><strong>Technical Comfort</strong>: High (researches extensively online before decisions)</li>
+<li><strong>Key Needs</strong>:</li>
+<li>Detailed information about kids programs and safety</li>
+<li>Age-appropriate program details</li>
+<li>Parent testimonials and success stories</li>
+<li>Clear communication about costs and commitment</li>
+<li><strong>Pain Points</strong>:</li>
+<li>Concerns about safety and injury risk</li>
+<li>Uncertainty if their child will enjoy it</li>
+<li>Questions about bullying prevention effectiveness</li>
+<li>Need for flexible scheduling around school</li>
+</ul>
+<h4>Persona C: "The Experienced Practitioner" (20-50, looking to switch gyms)</h4>
+<ul>
+<li><strong>Technical Comfort</strong>: High</li>
+<li><strong>Key Needs</strong>:</li>
+<li>Instructor credentials and lineage</li>
+<li>Competition team information</li>
+<li>Class schedule and training philosophy</li>
+<li>Academy culture and values</li>
+<li><strong>Pain Points</strong>:</li>
+<li>Evaluating quality of instruction</li>
+<li>Finding academy that matches training intensity preference</li>
+<li>Community fit and gym culture</li>
+</ul>
+<hr />
+<h2>4. MVP Scope</h2>
+<h3>✅ In Scope (Launch Day)</h3>
+<h4>Core Functionality</h4>
+<ul>
+<li>✅ Responsive website with 9 pages (7 core + 2 local SEO)</li>
+<li>✅ Cinematic hero section with full-screen video background</li>
+<li>✅ System-aware theming (automatic dark mode detection + manual toggle)</li>
+<li>✅ Exit-intent modal for lead capture</li>
+<li>✅ Google Reviews integration widget</li>
+<li>✅ Wall of Champions showcase</li>
+<li>✅ Local SEO landing pages (Escondido + North County San Diego)</li>
+<li>✅ Contact forms with validation</li>
+<li>✅ One-tap mobile actions (call, map, email)</li>
+</ul>
+<h4>Technical Requirements</h4>
+<ul>
+<li>✅ Sub-2-second page load times (LCP &lt; 1.8s)</li>
+<li>✅ Lighthouse score 98+ across all metrics</li>
+<li>✅ Mobile-first responsive design</li>
+<li>✅ WCAG 2.1 AA accessibility compliance</li>
+<li>✅ Schema.org markup (LocalBusiness, Course, Review)</li>
+<li>✅ Comprehensive SEO optimization</li>
+<li>✅ Privacy-focused analytics (Umami)</li>
+</ul>
+<h4>Integration Requirements</h4>
+<ul>
+<li>✅ Sanity CMS for content management</li>
+<li>✅ Resend for email delivery</li>
+<li>✅ Vercel Blob for media storage</li>
+<li>✅ Cloudinary for video optimization</li>
+<li>✅ Google Maps API integration</li>
+<li>✅ Google Business API for reviews</li>
+</ul>
+<h4>Deployment</h4>
+<ul>
+<li>✅ Vercel hosting with Edge Functions</li>
+<li>✅ Staging and production environments</li>
+<li>✅ CI/CD pipeline</li>
+<li>✅ SSL certificate and domain configuration</li>
+</ul>
+<h3>❌ Out of Scope (MVP)</h3>
+<h4>Deferred to Phase 2</h4>
+<ul>
+<li>❌ Student dashboard with authentication and progress tracking</li>
+<li>❌ Smart Intake Quiz (personalized recommendations)</li>
+<li>❌ Additional local SEO pages (3 more: Pacific Beach, La Jolla, Downtown)</li>
+<li>❌ Enhanced A/B testing framework</li>
+<li>❌ Local backlink building strategy</li>
+</ul>
+<h4>Postponed to Future Phases (Month 3+)</h4>
+<ul>
+<li>❌ Interactive 3D elements (belt visualizer or rotating logo)</li>
+<li>❌ Advanced heatmap analytics (Microsoft Clarity)</li>
+<li>❌ AI Chatbot (cost and complexity)</li>
+<li>❌ Intelligent class matching algorithm</li>
+<li>❌ Member technique library (content-intensive)</li>
+<li>❌ Referral program (need established member base)</li>
+<li>❌ Progressive Web App features</li>
+<li>❌ YouTube/Podcast integration</li>
+<li>❌ Payment processing (Stripe)</li>
+<li>❌ Advanced booking system</li>
+<li>❌ Community forum features</li>
+</ul>
+<h4>Optional Features (Evaluate Based on Performance)</h4>
+<ul>
+<li>❌ Video testimonials (if budget allows)</li>
+<li>❌ SMS integration via Twilio (if email underperforms)</li>
+<li>❌ Social media wall (Instagram feed)</li>
+</ul>
+<hr />
+<h2>5. User Stories</h2>
+<h3>Epic 1: New Student Acquisition</h3>
+<p><strong>US-1.1</strong>: As a potential BJJ student, I want to immediately understand what makes this academy different, so I can decide if it's worth visiting.</p>
+<p><strong>Example</strong>: Hero section shows cinematic video of training, bold headline "BRAZILIAN JIU-JITSU" with tagline "Transform your body, sharpen your mind, build confidence." CTA button: "START YOUR JOURNEY"</p>
+<p><strong>US-1.2</strong>: As a parent researching kids programs, I want detailed age-appropriate program information and safety details, so I can make an informed decision about enrolling my child.</p>
+<p><strong>Example</strong>: Dedicated Kids Program page with sections for ages 4-7, 8-12, 13-15, parent testimonials, safety protocols, and "Is BJJ Safe for Kids?" FAQ</p>
+<p><strong>US-1.3</strong>: As a website visitor about to leave, I want a compelling reason to stay engaged, so I don't miss out on a great opportunity.</p>
+<p><strong>Example</strong>: Exit-intent modal triggers with "Wait! Your First Class is FREE" and simple email capture form (name + email only)</p>
+<p><strong>US-1.4</strong>: As a mobile user, I want to contact the academy instantly, so I don't have to navigate through multiple pages or remember information.</p>
+<p><strong>Example</strong>: Sticky mobile footer with one-tap buttons: Call, Text, Map, Email</p>
+<h3>Epic 2: Information &amp; Trust Building</h3>
+<p><strong>US-2.1</strong>: As a beginner with no BJJ experience, I want to see social proof from real students, so I know others like me have succeeded.</p>
+<p><strong>Example</strong>: Google Reviews widget on homepage showing 4.9/5 star rating, recent reviews with names and photos, parent testimonials on Kids page</p>
+<p><strong>US-2.2</strong>: As a comparison shopper, I want to understand what makes this academy unique, so I can differentiate it from other BJJ gyms.</p>
+<p><strong>Example</strong>: "Why Choose Us" page with lineage, instructor credentials, clean facility photos, community culture, student success stories, values statement</p>
+<p><strong>US-2.3</strong>: As a visual learner, I want to see the academy atmosphere and training in action, so I can envision myself training there.</p>
+<p><strong>Example</strong>: Full-screen video background showing slow-motion technique execution, sparring intensity, students helping each other, smiling faces</p>
+<h3>Epic 3: Technical Excellence</h3>
+<p><strong>US-3.1</strong>: As a user who prefers dark mode, I want the website to automatically match my system preference, so I have a comfortable viewing experience.</p>
+<p><strong>Example</strong>: Site automatically detects <code>prefers-color-scheme: dark</code> and applies dark theme with adjusted colors, video overlay, and contrast ratios</p>
+<p><strong>US-3.2</strong>: As a mobile user on a slow connection, I want pages to load instantly, so I don't abandon the site.</p>
+<p><strong>Example</strong>: Optimized video (&lt; 2MB mobile), lazy-loaded images, AVIF/WebP formats, edge caching results in &lt; 2s load time</p>
+<hr />
+<h2>6. Core Architecture &amp; Patterns</h2>
+<h3>High-Level Architecture</h3>
+<div class="codehilite"><pre><span></span><code>┌─────────────────────────────────────────────────────────┐
+│<span class="w">                     </span><span class="nv">Vercel</span><span class="w"> </span><span class="nv">Edge</span><span class="w"> </span><span class="nv">CDN</span><span class="w">                      </span>│
+│<span class="w">              </span><span class="ss">(</span><span class="nv">Global</span><span class="w"> </span><span class="nv">Edge</span><span class="w"> </span><span class="nv">Functions</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nv">Caching</span><span class="ss">)</span><span class="w">           </span>│
+└─────────────────────────────────────────────────────────┘
+<span class="w">                            </span>▼
+┌─────────────────────────────────────────────────────────┐
+│<span class="w">              </span><span class="k">Next</span>.<span class="nv">js</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="nv">Application</span><span class="w"> </span><span class="ss">(</span><span class="nv">SSR</span><span class="o">/</span><span class="nv">SSG</span><span class="ss">)</span><span class="w">            </span>│
+│<span class="w">                                                           </span>│
+│<span class="w">  </span>┌─────────────┐<span class="w">  </span>┌──────────────┐<span class="w">  </span>┌────────────────┐<span class="w"> </span>│
+│<span class="w">  </span>│<span class="w">   </span><span class="nv">Pages</span><span class="w">     </span>│<span class="w">  </span>│<span class="w">  </span><span class="nv">Components</span><span class="w">  </span>│<span class="w">  </span>│<span class="w">   </span><span class="nv">API</span><span class="w"> </span><span class="nv">Routes</span><span class="w">   </span>│<span class="w"> </span>│
+│<span class="w">  </span>│<span class="w">  </span><span class="ss">(</span><span class="nv">App</span><span class="w">       </span>│<span class="w">  </span>│<span class="w">  </span><span class="ss">(</span><span class="nv">shadcn</span><span class="o">/</span><span class="nv">ui</span><span class="w">  </span>│<span class="w">  </span>│<span class="w">  </span><span class="ss">(</span><span class="nv">Resend</span>,<span class="w">      </span>│<span class="w"> </span>│
+│<span class="w">  </span>│<span class="w">  </span><span class="nv">Router</span><span class="ss">)</span><span class="w">    </span>│<span class="w">  </span>│<span class="w">   </span><span class="o">+</span><span class="w"> </span><span class="nv">custom</span><span class="ss">)</span><span class="w">  </span>│<span class="w">  </span>│<span class="w">   </span><span class="nv">Analytics</span><span class="ss">)</span><span class="w">   </span>│<span class="w"> </span>│
+│<span class="w">  </span>└─────────────┘<span class="w">  </span>└──────────────┘<span class="w">  </span>└────────────────┘<span class="w"> </span>│
+└─────────────────────────────────────────────────────────┘
+<span class="w">                            </span>▼
+<span class="w">       </span>┌────────────────────┴────────────────────┐
+<span class="w">       </span>▼<span class="w">                                          </span>▼
+┌─────────────────┐<span class="w">                    </span>┌─────────────────┐
+│<span class="w">   </span><span class="nv">Sanity</span><span class="w"> </span><span class="nv">CMS</span><span class="w">    </span>│<span class="w">                    </span>│<span class="w">  </span><span class="nv">Vercel</span><span class="w"> </span><span class="nv">Blob</span><span class="w">    </span>│
+│<span class="w">  </span><span class="ss">(</span><span class="nv">Content</span><span class="w"> </span><span class="o">+</span><span class="w">     </span>│<span class="w">                    </span>│<span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="nv">Cloudinary</span><span class="w">   </span>│
+│<span class="w">   </span><span class="nv">Student</span><span class="w"> </span><span class="nv">Data</span><span class="ss">)</span><span class="w"> </span>│<span class="w">                    </span>│<span class="w">  </span><span class="ss">(</span><span class="nv">Media</span><span class="w"> </span><span class="nv">Assets</span><span class="ss">)</span><span class="w"> </span>│
+└─────────────────┘<span class="w">                    </span>└─────────────────┘
+<span class="w">       </span>│
+<span class="w">       </span>└──────┬─────────────────────────────────────────┐
+<span class="w">              </span>▼<span class="w">                                          </span>▼
+<span class="w">       </span>┌─────────────────┐<span class="w">                    </span>┌─────────────────┐
+<span class="w">       </span>│<span class="w">  </span><span class="nv">Vercel</span><span class="w"> </span><span class="nv">KV</span><span class="w">      </span>│<span class="w">                    </span>│<span class="w">   </span><span class="nv">Resend</span><span class="w"> </span><span class="nv">Email</span><span class="w">  </span>│
+<span class="w">       </span>│<span class="w">  </span><span class="ss">(</span><span class="nv">Sessions</span><span class="o">/</span><span class="w">     </span>│<span class="w">                    </span>│<span class="w">   </span><span class="ss">(</span><span class="nv">Transactional</span>│
+<span class="w">       </span>│<span class="w">   </span><span class="nv">Cache</span><span class="ss">)</span><span class="w">        </span>│<span class="w">                    </span>│<span class="w">    </span><span class="o">+</span><span class="w"> </span><span class="nv">Marketing</span><span class="ss">)</span><span class="w"> </span>│
+<span class="w">       </span>└─────────────────┘<span class="w">                    </span>└─────────────────┘
+</code></pre></div>
+
+<h3>Directory Structure</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">carlson</span><span class="o">-</span><span class="n">gracie</span><span class="o">-</span><span class="n">site</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">app</span><span class="o">/</span><span class="w">                          </span><span class="c1"># Next.js 15 App Router</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="p">(</span><span class="n">public</span><span class="p">)</span><span class="o">/</span><span class="w">                 </span><span class="c1"># Public pages (no auth)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="w">              </span><span class="c1"># Home/Landing</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">classes</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="w">      </span><span class="c1"># Classes overview</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">kids</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="w">         </span><span class="c1"># Kids Program (dedicated)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">schedule</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="w">     </span><span class="c1"># Interactive schedule</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">instructors</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="w">  </span><span class="c1"># Instructor profiles</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">why</span><span class="o">-</span><span class="n">choose</span><span class="o">-</span><span class="n">us</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="c1"># Differentiation page</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">contact</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="w">      </span><span class="c1"># Contact + one-tap actions</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">escondido</span><span class="o">-</span><span class="n">bjj</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="c1"># Local SEO: Escondido</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">north</span><span class="o">-</span><span class="n">county</span><span class="o">-</span><span class="n">san</span><span class="o">-</span><span class="n">diego</span><span class="o">-</span><span class="n">bjj</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="w"> </span><span class="c1"># Local SEO: North County</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">wall</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">champions</span><span class="o">/</span><span class="n">page</span><span class="o">.</span><span class="n">tsx</span><span class="c1"># Wall of Champions (public page)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">api</span><span class="o">/</span><span class="w">                      </span><span class="c1"># API routes</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">contact</span><span class="o">/</span><span class="n">route</span><span class="o">.</span><span class="n">ts</span><span class="w">      </span><span class="c1"># Form submissions</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">exit</span><span class="o">-</span><span class="n">intent</span><span class="o">/</span><span class="n">route</span><span class="o">.</span><span class="n">ts</span><span class="w">  </span><span class="c1"># Lead capture</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">reviews</span><span class="o">/</span><span class="n">route</span><span class="o">.</span><span class="n">ts</span><span class="w">      </span><span class="c1"># Google Reviews fetch</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">layout</span><span class="o">.</span><span class="n">tsx</span><span class="w">                </span><span class="c1"># Root layout (theme provider)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">globals</span><span class="o">.</span><span class="n">css</span><span class="w">               </span><span class="c1"># Global styles + theme variables</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">components</span><span class="o">/</span><span class="w">                   </span><span class="c1"># React components</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">ui</span><span class="o">/</span><span class="w">                       </span><span class="c1"># shadcn/ui components</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">hero</span><span class="o">/</span><span class="w">                     </span><span class="c1"># Cinematic hero components</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">VideoBackground</span><span class="o">.</span><span class="n">tsx</span><span class="w">   </span><span class="c1"># Optimized video player</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">ParallaxLayers</span><span class="o">.</span><span class="n">tsx</span><span class="w">    </span><span class="c1"># Parallax scrolling</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">forms</span><span class="o">/</span><span class="w">                    </span><span class="c1"># Form components</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">navigation</span><span class="o">/</span><span class="w">               </span><span class="c1"># Header, footer, mobile nav</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">theme</span><span class="o">/</span><span class="w">                    </span><span class="c1"># Theme toggle, provider</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">champions</span><span class="o">/</span><span class="w">                </span><span class="c1"># Wall of Champions components</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">reviews</span><span class="o">/</span><span class="w">                  </span><span class="c1"># Google Reviews widget</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">lib</span><span class="o">/</span><span class="w">                          </span><span class="c1"># Utility functions</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">sanity</span><span class="o">.</span><span class="n">ts</span><span class="w">                 </span><span class="c1"># Sanity client config</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">email</span><span class="o">.</span><span class="n">ts</span><span class="w">                  </span><span class="c1"># Resend integration</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">analytics</span><span class="o">.</span><span class="n">ts</span><span class="w">              </span><span class="c1"># Umami setup</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">utils</span><span class="o">.</span><span class="n">ts</span><span class="w">                  </span><span class="c1"># Shared utilities</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">sanity</span><span class="o">/</span><span class="w">                       </span><span class="c1"># Sanity CMS config</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">schemas</span><span class="o">/</span><span class="w">                  </span><span class="c1"># Content schemas</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">instructor</span><span class="o">.</span><span class="n">ts</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="k">class</span><span class="o">.</span><span class="n">ts</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">achievement</span><span class="o">.</span><span class="n">ts</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">announcement</span><span class="o">.</span><span class="n">ts</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">config</span><span class="o">.</span><span class="n">ts</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">public</span><span class="o">/</span><span class="w">                       </span><span class="c1"># Static assets</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">videos</span><span class="o">/</span><span class="w">                   </span><span class="c1"># Hero videos (optimized)</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">images</span><span class="o">/</span><span class="w">                   </span><span class="c1"># Optimized images</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">fonts</span><span class="o">/</span><span class="w">                    </span><span class="c1"># Custom fonts</span>
+<span class="err">└──</span><span class="w"> </span><span class="n">styles</span><span class="o">/</span><span class="w">                       </span><span class="c1"># Additional styles</span>
+<span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="n">animations</span><span class="o">.</span><span class="n">css</span><span class="w">            </span><span class="c1"># Framer Motion presets</span>
+</code></pre></div>
+
+<h3>Key Design Patterns</h3>
+<h4>1. Component Composition Pattern</h4>
+<ul>
+<li>Small, reusable components composed into larger features</li>
+<li>shadcn/ui provides base components; custom components extend them</li>
+<li>Example: <code>&lt;Button&gt;</code> from shadcn + custom <code>&lt;CTAButton&gt;</code> with red accent and animations</li>
+</ul>
+<h4>2. Server-Side Rendering (SSR) with Static Generation</h4>
+<ul>
+<li>Use SSG for static pages (home, classes, why-choose-us) → faster load times</li>
+<li>Use SSR for dynamic pages (dashboard, schedule) → real-time data</li>
+<li>Use ISR (Incremental Static Regeneration) for content-heavy pages → balance performance and freshness</li>
+</ul>
+<h4>3. Optimistic UI Updates</h4>
+<ul>
+<li>Form interactions provide immediate feedback before server confirmation</li>
+<li>Example: Form submission → instant loading state → success animation</li>
+</ul>
+<h4>4. Edge-First Architecture</h4>
+<ul>
+<li>Route handlers on Vercel Edge Functions for lowest latency</li>
+<li>Form submissions, exit-intent capture processed at edge</li>
+<li>Analytics events sent to edge endpoints</li>
+</ul>
+<h4>5. Progressive Enhancement</h4>
+<ul>
+<li>Core functionality works without JavaScript (forms submit, navigation works)</li>
+<li>Animations enhance but aren't required</li>
+<li>Video background falls back to static image on slow connections</li>
+</ul>
+<h3>Technology-Specific Patterns</h3>
+<h4>Next.js 15 App Router</h4>
+<ul>
+<li>Server Components by default (reduce client bundle)</li>
+<li>Client Components only where interactivity needed (<code>'use client'</code>)</li>
+<li>Intercepting routes for modals (exit-intent, instructor profiles)</li>
+</ul>
+<h4>Framer Motion</h4>
+<ul>
+<li>Shared layout animations for smooth page transitions</li>
+<li>Scroll-triggered animations using <code>useScroll</code> and <code>useTransform</code></li>
+<li>Reusable animation variants defined in <code>styles/animations.css</code></li>
+</ul>
+<h4>Sanity CMS</h4>
+<ul>
+<li>GROQ queries for content fetching</li>
+<li>Sanity Studio hosted at <code>/studio</code> route</li>
+<li>Content schemas enforce data consistency</li>
+<li>Webhook integration for cache invalidation on publish</li>
+</ul>
+<hr />
+<h2>7. Features</h2>
+<h3>Feature 1: Cinematic Landing Experience</h3>
+<p><strong>Purpose</strong>: Create an unforgettable first impression that differentiates the academy from all local competitors.</p>
+<p><strong>Operations</strong>:
+1. Full-screen video background auto-plays (muted) on page load
+2. Parallax scrolling creates depth as user scrolls
+3. Micro-animations trigger on user interactions (button hovers, scroll reveals)
+4. Bold typography with kinetic effects draws attention to key messaging</p>
+<p><strong>Key Features</strong>:
+- <strong>Video Background</strong>: 
+  - 20-30 second loop of high-quality training footage
+  - Compressed to &lt; 5MB desktop, &lt; 2MB mobile
+  - Preloaded poster image for instant visual
+  - Respects <code>prefers-reduced-motion</code> for accessibility</p>
+<ul>
+<li><strong>Parallax Layers</strong>:</li>
+<li>3 layers: background video (0.8x speed), text overlay (1.0x), foreground elements (1.2x)</li>
+<li>GPU-accelerated transforms for 60fps smoothness</li>
+<li>
+<p>Disabled on mobile if performance issues detected</p>
+</li>
+<li>
+<p><strong>Micro-interactions</strong>:</p>
+</li>
+<li>CTA button: Scale + glow on hover, subtle bounce on click</li>
+<li>Scroll indicator: Animated arrow that pulses</li>
+<li>Form fields: Smooth focus states with color transitions</li>
+<li>Loading states: Lottie animations (spinning gi, belt tying)</li>
+</ul>
+<p><strong>Success Criteria</strong>:
+- Video loads and plays within 1.5 seconds on desktop
+- Parallax scrolling maintains 60fps on all devices
+- &lt; 5% bounce rate on hero section (measured via scroll depth)
+- Hero section engagement &gt; 70% (users scroll past hero)</p>
+<hr />
+<h3>Feature 2: System-Aware Theming (Dark Mode)</h3>
+<p><strong>Purpose</strong>: Provide modern, accessible theming that respects user preferences and reduces eye strain.</p>
+<p><strong>Operations</strong>:
+1. On page load, detect OS-level color scheme preference
+2. Apply appropriate theme (light or dark) automatically
+3. Provide manual toggle for user override
+4. Store preference in localStorage for persistence
+5. Smooth transition between themes (no jarring flash)</p>
+<p><strong>Key Features</strong>:
+- <strong>Automatic Detection</strong>: 
+  - CSS <code>@media (prefers-color-scheme: dark)</code> triggers dark mode
+  - JavaScript fallback for browsers without support</p>
+<ul>
+<li><strong>Manual Toggle</strong>:</li>
+<li>Sun/moon icon in navigation header</li>
+<li>Click toggles between light/dark</li>
+<li>Overrides system preference</li>
+<li>
+<p>Persisted in localStorage</p>
+</li>
+<li>
+<p><strong>Theme Adjustments</strong>:</p>
+</li>
+<li>Dark mode uses lighter grays, brighter accent red</li>
+<li>Video overlay opacity adjusted for better contrast</li>
+<li>
+<p>All text maintains WCAG AA contrast ratios (4.5:1 minimum)</p>
+</li>
+<li>
+<p><strong>Smooth Transitions</strong>:</p>
+</li>
+<li>CSS transitions for color changes (200ms ease-in-out)</li>
+<li>Framer Motion for icon swap animation</li>
+<li>No flash of unstyled content (FOUC)</li>
+</ul>
+<p><strong>Success Criteria</strong>:
+- Theme correctly applies on first load based on system preference
+- Manual toggle works instantly with smooth transition
+- Preference persists across sessions
+- All text passes WCAG AA contrast checks in both modes
+- No FOUC or theme flickering</p>
+<hr />
+<h3>Feature 3: Exit-Intent Lead Capture</h3>
+<p><strong>Purpose</strong>: Recover 10-15% of abandoning visitors by presenting a compelling offer at the moment they try to leave.</p>
+<p><strong>Operations</strong>:
+1. Detect when user's mouse leaves viewport (desktop) or scrolls to bottom without interaction (mobile)
+2. Show modal with "Wait! Your First Class is FREE" offer
+3. Capture name + email with minimal friction form
+4. Send confirmation email via Resend
+5. Set cookie to prevent showing modal again this session</p>
+<p><strong>Key Features</strong>:
+- <strong>Trigger Logic</strong>:
+  - Desktop: Mouse exits top boundary of viewport
+  - Mobile: Scroll to bottom + no form submission in 30+ seconds
+  - Show only once per session (cookie-based)
+  - 2-second delay before showing (not instant)</p>
+<ul>
+<li><strong>Modal Design</strong>:</li>
+<li>Backdrop blur with darkened overlay</li>
+<li>Bold headline: "Wait! Your First Class is FREE"</li>
+<li>Subheadline: "No strings attached. Come see what BJJ is all about."</li>
+<li>Form: Name (text), Email (email), "CLAIM MY FREE CLASS" button</li>
+<li>
+<p>Close button (X) in corner</p>
+</li>
+<li>
+<p><strong>Form Validation</strong>:</p>
+</li>
+<li>Client-side validation (email format, required fields)</li>
+<li>Server-side validation via API route</li>
+<li>Inline error messages</li>
+<li>
+<p>Success animation (Lottie celebration)</p>
+</li>
+<li>
+<p><strong>Email Automation</strong>:</p>
+</li>
+<li>Immediate confirmation email via Resend</li>
+<li>Subject: "Your Free BJJ Class at [Academy Name]"</li>
+<li>Body: Thank you, what to expect, instructor introduction, address/parking</li>
+<li>Follow-up email 24 hours later with class schedule</li>
+</ul>
+<p><strong>Success Criteria</strong>:
+- Modal triggers correctly on exit intent (95%+ accuracy)
+- 10-15% of users who see modal complete form
+- No modal shown to users who already submitted contact form
+- Confirmation email delivered within 30 seconds
+- No false positives (triggering when user not actually leaving)</p>
+<hr />
+<h3>Feature 4: Kids Program Page (Dedicated)</h3>
+<p><strong>Purpose</strong>: Convert parents searching for youth martial arts programs at 2-3x higher rate than general visitors.</p>
+<p><strong>Operations</strong>:
+1. Dedicated <code>/kids</code> route with full page experience
+2. Parent-focused messaging addressing safety, confidence, bullying
+3. Age-specific program sections (4-7, 8-12, 13-15)
+4. Video testimonials from parents and kids
+5. Comprehensive FAQ answering all parent concerns
+6. Multiple CTAs: "Book Free Kids Trial"</p>
+<p><strong>Key Features</strong>:
+- <strong>Hero Section</strong>:
+  - Headline: "Building Confident, Disciplined, and Resilient Kids Through Brazilian Jiu-Jitsu"
+  - Hero image: Kids training together, smiling, having fun
+  - Age group badges: "Little Champions 4-7" | "Kids 8-12" | "Teens 13-15"
+  - Primary CTA: "Book a FREE Kids Trial Class"</p>
+<ul>
+<li><strong>Program Benefits</strong> (Parent-Focused Copy):</li>
+<li>Confidence Building: Overcoming challenges → confidence in school</li>
+<li>Bully Prevention: Self-defense skills + confidence to handle situations</li>
+<li>Physical Fitness: Fun alternative to screen time</li>
+<li>Discipline &amp; Focus: Structured environment teaches respect and listening</li>
+<li>Social Skills: Teamwork, making friends, supportive community</li>
+<li>
+<p>Life Skills: Goal-setting (belt progression), perseverance</p>
+</li>
+<li>
+<p><strong>Age-Specific Programs</strong>:</p>
+</li>
+<li><strong>Little Champions (4-7)</strong>: 30min classes, fundamentals, games, motor skills</li>
+<li><strong>Kids BJJ (8-12)</strong>: 45min structured, belt progression, light sparring</li>
+<li>
+<p><strong>Teens (13-15)</strong>: 60min advanced, competition optional, mentorship</p>
+</li>
+<li>
+<p><strong>Safety &amp; Supervision</strong>:</p>
+</li>
+<li>Dedicated instructor + assistant per class</li>
+<li>Age-appropriate skill progressions</li>
+<li>CPR/First Aid certified instructors</li>
+<li>
+<p>Parent viewing area always available</p>
+</li>
+<li>
+<p><strong>Parent Testimonials</strong>:</p>
+</li>
+<li>3-5 video testimonials (15-30s each)</li>
+<li>Before/after stories: "My shy son is now confident"</li>
+<li>Academic improvement stories</li>
+<li>
+<p>Bully resolution examples</p>
+</li>
+<li>
+<p><strong>Kids-Specific FAQs</strong>:</p>
+</li>
+<li>"Is BJJ safe for kids?" (Yes, safest martial art)</li>
+<li>"What should my child wear?" (Athletic clothes, loaner gis available)</li>
+<li>"Will my child get hurt?" (Safety protocols, supervision)</li>
+<li>"How long until results?" (Confidence within weeks, skills over months)</li>
+<li>"What if my child is shy?" (Beginner-friendly, supportive environment)</li>
+<li>"Special needs accommodation?" (Individualized attention)</li>
+<li>
+<p>"Cost and family discounts?" (Transparent pricing)</p>
+</li>
+<li>
+<p><strong>Trial Process</strong>:</p>
+</li>
+<li>Book free trial (simple form: parent name, child name, age)</li>
+<li>Come 10 minutes early for orientation</li>
+<li>Watch warm-up games</li>
+<li>Learn 2-3 basic techniques</li>
+<li>Brief parent meeting after class</li>
+<li>No pressure, no obligation</li>
+</ul>
+<p><strong>Success Criteria</strong>:
+- Kids Program page ranks on page 1 for "kids BJJ San Diego" within 3 months
+- 15-20% of parents who visit page complete trial booking form
+- Average time on page &gt; 3 minutes (high engagement)
+- Parent testimonial videos have 70%+ completion rate
+- 10-15 kids trial bookings per month from this page</p>
+<hr />
+<h3>Feature 5: Google Reviews Integration</h3>
+<p><strong>Purpose</strong>: Build trust immediately by showcasing real 5-star reviews from satisfied students and parents.</p>
+<p><strong>Operations</strong>:
+1. Fetch reviews from Google Business API on server-side
+2. Cache reviews in Vercel KV (refresh every 24 hours)
+3. Display aggregate rating (4.9/5) prominently on homepage
+4. Show carousel of recent 5-star reviews with names and dates
+5. Link to Google Business Profile for full review list</p>
+<p><strong>Key Features</strong>:
+- <strong>Aggregate Rating Display</strong>:
+  - Large "4.9/5" rating with star icons
+  - "(180+ reviews)" count
+  - Positioned in hero section or immediately below</p>
+<ul>
+<li><strong>Review Carousel</strong>:</li>
+<li>Displays 5 most recent 5-star reviews</li>
+<li>Each review shows:<ul>
+<li>Reviewer name and initial (avatar)</li>
+<li>Star rating (visual stars)</li>
+<li>Review excerpt (150 characters max)</li>
+<li>Date posted</li>
+</ul>
+</li>
+<li>Auto-rotates every 5 seconds</li>
+<li>Manual navigation arrows</li>
+<li>
+<p>Pause on hover</p>
+</li>
+<li>
+<p><strong>Review Schema Markup</strong>:</p>
+</li>
+<li>Structured data (Schema.org Review) for SEO</li>
+<li>Enables rich snippets in Google search results</li>
+<li>
+<p>Includes aggregate rating, review count</p>
+</li>
+<li>
+<p><strong>CTA to Leave Review</strong>:</p>
+</li>
+<li>"Leave us a review!" button on homepage and contact page</li>
+<li>Links to Google Business Profile review submission page</li>
+<li>Incentive: "Help us grow! Leave a review" (no monetary incentive)</li>
+</ul>
+<p><strong>Success Criteria</strong>:
+- Reviews load within 2 seconds on initial page load (from cache)
+- Reviews update daily with new submissions from Google
+- Review carousel maintains 60fps animation smoothness
+- "Leave a review" CTA generates 5+ new reviews per month
+- Aggregate rating displayed prominently on homepage (above fold)</p>
+<hr />
+<h3>Feature 6: One-Tap Mobile Actions</h3>
+<p><strong>Purpose</strong>: Make it trivially easy for mobile users to contact the academy without typing or navigating.</p>
+<p><strong>Operations</strong>:
+1. Detect mobile device (via user agent or viewport width)
+2. Display sticky footer bar with action buttons
+3. Buttons use native device protocols (tel:, sms:, geo:, mailto:)
+4. Track button clicks as custom events in analytics</p>
+<p><strong>Key Features</strong>:
+- <strong>Sticky Mobile Footer</strong>:
+  - Fixed position at bottom of screen on mobile only
+  - 4 large, touch-friendly buttons:
+    - <strong>Call</strong>: <code>tel:+15551234567</code> → Opens phone dialer
+    - <strong>Text</strong>: <code>sms:+15551234567</code> → Opens SMS app
+    - <strong>Map</strong>: <code>geo:</code> or Google Maps URL → Opens maps app
+    - <strong>Email</strong>: <code>mailto:info@academy.com</code> → Opens email client
+  - Each button has icon + label
+  - Red accent color on primary CTA (Call)</p>
+<ul>
+<li><strong>Alternative Placement</strong>:</li>
+<li>Also display as button group on Contact page</li>
+<li>Desktop: Display as larger buttons with more spacing</li>
+<li>
+<p>Mobile: Sticky footer always accessible</p>
+</li>
+<li>
+<p><strong>Analytics Tracking</strong>:</p>
+</li>
+<li>Track clicks as custom events: "Mobile: Call Clicked", "Mobile: Map Clicked"</li>
+<li>Measure conversion funnel: Page view → Button click → (estimate) call/visit</li>
+<li>A/B test button order and labels</li>
+</ul>
+<p><strong>Success Criteria</strong>:
+- 15-20% of mobile users click at least one action button
+- "Call" button has highest click rate (40-50% of action button clicks)
+- Action buttons load within 1 second on mobile
+- No false triggers (buttons don't open on accidental scroll/touch)
+- Analytics correctly tracks all action button clicks</p>
+<hr />
+<h3>Feature 7: Wall of Champions</h3>
+<p><strong>Purpose</strong>: Build credibility, showcase student success, and motivate current students with visible achievements.</p>
+<p><strong>Operations</strong>:
+1. CMS-managed via Sanity (instructors/admins add entries)
+2. Display competition results, belt promotions, student achievements
+3. Filter/sort by category: Competitions, Promotions, Student Spotlights
+4. Photo gallery with captions and dates
+5. Featured on homepage with link to dedicated page</p>
+<p><strong>Key Features</strong>:
+- <strong>Categories</strong>:
+  - <strong>Competition Results</strong>: Tournament names, medal placements, student names, photos
+  - <strong>Belt Promotions</strong>: Belt ceremony photos, student name, date promoted, quote from instructor
+  - <strong>Student Spotlights</strong>: "Student of the Month" features, transformation stories, testimonials
+  - <strong>Achievements</strong>: First competition, weight loss milestones, attendance records</p>
+<ul>
+<li><strong>Layout</strong>:</li>
+<li>Card grid layout (responsive: 3 cols desktop, 2 cols tablet, 1 col mobile)</li>
+<li>Each card: Photo, student name, achievement title, date, short description</li>
+<li>
+<p>Click card → Opens modal with full details and more photos</p>
+</li>
+<li>
+<p><strong>Sanity Schema</strong>:
+  <code>typescript
+  {
+    type: 'achievement',
+    fields: [
+      { name: 'studentName', type: 'string' },
+      { name: 'category', type: 'string', options: ['competition', 'promotion', 'spotlight'] },
+      { name: 'title', type: 'string' },
+      { name: 'date', type: 'date' },
+      { name: 'description', type: 'text' },
+      { name: 'photos', type: 'array', of: [{ type: 'image' }] },
+      { name: 'featured', type: 'boolean' }
+    ]
+  }</code></p>
+</li>
+<li>
+<p><strong>Homepage Integration</strong>:</p>
+</li>
+<li>Featured achievements section (3-5 most recent or featured)</li>
+<li>"View All Achievements" CTA linking to <code>/wall-of-champions</code></li>
+</ul>
+<p><strong>Success Criteria</strong>:
+- Wall of Champions page has 20+ entries at launch
+- New entries added at least weekly (automated reminder to instructors)
+- 40%+ of homepage visitors click "View All Achievements"
+- Average time on Wall of Champions page &gt; 2 minutes
+- Student testimonials reference Wall of Champions as motivating factor (qualitative)</p>
+<hr />
+<h3>Feature 8: Local SEO Landing Pages</h3>
+<p><strong>Purpose</strong>: Dominate local search results for Escondido and North County San Diego by ranking for neighborhood-specific BJJ searches.</p>
+<p><strong>Operations</strong>:
+1. Create dedicated pages with unique, location-specific content (500-800 words each)
+2. Include local landmarks, driving directions, and community references
+3. Implement Schema.org LocalBusiness markup with geo-targeting
+4. Feature local student testimonials when available
+5. Link prominently from main site footer and location sections</p>
+<p><strong>Key Features</strong>:
+- <strong>Escondido BJJ Page</strong> (<code>/escondido-bjj</code>):
+  - Hero: "Brazilian Jiu-Jitsu Classes in Escondido"
+  - Local context: "Serving Escondido, Rancho Bernardo, and surrounding North County communities"
+  - Driving directions from Escondido (I-15 access)
+  - Local landmarks: Escondido High School, Westfield North County shopping
+  - Community connection: Mention local partnerships or Escondido residents training
+  - Schedule highlights convenient for Escondido commuters
+  - Testimonials from Escondido-area students (if available)</p>
+<ul>
+<li><strong>North County San Diego BJJ Page</strong> (<code>/north-county-san-diego-bjj</code>):</li>
+<li>Hero: "North County San Diego Brazilian Jiu-Jitsu Classes"</li>
+<li>Coverage area: Escondido, San Marcos, Vista, Carlsbad, Encinitas, Oceanside, Rancho Bernardo</li>
+<li>Family-friendly emphasis (North County demographic)</li>
+<li>Weekend class availability highlighted</li>
+<li>Youth program emphasis (families in North County)</li>
+<li>Easy freeway access (I-15, I-5, 78)</li>
+<li>
+<p>Community feel messaging</p>
+</li>
+<li>
+<p><strong>Content Structure</strong> (Both Pages):</p>
+</li>
+<li>Unique 500-800 words of location-specific content</li>
+<li>H1: "[Location] Brazilian Jiu-Jitsu Classes"</li>
+<li>H2 sections: About Our Academy, Why Choose Us, Classes We Offer, Schedule, Get Started</li>
+<li>Neighborhood-specific keywords naturally integrated</li>
+<li>Unique meta descriptions per page</li>
+<li>Custom images (if available: photos near local landmarks)</li>
+<li>Embedded Google Maps with directions from that area</li>
+<li>Local testimonials (2-3 per page if available)</li>
+<li>
+<p>"Serving [Location]" statement in footer</p>
+</li>
+<li>
+<p><strong>Schema Markup</strong>:</p>
+</li>
+<li>LocalBusiness with <code>areaServed</code> property for each location</li>
+<li>Geo-coordinates for target area (approximate center)</li>
+<li>Service area definitions</li>
+<li>
+<p>Same aggregate review rating as main site</p>
+</li>
+<li>
+<p><strong>Internal Linking</strong>:</p>
+</li>
+<li>Link from homepage: "Serving Escondido &amp; North County" section</li>
+<li>Link from footer: "Locations" or "Areas We Serve"</li>
+<li>Cross-link between local pages</li>
+<li>
+<p>Link to main Classes and Kids Program pages</p>
+</li>
+<li>
+<p><strong>SEO Keywords</strong> (Target per page):</p>
+</li>
+<li><strong>Escondido</strong>: "BJJ Escondido", "Brazilian Jiu-Jitsu Escondido", "martial arts Escondido", "BJJ near Escondido"</li>
+<li><strong>North County</strong>: "North County BJJ", "North County San Diego Brazilian Jiu-Jitsu", "BJJ San Marcos", "BJJ Vista", "martial arts North County"</li>
+</ul>
+<p><strong>Success Criteria</strong>:
+- Both pages rank on page 1 for primary local keywords within 3-6 months
+- Local pages generate 15-20% additional organic traffic
+- 5-10 trial bookings per month attributed to local pages (tracked via form source)
+- Average time on page &gt; 2 minutes (indicates engagement with local content)
+- 10-15% conversion rate on local pages (equal to or better than homepage)</p>
+<hr />
+<h2>8. Technology Stack</h2>
+<h3>Frontend</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Next.js</strong></td>
+<td>15.x</td>
+<td>React framework with App Router, SSR/SSG</td>
+</tr>
+<tr>
+<td><strong>React</strong></td>
+<td>19.x</td>
+<td>UI library (included with Next.js 15)</td>
+</tr>
+<tr>
+<td><strong>TypeScript</strong></td>
+<td>5.x</td>
+<td>Type safety and developer experience</td>
+</tr>
+<tr>
+<td><strong>TailwindCSS</strong></td>
+<td>3.x</td>
+<td>Utility-first CSS framework</td>
+</tr>
+<tr>
+<td><strong>shadcn/ui</strong></td>
+<td>Latest</td>
+<td>Pre-built accessible UI components</td>
+</tr>
+<tr>
+<td><strong>RemixUI</strong></td>
+<td>Latest</td>
+<td>Additional UI component library</td>
+</tr>
+<tr>
+<td><strong>Framer Motion</strong></td>
+<td>11.x</td>
+<td>Animation library for smooth transitions</td>
+</tr>
+<tr>
+<td><strong>Three.js</strong></td>
+<td>0.160+</td>
+<td>3D graphics library</td>
+</tr>
+<tr>
+<td><strong>React Three Fiber</strong></td>
+<td>8.x</td>
+<td>React renderer for Three.js</td>
+</tr>
+<tr>
+<td><strong>Lottie React</strong></td>
+<td>2.x</td>
+<td>Micro-animations and loading states</td>
+</tr>
+</tbody>
+</table>
+<h3>Backend &amp; Infrastructure</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vercel</strong></td>
+<td>-</td>
+<td>Hosting, Edge Functions, CI/CD</td>
+</tr>
+<tr>
+<td><strong>Sanity.io</strong></td>
+<td>3.x</td>
+<td>Headless CMS for content management</td>
+</tr>
+<tr>
+<td><strong>Vercel KV</strong></td>
+<td>-</td>
+<td>Redis-compatible key-value store (sessions, cache)</td>
+</tr>
+<tr>
+<td><strong>Vercel Blob</strong></td>
+<td>-</td>
+<td>Object storage for media assets</td>
+</tr>
+</tbody>
+</table>
+<h3>Media &amp; Assets</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cloudinary</strong></td>
+<td>-</td>
+<td>Video optimization and streaming</td>
+</tr>
+<tr>
+<td><strong>Sharp</strong></td>
+<td>Latest</td>
+<td>Image optimization (AVIF, WebP)</td>
+</tr>
+</tbody>
+</table>
+<h3>Communication</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Resend</strong></td>
+<td>2.x</td>
+<td>Email delivery API (transactional + marketing)</td>
+</tr>
+</tbody>
+</table>
+<h3>Analytics &amp; Monitoring</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Umami</strong></td>
+<td>Latest</td>
+<td>Privacy-focused web analytics</td>
+</tr>
+</tbody>
+</table>
+<h3>Integrations</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Google Maps API</strong></td>
+<td>-</td>
+<td>Location maps and directions</td>
+</tr>
+<tr>
+<td><strong>Google Business API</strong></td>
+<td>-</td>
+<td>Reviews integration and display</td>
+</tr>
+</tbody>
+</table>
+<h3>Optional Dependencies (Evaluate Post-Launch)</h3>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Twilio</strong></td>
+<td>-</td>
+<td>SMS notifications and reminders</td>
+</tr>
+<tr>
+<td><strong>Stripe</strong></td>
+<td>Latest</td>
+<td>Payment processing (future phase)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>9. Security &amp; Configuration</h2>
+<h3>Authentication &amp; Authorization</h3>
+<p><strong>Approach</strong>: Session-based authentication for student dashboard</p>
+<ul>
+<li><strong>Registration</strong>: Email + password with bcrypt hashing (10 rounds)</li>
+<li><strong>Login</strong>: Email + password or magic link (passwordless)</li>
+<li><strong>Sessions</strong>: Stored in Vercel KV with 30-day expiration</li>
+<li><strong>Authorization</strong>: Middleware checks for valid session on protected routes</li>
+<li><strong>Password Reset</strong>: Magic link sent via Resend</li>
+<li><strong>No Admin Panel</strong> (MVP): Sanity Studio for content management (instructors access via separate authentication)</li>
+</ul>
+<h3>Configuration Management</h3>
+<p><strong>Environment Variables</strong> (Vercel):</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Database</span>
+<span class="nv">SANITY_PROJECT_ID</span><span class="o">=</span>xxx
+<span class="nv">SANITY_DATASET</span><span class="o">=</span>production
+<span class="nv">SANITY_API_TOKEN</span><span class="o">=</span>xxx<span class="w"> </span><span class="o">(</span>write<span class="w"> </span>access<span class="w"> </span><span class="k">for</span><span class="w"> </span>mutations<span class="o">)</span>
+
+<span class="c1"># Media</span>
+<span class="nv">BLOB_READ_WRITE_TOKEN</span><span class="o">=</span>xxx
+<span class="nv">CLOUDINARY_CLOUD_NAME</span><span class="o">=</span>xxx
+<span class="nv">CLOUDINARY_API_KEY</span><span class="o">=</span>xxx
+<span class="nv">CLOUDINARY_API_SECRET</span><span class="o">=</span>xxx
+
+<span class="c1"># Email</span>
+<span class="nv">RESEND_API_KEY</span><span class="o">=</span>xxx
+<span class="nv">FROM_EMAIL</span><span class="o">=</span>noreply@academy.com
+
+<span class="c1"># Analytics</span>
+<span class="nv">UMAMI_WEBSITE_ID</span><span class="o">=</span>xxx
+
+<span class="c1"># Google APIs</span>
+<span class="nv">GOOGLE_MAPS_API_KEY</span><span class="o">=</span>xxx
+<span class="nv">GOOGLE_BUSINESS_API_KEY</span><span class="o">=</span>xxx
+<span class="nv">GOOGLE_PLACE_ID</span><span class="o">=</span>xxx<span class="w"> </span><span class="o">(</span><span class="k">for</span><span class="w"> </span>reviews<span class="o">)</span>
+
+<span class="c1"># Auth</span>
+<span class="nv">SESSION_SECRET</span><span class="o">=</span>xxx<span class="w"> </span><span class="o">(</span>random<span class="w"> </span><span class="m">32</span>-byte<span class="w"> </span>hex<span class="o">)</span>
+<span class="nv">NEXT_PUBLIC_SITE_URL</span><span class="o">=</span>https://academy.com
+</code></pre></div>
+
+<p><strong>Security Best Practices</strong>:
+- Environment variables never exposed to client (only <code>NEXT_PUBLIC_*</code> vars)
+- Secrets rotated quarterly
+- API keys scoped to minimum required permissions
+- Rate limiting on form submissions (10 req/min per IP)</p>
+<h3>Security Scope</h3>
+<h4>✅ In-Scope Security Requirements (MVP)</h4>
+<ul>
+<li>SSL/TLS encryption (automatic via Vercel)</li>
+<li>CSRF protection on all forms</li>
+<li>Input validation (client + server-side)</li>
+<li>Secure HTTP headers (CSP, X-Frame-Options, etc.)</li>
+<li>Rate limiting on form endpoints</li>
+<li>Sanitized database queries (Sanity client handles this)</li>
+</ul>
+<h4>❌ Out-of-Scope (Future Phases)</h4>
+<ul>
+<li>Session-based authentication (dashboard deferred to Phase 2)</li>
+<li>Password management and reset flows</li>
+<li>Two-factor authentication (2FA)</li>
+<li>OAuth social login (Google, Facebook)</li>
+<li>Advanced role-based access control (RBAC)</li>
+<li>SOC 2 compliance</li>
+<li>Payment Card Industry (PCI) compliance (Stripe handles this when added)</li>
+</ul>
+<h3>Deployment Configuration</h3>
+<p><strong>Vercel Settings</strong>:
+- <strong>Build Command</strong>: <code>npm run build</code>
+- <strong>Output Directory</strong>: <code>.next</code>
+- <strong>Install Command</strong>: <code>npm install</code>
+- <strong>Framework Preset</strong>: Next.js
+- <strong>Node Version</strong>: 20.x
+- <strong>Environment</strong>: 
+  - <strong>Preview</strong>: Staging environment (PRs deploy here)
+  - <strong>Production</strong>: Main branch auto-deploys</p>
+<p><strong>Custom Domains</strong>:
+- Production: <code>academy.com</code> + <code>www.academy.com</code>
+- Staging: <code>staging.academy.com</code></p>
+<p><strong>Edge Functions</strong>:
+- Contact form handler: <code>/api/contact</code>
+- Exit-intent capture: <code>/api/exit-intent</code>
+- Reviews fetch: <code>/api/reviews</code></p>
+<hr />
+<h2>10. API Specification</h2>
+<h3>Endpoint: <code>POST /api/contact</code></h3>
+<p><strong>Purpose</strong>: Handle contact form submissions from all pages</p>
+<p><strong>Authentication</strong>: None (public endpoint)</p>
+<p><strong>Request</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;john@example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;phone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;555-123-4567&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;I&#39;m interested in trying a class&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;contact-page&quot;</span><span class="w"> </span><span class="c1">// or &quot;exit-intent&quot;, &quot;kids-page&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response</strong> (Success):</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Thank you! We&#39;ll be in touch soon.&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Response</strong> (Error):</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Invalid email address&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Rate Limiting</strong>: 10 requests per minute per IP</p>
+<p><strong>Side Effects</strong>:
+1. Validates input (email format, required fields)
+2. Sends email to academy via Resend (<code>info@academy.com</code>)
+3. Sends confirmation email to user
+4. Logs submission to Sanity (for CRM)
+5. Tracks custom event in Umami</p>
+<hr />
+<h3>Endpoint: <code>GET /api/reviews</code></h3>
+<p><strong>Purpose</strong>: Fetch recent Google Business reviews (cached)</p>
+<p><strong>Authentication</strong>: None (public endpoint)</p>
+<p><strong>Request</strong>: No body</p>
+<p><strong>Response</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;aggregateRating&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ratingValue&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">4.9</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;reviewCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">182</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;reviews&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sarah M.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;rating&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Amazing academy! The instructors are patient and knowledgeable. My son loves the kids program.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-15T00:00:00Z&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mike T.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;rating&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Best BJJ gym in San Diego. Clean facility, great atmosphere, world-class instruction.&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-10T00:00:00Z&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ... 3 more recent reviews</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Caching</strong>: 24-hour cache in Vercel KV (refresh daily at midnight)</p>
+<p><strong>Error Handling</strong>: If Google API fails, returns cached data + warning in dev logs</p>
+<hr />
+<h2>11. Success Criteria</h2>
+<h3>MVP Success Definition</h3>
+<p>The MVP is successful if, after initial development and post-launch optimization:</p>
+<ol>
+<li><strong>All pages are live and functional</strong> (9 pages: 7 core + 2 local SEO)</li>
+<li>Core: Home, Classes, Kids Program, Schedule, Instructors, Why Choose Us, Contact</li>
+<li>Local SEO: Escondido BJJ, North County San Diego BJJ</li>
+<li><strong>Performance targets met</strong>: Lighthouse score 98+, LCP &lt; 1.8s, sub-2-second load times</li>
+<li><strong>Conversion rate &gt; 8%</strong>: At least 8% of visitors complete a form (contact, exit-intent, or trial booking)</li>
+<li><strong>No critical bugs</strong>: Zero P0/P1 bugs reported in first two weeks post-launch</li>
+</ol>
+<hr />
+<h3>Measurable KPIs</h3>
+<h4>Primary Conversion Metrics</h4>
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Target Value</th>
+<th>Measurement Method</th>
+<th>Success/Failure Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Visitor-to-Lead Conversion</strong></td>
+<td>8-12%</td>
+<td>(Form submissions / Unique visitors) × 100</td>
+<td>Success: ≥8%, Failure: &lt;5%</td>
+</tr>
+<tr>
+<td><strong>Lead-to-Trial Conversion</strong></td>
+<td>15-20%</td>
+<td>(Trial class bookings / Form submissions) × 100</td>
+<td>Success: ≥15%, Failure: &lt;10%</td>
+</tr>
+<tr>
+<td><strong>Trial-to-Member Conversion</strong></td>
+<td>50%+</td>
+<td>(New members / Trial attendees) × 100</td>
+<td>Success: ≥50%, Failure: &lt;40%</td>
+</tr>
+<tr>
+<td><strong>Exit-Intent Capture Rate</strong></td>
+<td>10-15%</td>
+<td>(Exit modal completions / Exit modal views) × 100</td>
+<td>Success: ≥10%, Failure: &lt;5%</td>
+</tr>
+<tr>
+<td><strong>Kids Page Conversion</strong></td>
+<td>15-20%</td>
+<td>(Kids trial forms / Kids page visitors) × 100</td>
+<td>Success: ≥15%, Failure: &lt;8%</td>
+</tr>
+</tbody>
+</table>
+<h4>Performance Metrics</h4>
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Target Value</th>
+<th>Measurement Method</th>
+<th>Success/Failure Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Page Load Time (LCP)</strong></td>
+<td>&lt; 1.8s</td>
+<td>Lighthouse + RUM via Vercel Analytics</td>
+<td>Success: &lt;2s, Failure: &gt;3s</td>
+</tr>
+<tr>
+<td><strong>Lighthouse Score</strong></td>
+<td>98+</td>
+<td>Lighthouse CI on deploy</td>
+<td>Success: ≥95, Failure: &lt;90</td>
+</tr>
+<tr>
+<td><strong>Mobile Performance Score</strong></td>
+<td>95+</td>
+<td>Lighthouse mobile test</td>
+<td>Success: ≥90, Failure: &lt;85</td>
+</tr>
+<tr>
+<td><strong>Cumulative Layout Shift (CLS)</strong></td>
+<td>&lt; 0.05</td>
+<td>Core Web Vitals via RUM</td>
+<td>Success: &lt;0.1, Failure: &gt;0.15</td>
+</tr>
+<tr>
+<td><strong>First Input Delay (FID)</strong></td>
+<td>&lt; 50ms</td>
+<td>Core Web Vitals via RUM</td>
+<td>Success: &lt;100ms, Failure: &gt;200ms</td>
+</tr>
+</tbody>
+</table>
+<h4>Engagement Metrics</h4>
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Target Value</th>
+<th>Measurement Method</th>
+<th>Success/Failure Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Average Session Duration</strong></td>
+<td>90+ seconds</td>
+<td>Umami Analytics</td>
+<td>Success: ≥60s, Failure: &lt;30s</td>
+</tr>
+<tr>
+<td><strong>Bounce Rate</strong></td>
+<td>&lt; 40%</td>
+<td>Umami Analytics (single-page sessions)</td>
+<td>Success: &lt;50%, Failure: &gt;65%</td>
+</tr>
+<tr>
+<td><strong>Pages Per Session</strong></td>
+<td>3+</td>
+<td>Umami Analytics</td>
+<td>Success: ≥2.5, Failure: &lt;2</td>
+</tr>
+<tr>
+<td><strong>Dashboard Logins Per Week</strong></td>
+<td>80%+ of students</td>
+<td>Sanity DB query (user sessions)</td>
+<td>Success: ≥70%, Failure: &lt;50%</td>
+</tr>
+<tr>
+<td><strong>Hero Video Completion Rate</strong></td>
+<td>50%+</td>
+<td>Custom tracking (video progress events)</td>
+<td>Success: ≥40%, Failure: &lt;25%</td>
+</tr>
+</tbody>
+</table>
+<h4>SEO &amp; Visibility Metrics</h4>
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Target Value</th>
+<th>Measurement Method</th>
+<th>Success/Failure Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Organic Search Ranking</strong> (San Diego BJJ)</td>
+<td>Page 1 (within 6 months)</td>
+<td>Google Search Console + manual check</td>
+<td>Success: Page 1 position 1-10, Failure: Page 3+</td>
+</tr>
+<tr>
+<td><strong>Organic Traffic Growth</strong></td>
+<td>50%+ increase in 3 months</td>
+<td>Google Search Console</td>
+<td>Success: ≥40%, Failure: &lt;20%</td>
+</tr>
+<tr>
+<td><strong>Kids Program Page Ranking</strong> (kids BJJ San Diego)</td>
+<td>Page 1 (within 3 months)</td>
+<td>Google Search Console</td>
+<td>Success: Page 1, Failure: Page 2+</td>
+</tr>
+<tr>
+<td><strong>Backlinks Acquired</strong></td>
+<td>10+ quality backlinks in 6 months</td>
+<td>Ahrefs or Google Search Console</td>
+<td>Success: ≥8, Failure: &lt;5</td>
+</tr>
+</tbody>
+</table>
+<h4>Business Impact Metrics</h4>
+<table>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Target Value</th>
+<th>Measurement Method</th>
+<th>Success/Failure Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>New Adult Trial Signups Per Month</strong></td>
+<td>40-60</td>
+<td>CRM/Sanity records + form submissions</td>
+<td>Success: ≥35, Failure: &lt;25</td>
+</tr>
+<tr>
+<td><strong>New Kids Trial Signups Per Month</strong></td>
+<td>15-25</td>
+<td>CRM/Sanity records (kids-specific forms)</td>
+<td>Success: ≥10, Failure: &lt;5</td>
+</tr>
+<tr>
+<td><strong>New Adult Members Per Month</strong></td>
+<td>20-30</td>
+<td>CRM/business records</td>
+<td>Success: ≥15, Failure: &lt;10</td>
+</tr>
+<tr>
+<td><strong>New Kids Enrollments Per Month</strong></td>
+<td>10-15</td>
+<td>CRM/business records</td>
+<td>Success: ≥8, Failure: &lt;5</td>
+</tr>
+<tr>
+<td><strong>Additional Monthly Revenue</strong></td>
+<td>$4,500-6,000</td>
+<td>(New members × $150-200 avg)</td>
+<td>Success: ≥$3,000, Failure: &lt;$1,500</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Telemetry &amp; Analytics Instrumentation</h3>
+<h4>Tools &amp; Implementation</h4>
+<ol>
+<li><strong>Umami Analytics</strong> (Privacy-Focused Web Analytics)</li>
+<li>Installed via <code>&lt;Script&gt;</code> tag in root layout</li>
+<li>Tracks: Page views, unique visitors, referrers, session duration, bounce rate</li>
+<li>
+<p>Custom events: Form submissions, CTA clicks, video plays, exit-intent triggers</p>
+</li>
+<li>
+<p><strong>Vercel Analytics</strong> (Real User Monitoring)</p>
+</li>
+<li>Automatically installed with Vercel deployment</li>
+<li>Tracks: Core Web Vitals (LCP, FID, CLS), page load times, geographic distribution</li>
+<li>
+<p>Provides performance scores and recommendations</p>
+</li>
+<li>
+<p><strong>Custom Event Tracking</strong> (via Umami)</p>
+</li>
+<li>Implemented with <code>trackEvent()</code> function wrapper</li>
+<li>Events tracked:<ul>
+<li><code>form_submit: contact</code> (contact form completion)</li>
+<li><code>form_submit: exit_intent</code> (exit-intent modal completion)</li>
+<li><code>form_submit: kids_trial</code> (kids trial booking)</li>
+<li><code>cta_click: start_journey</code> (hero CTA clicked)</li>
+<li><code>cta_click: call</code> (mobile call button clicked)</li>
+<li><code>cta_click: map</code> (mobile map button clicked)</li>
+<li><code>video_play: hero</code> (hero video started)</li>
+<li><code>video_complete: hero</code> (hero video watched to end)</li>
+<li><code>review_click: google</code> (Google review link clicked)</li>
+<li><code>wall_view</code> (Wall of Champions page viewed)</li>
+<li><code>local_page_view: escondido</code> (Escondido BJJ page viewed)</li>
+<li><code>local_page_view: north_county</code> (North County page viewed)</li>
+<li><code>navigation_click: [page]</code> (navigation link clicked)</li>
+</ul>
+</li>
+</ol>
+<h4>Measurement Methodology</h4>
+<p><strong>Conversion Rate Calculation</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Visitor-to-Lead Conversion</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">visitorToLeadRate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">  </span><span class="p">(</span><span class="nx">contactForms</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">exitIntentForms</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">kidsTrialForms</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">uniqueVisitors</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+
+<span class="c1">// Exit-Intent Capture Rate</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">exitIntentRate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">  </span><span class="nx">exitIntentFormsCompleted</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">exitIntentModalsViewed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+
+<span class="c1">// Kids Page Conversion</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">kidsPageConversion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">  </span><span class="nx">kidsTrialForms</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">kidsPageVisitors</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+</code></pre></div>
+
+<p><strong>Performance Monitoring</strong>:
+- Lighthouse CI runs on every deploy (automated)
+- Real User Monitoring (RUM) via Vercel Analytics captures 75th percentile metrics
+- Weekly performance reports generated from Vercel dashboard
+- Alerts configured for performance regressions (LCP &gt; 2.5s)</p>
+<p><strong>SEO Tracking</strong>:
+- Google Search Console connected to property
+- Weekly export of search analytics data
+- Manual ranking checks monthly for top 20 keywords
+- Automated rank tracking via Ahrefs (optional paid tool)</p>
+<p><strong>Business Metrics</strong>:
+- Form submissions synced to Sanity CMS (source of truth)
+- Monthly reports generated from Sanity database queries
+- Trial-to-member conversion tracked manually in CRM/spreadsheet
+- Revenue calculations based on new member counts × average membership price</p>
+<hr />
+<h3>Functional Requirements</h3>
+<p><strong>Core Functionality</strong> (Must Work Perfectly):
+- ✅ All pages load within 2 seconds on 4G mobile connection
+- ✅ Forms submit successfully and send confirmation emails within 30 seconds
+- ✅ Exit-intent modal triggers correctly 95%+ of the time
+- ✅ Video background plays automatically (muted) on desktop
+- ✅ Dark mode switches smoothly with no FOUC
+- ✅ Google Reviews display correctly with accurate aggregate rating
+- ✅ Mobile action buttons (call, map, email) open correct native apps
+- ✅ All images are optimized (AVIF/WebP with fallbacks)
+- ✅ Schema markup validates without errors (Google Rich Results Test)
+- ✅ Site is accessible (passes WCAG 2.1 AA automated tests)</p>
+<hr />
+<h3>Quality Indicators</h3>
+<p><strong>Technical Excellence</strong>:
+- Zero critical (P0) bugs at launch
+- &lt; 5 medium (P1) bugs at launch
+- All Lighthouse metrics in green (90+)
+- No console errors on production build
+- TypeScript strict mode with zero <code>any</code> types in core logic
+- 80%+ test coverage on critical paths (forms, auth, data fetching)</p>
+<hr />
+<h3>User Experience Goals</h3>
+<p><strong>Qualitative Measures</strong> (Validated via User Testing):
+- First-time visitors immediately understand the site's purpose within 5 seconds
+- Contact form feels "effortless" to complete (no confusion or abandonment)
+- Kids Program page addresses parent concerns without requiring FAQ search
+- Navigation is intuitive (users find target page without using search)
+- Average scroll depth &gt; 60% on homepage (indicates engagement)
+- Wall of Champions creates positive impression of academy community</p>
+<hr />
+<h2>12. Implementation Phases</h2>
+<h3>Phase 1: Foundation &amp; Core Setup</h3>
+<p><strong>Goal</strong>: Establish technical foundation and design system</p>
+<p><strong>Deliverables</strong>:
+- ✅ Next.js 15 project scaffolding with TypeScript
+- ✅ TailwindCSS configuration with custom color palette
+- ✅ shadcn/ui and RemixUI installation
+- ✅ System-aware theming implementation (light/dark modes)
+- ✅ Sanity CMS setup with initial schemas
+- ✅ Vercel deployment pipeline (staging + production)
+- ✅ Environment variables and secrets management
+- ✅ Component library structure and foundations
+- ✅ Animation utilities (Framer Motion presets)</p>
+<p><strong>Validation Criteria</strong>:
+- Build succeeds with zero TypeScript errors
+- Staging site deploys successfully on Vercel
+- Dark mode switches correctly based on system preference
+- TailwindCSS custom colors render correctly</p>
+<hr />
+<h3>Phase 2: Cinematic Landing Experience</h3>
+<p><strong>Goal</strong>: Build the standout hero section and homepage core sections</p>
+<p><strong>Deliverables</strong>:
+- ✅ Full-screen video background component with optimization
+- ✅ Parallax scrolling implementation (multi-layer depth)
+- ✅ Micro-interactions (button hovers, scroll reveals, Lottie animations)
+- ✅ Bold typography with kinetic effects
+- ✅ Exit-intent modal system with lead capture
+- ✅ Google Reviews integration widget
+- ✅ Value proposition section with scroll-triggered animations
+- ✅ Kids Program highlight section on homepage
+- ✅ Wall of Champions preview section
+- ✅ One-tap mobile action buttons</p>
+<p><strong>Validation Criteria</strong>:
+- Hero section loads with video playing within 1.5 seconds
+- Parallax scrolling maintains 60fps on desktop
+- Exit-intent modal triggers correctly on mouse exit
+- Google Reviews display with accurate rating
+- Lighthouse Performance score remains 95+ with all additions</p>
+<hr />
+<h3>Phase 3: Core Pages &amp; Navigation</h3>
+<p><strong>Goal</strong>: Complete all public-facing pages and navigation system</p>
+<p><strong>Deliverables</strong>:
+- ✅ Global navigation (sticky header with CTA, theme toggle)
+- ✅ Mobile navigation menu with smooth animations
+- ✅ Footer with all essential links and contact info
+- ✅ Classes page with filterable program cards
+- ✅ <strong>Kids Program page (dedicated, high priority)</strong>
+  - Hero, age-specific programs, parent testimonials, FAQs, trial process
+- ✅ Schedule page with interactive calendar
+- ✅ Instructors page with profile cards and modals
+- ✅ Why Choose Us page (differentiation, social proof, values)
+- ✅ Contact page with form, map, one-tap actions
+- ✅ All forms wired to API routes and Resend email</p>
+<p><strong>Validation Criteria</strong>:
+- All 7 core pages accessible and responsive
+- Navigation works on mobile and desktop
+- Kids Program page has all required sections and testimonials
+- Forms submit successfully and send confirmation emails
+- Contact page one-tap actions open native apps on mobile
+- Average page load time &lt; 2 seconds across all pages</p>
+<hr />
+<h3>Phase 4: Local SEO Pages</h3>
+<p><strong>Goal</strong>: Create neighborhood-specific landing pages for Escondido and North County</p>
+<p><strong>Deliverables</strong>:
+- ✅ Escondido BJJ page (<code>/escondido-bjj</code>)
+  - 500-800 words unique, location-specific content
+  - Local landmarks and driving directions
+  - H1, H2 structure optimized for local keywords
+- ✅ North County San Diego BJJ page (<code>/north-county-san-diego-bjj</code>)
+  - 500-800 words unique content covering wider North County area
+  - Family-friendly emphasis and community messaging
+  - Multiple city references (San Marcos, Vista, Carlsbad, etc.)
+- ✅ Schema.org LocalBusiness markup with <code>areaServed</code> for both pages
+- ✅ Unique meta descriptions and titles per page
+- ✅ Internal linking from homepage footer ("Areas We Serve" section)
+- ✅ Cross-linking between local pages
+- ✅ Embedded Google Maps with location-specific directions
+- ✅ Contact forms with source tracking ("escondido-page", "north-county-page")</p>
+<p><strong>Validation Criteria</strong>:
+- Both pages pass Google Rich Results Test for LocalBusiness schema
+- Unique content per page (no duplication detected)
+- Pages load within 2 seconds
+- Local keywords naturally integrated (not keyword-stuffed)
+- Forms track source correctly in Umami
+- Internal links work correctly</p>
+<hr />
+<h3>Phase 5: Wall of Champions &amp; Community</h3>
+<p><strong>Goal</strong>: Showcase student success and build credibility</p>
+<p><strong>Deliverables</strong>:
+- ✅ Wall of Champions public page
+- ✅ Filterable achievement categories (competitions, promotions, spotlights)
+- ✅ Sanity CMS schema for achievements
+- ✅ Card grid layout (responsive)
+- ✅ Modal view for full achievement details
+- ✅ Homepage integration (featured achievements section)
+- ✅ CMS workflow for instructors to add entries</p>
+<p><strong>Validation Criteria</strong>:
+- Wall of Champions loads 20+ sample entries
+- Filtering works correctly (all categories)
+- Modal opens with full achievement details
+- Homepage features 3-5 recent achievements
+- Sanity Studio allows easy entry creation</p>
+<hr />
+<h3>Phase 6: SEO, Analytics &amp; Optimization</h3>
+<p><strong>Goal</strong>: Maximize visibility, trackability, and performance</p>
+<p><strong>Deliverables</strong>:
+- ✅ Schema.org markup (LocalBusiness, Course, Review) on all pages
+- ✅ Sitemap.xml generation (dynamic, includes all pages)
+- ✅ robots.txt configuration
+- ✅ Meta tags and Open Graph tags on all pages
+- ✅ Image optimization (AVIF/WebP with Sharp)
+- ✅ Video optimization (compressed, lazy-loaded)
+- ✅ Route preloading for critical paths
+- ✅ Umami analytics installation and custom event tracking
+- ✅ Performance audit and optimization pass
+- ✅ Accessibility audit (automated + manual)</p>
+<p><strong>Validation Criteria</strong>:
+- All pages validate in Google Rich Results Test
+- Sitemap includes all pages and updates automatically
+- Lighthouse scores: Performance 98+, SEO 100, Accessibility 100
+- AVIF images serve on supporting browsers (90%+ smaller than JPEG)
+- Custom events tracked correctly in Umami</p>
+<hr />
+<h3>Phase 7: Content Population &amp; Testing</h3>
+<p><strong>Goal</strong>: Populate with real content and conduct comprehensive testing</p>
+<p><strong>Deliverables</strong>:
+- ✅ Content population via Sanity CMS
+  - Instructor profiles and bios
+  - Class descriptions and schedules
+  - Academy story and mission
+  - FAQ content (general + kids-specific)
+  - Blog/guide articles (beginner's guide, kids benefits, etc.)
+- ✅ Media assets upload (photos, videos, logos)
+- ✅ Google Reviews imported and cached
+- ✅ Student dashboard dummy data (for demo purposes)
+- ✅ Cross-browser testing (Chrome, Safari, Firefox, Edge)
+- ✅ Mobile device testing (iOS Safari, Android Chrome)
+- ✅ Performance testing (Lighthouse, WebPageTest)
+- ✅ Accessibility testing (WAVE, axe DevTools, screen reader)
+- ✅ User acceptance testing (internal team walkthrough)
+- ✅ Bug fixes and polish</p>
+<p><strong>Validation Criteria</strong>:
+- All content pages have real text and images (no lorem ipsum)
+- Videos optimized and play correctly on all devices
+- Site works correctly on 5 most popular browsers
+- No critical bugs reported in UAT
+- Performance targets met on all tested devices</p>
+<hr />
+<h3>Phase 8: Launch Preparation</h3>
+<p><strong>Goal</strong>: Prepare for public launch and go live</p>
+<p><strong>Deliverables</strong>:
+- ✅ Domain configuration and DNS setup
+- ✅ SSL certificate verification (automatic via Vercel)
+- ✅ Email domain authentication (SPF, DKIM for Resend)
+- ✅ Production environment configuration
+- ✅ Backup and monitoring setup (Vercel monitoring)
+- ✅ Final performance optimization pass
+- ✅ Security audit (headers, CSP, rate limiting)
+- ✅ Soft launch to test audience (friends, family, current students)
+- ✅ Google Business Profile update with new website link
+- ✅ Submit sitemap to Google Search Console and Bing Webmaster Tools
+- ✅ Launch checklist completion
+- ✅ <strong>PUBLIC LAUNCH</strong></p>
+<p><strong>Validation Criteria</strong>:
+- Production site accessible at custom domain
+- SSL certificate valid and HTTPS enforced
+- Emails send correctly from custom domain (not flagged as spam)
+- No critical bugs reported during soft launch
+- Analytics tracking correctly in production
+- Google Search Console verifies site ownership</p>
+<p><strong>Note</strong>: Timeline will be determined during project planning and sprint scheduling</p>
+<hr />
+<h2>13. Future Considerations</h2>
+<h3>Post-MVP Enhancements (Phase 2)</h3>
+<p><strong>Student Dashboard with Progress Tracking</strong> (High Priority):
+- Authentication system (email/password + magic link)
+- Dashboard home with personalized stats
+- Progress tracking (classes attended, belt timeline)
+- Academy feed (announcements, events)
+- Personal goals and achievement badges
+- Expected 10% improvement in retention rate</p>
+<p><strong>Additional Local SEO Pages</strong> (Medium Priority):
+- 3 more pages targeting specific San Diego neighborhoods
+- Pacific Beach BJJ, La Jolla BJJ, Downtown San Diego BJJ
+- 500-800 words unique content per page with local references
+- Expected additional 20-30% increase in organic traffic within 6 months
+- Builds on success of initial Escondido and North County pages</p>
+<p><strong>Smart Intake Quiz</strong>:
+- 5-7 question quiz to match visitors with ideal class/instructor
+- Personalized recommendations based on experience, goals, schedule, concerns
+- Expected 5-10% increase in trial booking conversion</p>
+<p><strong>Enhanced A/B Testing</strong>:
+- Framework for testing headlines, CTA text, form layouts
+- Edge Middleware for server-side A/B tests
+- Continuous optimization of conversion funnel</p>
+<hr />
+<h3>Integration Opportunities (Month 3-6)</h3>
+<p><strong>Video Testimonials</strong> (If High Engagement):
+- 3-5 student video testimonials (15-30s each)
+- 2-3 parent video testimonials for kids program
+- Embedded throughout site with autoplay on scroll</p>
+<p><strong>SMS Integration</strong> (If Email Underperforms):
+- Twilio integration for SMS reminders
+- Class confirmations, schedule changes, special offers
+- "Text JOIN to [number]" campaigns</p>
+<p><strong>Social Media Wall</strong>:
+- Live Instagram feed on homepage or community page
+- User-generated content from students (with permission)
+- Shows vibrant, active community</p>
+<p><strong>Blog Section Expansion</strong>:
+- Weekly blog posts for ongoing SEO
+- Technique tips, academy news, student spotlights, local BJJ events
+- Content marketing to drive organic traffic</p>
+<hr />
+<h3>Advanced Features (Year 2+)</h3>
+<p><strong>Interactive 3D Elements</strong>:
+- 3D belt rank progression visualizer
+- WebGL-powered with React Three Fiber
+- Mouse/device tilt interactions
+- When budget allows and performance permits</p>
+<p><strong>Progressive Web App (PWA)</strong>:
+- When mobile usage reaches 70%+
+- Installable app, offline support, push notifications
+- App-like experience without app store</p>
+<p><strong>Member Technique Library</strong>:
+- Video library of techniques taught in class
+- Searchable by position, type, instructor
+- Competitive differentiator, study at home between classes</p>
+<p><strong>Referral Program</strong>:
+- When member base is established (100+ students)
+- Unique referral links, automatic tracking, reward fulfillment
+- Gamification: leaderboard of top referrers</p>
+<p><strong>Native Mobile App</strong>:
+- If budget and scale justify ($50K+ project)
+- iOS and Android apps with native features
+- Advanced booking, check-in, technique library, social features</p>
+<p><strong>AI-Powered Features</strong>:
+- Chatbot for 24/7 engagement (when budget allows)
+- Intelligent class matching based on ML algorithms
+- Personalized content recommendations</p>
+<hr />
+<h2>14. Risks &amp; Mitigations</h2>
+<h3>Risk 1: Video Background Negatively Impacts Performance</h3>
+<p><strong>Severity</strong>: High<br />
+<strong>Likelihood</strong>: Medium</p>
+<p><strong>Mitigation Strategy</strong>:
+- Compress video to &lt; 5MB desktop, &lt; 2MB mobile using Cloudinary
+- Lazy-load video (preload poster image only)
+- Provide static image fallback for slow connections (&lt; 3G)
+- Use <code>prefers-reduced-motion</code> to disable for users with motion sensitivity
+- Monitor Core Web Vitals in production; if LCP &gt; 2.5s, switch to static hero</p>
+<hr />
+<h3>Risk 2: Exit-Intent Modal Annoys Users, Increases Bounce Rate</h3>
+<p><strong>Severity</strong>: Medium<br />
+<strong>Likelihood</strong>: Low</p>
+<p><strong>Mitigation Strategy</strong>:
+- Show only once per session (cookie-based)
+- 2-second delay before triggering (not instant)
+- Only show to users who spent 30+ seconds on site (engaged users)
+- A/B test modal vs. no modal to measure impact on bounce rate
+- Provide easy close button (X in corner)
+- Monitor bounce rate in Umami; if increases &gt; 5%, disable modal</p>
+<hr />
+<h3>Risk 3: Kids Program Page Doesn't Rank Due to Competition</h3>
+<p><strong>Severity</strong>: Medium<br />
+<strong>Likelihood</strong>: Low</p>
+<p><strong>Mitigation Strategy</strong>:
+- Comprehensive keyword research before writing content
+- Target long-tail keywords with lower competition ("kids BJJ San Diego ages 4-7")
+- Create supporting blog content linking to kids page
+- Build backlinks via local parenting blogs, school partnerships
+- Implement Course schema markup for structured data advantage
+- Monitor rankings monthly; if no progress in 3 months, adjust SEO strategy</p>
+<hr />
+<h3>Risk 4: Local SEO Pages Don't Generate Enough Unique Content</h3>
+<p><strong>Severity</strong>: Low<br />
+<strong>Likelihood</strong>: Medium</p>
+<p><strong>Mitigation Strategy</strong>:
+- Research each location thoroughly (landmarks, demographics, commute patterns)
+- Interview students from those areas for authentic testimonials
+- Create location-specific value propositions (e.g., "Easy I-15 access for Escondido residents")
+- Use local photos when possible (near landmarks, with permission)
+- Avoid templated language; write each page from scratch
+- Have non-technical person read both pages to confirm they feel distinct
+- Monitor Google Search Console for duplicate content warnings</p>
+<hr />
+<h3>Risk 5: Wall of Champions Content Not Updated Regularly</h3>
+<p><strong>Severity</strong>: Low<br />
+<strong>Likelihood</strong>: Medium</p>
+<p><strong>Mitigation Strategy</strong>:
+- Set up automated weekly reminders to instructors/admins
+- Make Sanity CMS entry creation as simple as possible (minimal fields)
+- Provide templates for common achievement types
+- Train 2-3 staff members on CMS usage
+- Initial content population (20+ entries) before launch
+- Monitor update frequency; if &lt; 1 per week, conduct training session</p>
+<hr />
+<h2>15. Appendix</h2>
+<h3>Related Documents</h3>
+<ul>
+<li>
+<p><strong>Project Planning Document</strong>: <code>/Users/esmith/CursorProjects/carlson-gracie-site/.cursor/docs/references/project-planning.md</code><br />
+  (Comprehensive 1,335-line planning doc with all technical details)</p>
+</li>
+<li>
+<p><strong>Feature Priorities Quick Reference</strong>: <code>/Users/esmith/CursorProjects/carlson-gracie-site/.cursor/docs/references/feature-priorities-quick-ref.md</code><br />
+  (Condensed priority list for quick lookup during development)</p>
+</li>
+<li>
+<p><strong>Competitive Advantage Analysis</strong>: <code>/Users/esmith/CursorProjects/carlson-gracie-site/.cursor/docs/references/competitive-advantage-analysis.md</code><br />
+  (Market analysis showing why this will dominate local competition)</p>
+</li>
+<li>
+<p><strong>Planning Changelog</strong>: <code>/Users/esmith/CursorProjects/carlson-gracie-site/.cursor/docs/references/CHANGELOG.md</code><br />
+  (Version history of all planning document updates)</p>
+</li>
+<li>
+<p><strong>Planning Critique &amp; Enhancements</strong>: <code>/Users/esmith/CursorProjects/carlson-gracie-site/.cursor/docs/references/planning-critique-v2-enhancements.md</code><br />
+  (World-class feature ideas and "what makes this amazing")</p>
+</li>
+<li>
+<p><strong>Documentation README</strong>: <code>/Users/esmith/CursorProjects/carlson-gracie-site/.cursor/docs/references/README.md</code><br />
+  (Overview of all documentation files and quick facts)</p>
+</li>
+</ul>
+<hr />
+<h3>Key Dependencies</h3>
+<p><strong>Critical Path Dependencies</strong>:
+- <strong>Sanity CMS</strong>: Required for all content pages (Classes, Instructors, Kids Program, etc.)
+- <strong>Resend</strong>: Required for all form submissions and email confirmations
+- <strong>Vercel</strong>: Required for hosting, deployment, Edge Functions, Blob storage
+- <strong>Cloudinary</strong>: Required for video optimization (hero background video)
+- <strong>Google Maps API</strong>: Required for Contact page map and directions
+- <strong>Google Business API</strong>: Required for Reviews widget</p>
+<p><strong>Optional Dependencies</strong> (Can Be Added Post-Launch):
+- <strong>Twilio</strong>: SMS integration (Phase 2 or later)
+- <strong>Stripe</strong>: Payment processing (future phase)
+- <strong>Microsoft Clarity</strong>: Heatmaps and session recordings (Phase 2 if needed)</p>
+<hr />
+<h3>Repository &amp; Project Structure</h3>
+<p><strong>GitHub Repository</strong>: To be created<br />
+<strong>Project Management</strong>: To be determined (Linear, GitHub Projects, or Notion)</p>
+<p><strong>Branch Strategy</strong>:
+- <code>main</code>: Production branch (auto-deploys to production)
+- <code>staging</code>: Staging branch (auto-deploys to staging.academy.com)
+- <code>feature/*</code>: Feature branches (deploy to preview URLs)</p>
+<p><strong>Commit Convention</strong>: Conventional Commits<br />
+Example: <code>feat(hero): add parallax scrolling to hero section</code></p>
+<p><strong>Code Review</strong>: Required for all PRs to <code>main</code> and <code>staging</code></p>
+<p><strong>CI/CD Pipeline</strong>:
+- On PR: Lighthouse CI runs automated checks
+- On merge to <code>staging</code>: Auto-deploy to staging environment
+- On merge to <code>main</code>: Auto-deploy to production</p>
+<hr />
+<h2>Document Maintenance</h2>
+<p><strong>Version</strong>: 1.0<br />
+<strong>Date</strong>: January 25, 2026<br />
+<strong>Status</strong>: Ready for Development<br />
+<strong>Last Updated By</strong>: AI Assistant (synthesized from 6 reference documents)</p>
+<p><strong>Sources</strong>:
+- <code>project-planning.md</code> (1,335 lines)
+- <code>feature-priorities-quick-ref.md</code> (325 lines)
+- <code>README.md</code> (355 lines)
+- <code>CHANGELOG.md</code> (504 lines)
+- <code>competitive-advantage-analysis.md</code> (306 lines)
+- <code>planning-critique-v2-enhancements.md</code> (798 lines)</p>
+<p><strong>Total Reference Documentation</strong>: 3,623 lines synthesized into this PRD</p>
+<hr />
+<h2>Summary &amp; Next Steps</h2>
+<p>This PRD defines a world-class, conversion-optimized website for a San Diego BJJ academy with:</p>
+<ul>
+<li><strong>$11,000-19,000 investment</strong> (includes 2 local SEO pages)</li>
+<li><strong>9 pages total</strong> (7 core + 2 local SEO)</li>
+<li><strong>Target conversion rate: 8-12%</strong> (vs. industry 0.2-0.5%)</li>
+<li><strong>Projected ROI: 300-500% in first year</strong></li>
+</ul>
+<p><strong>Key Differentiators</strong>:
+1. Cinematic video background (first in San Diego BJJ)
+2. System-aware dark mode
+3. Dedicated Kids Program page (high conversion)
+4. Exit-intent lead capture (10-15% additional conversions)
+5. Local SEO pages for Escondido &amp; North County (launch day)
+6. Wall of Champions (community credibility)
+7. Sub-2-second load times (fastest in market)
+8. Privacy-focused analytics (Umami)</p>
+<p><strong>Immediate Next Steps</strong>:
+1. <strong>Review &amp; approve this PRD</strong> with stakeholders
+2. <strong>Finalize budget</strong> ($11K-19K) and project timeline
+3. <strong>Schedule video/photo shoot</strong> for hero content and kids program
+4. <strong>Begin content gathering</strong>:
+   - Academy story, instructor bios, FAQs, kids program content
+   - <strong>Local content research</strong>: Escondido and North County specific details
+   - Testimonials from students in Escondido/North County areas (if available)
+5. <strong>Set up development environment</strong> (GitHub repo, Vercel, Sanity)
+6. <strong>Kick off Phase 1</strong> (Foundation &amp; Core Setup)</p>
+<hr />
+<p><strong>This PRD is ready for development. Let's build the best BJJ website in San Diego. 🥋</strong></p>
+</body>
+</html>

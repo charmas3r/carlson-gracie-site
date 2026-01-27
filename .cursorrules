@@ -1,0 +1,361 @@
+# San Diego BJJ Academy - Project Rules
+
+World-class, conversion-optimized Brazilian Jiu-Jitsu academy website targeting 8-12% conversion rate with cinematic UX and sub-2-second load times.
+
+**Tech Stack:** Next.js 15 | React 19 | TypeScript 5 | TailwindCSS 3 | shadcn/ui | Framer Motion 11 | Sanity CMS 3 | Vercel | Resend | Umami
+
+---
+
+## 1. Project Structure
+
+```
+carlson-gracie-site/
+├── app/                          # Next.js 15 App Router
+│   ├── (public)/                 # Public pages (no auth)
+│   │   ├── page.tsx              # Home/Landing
+│   │   ├── classes/page.tsx      # Classes overview
+│   │   ├── kids/page.tsx         # Kids Program (dedicated, high priority)
+│   │   ├── schedule/page.tsx     # Interactive schedule
+│   │   ├── instructors/page.tsx  # Instructor profiles
+│   │   ├── why-choose-us/page.tsx# Differentiation page
+│   │   ├── contact/page.tsx      # Contact + one-tap actions
+│   │   ├── escondido-bjj/page.tsx# Local SEO: Escondido
+│   │   └── north-county-san-diego-bjj/page.tsx # Local SEO: North County
+│   ├── wall-of-champions/page.tsx# Wall of Champions
+│   ├── api/                      # API routes (Edge Functions)
+│   │   ├── contact/route.ts      # Form submissions
+│   │   ├── exit-intent/route.ts  # Lead capture
+│   │   └── reviews/route.ts      # Google Reviews fetch
+│   ├── layout.tsx                # Root layout (theme provider)
+│   └── globals.css               # Global styles + theme variables
+├── components/
+│   ├── ui/                       # shadcn/ui components
+│   ├── hero/                     # VideoBackground, ParallaxLayers
+│   ├── forms/                    # Form components with validation
+│   ├── navigation/               # Header, footer, mobile nav
+│   ├── theme/                    # ThemeToggle, ThemeProvider
+│   ├── champions/                # Wall of Champions components
+│   └── reviews/                  # Google Reviews widget
+├── lib/
+│   ├── sanity.ts                 # Sanity client config
+│   ├── email.ts                  # Resend integration
+│   ├── analytics.ts              # Umami setup
+│   └── utils.ts                  # Shared utilities (cn, etc.)
+├── sanity/
+│   ├── schemas/                  # instructor.ts, class.ts, achievement.ts, announcement.ts
+│   └── config.ts
+└── public/
+    ├── videos/                   # Hero videos (< 5MB desktop, < 2MB mobile)
+    ├── images/                   # Optimized images (AVIF/WebP)
+    └── fonts/                    # Custom fonts
+```
+
+**Entry Points:** `app/(public)/page.tsx` is homepage. Route groups `(public)` organize without affecting URLs.
+
+---
+
+## 2. Code Conventions
+
+### TypeScript Patterns
+
+- **Strict mode enabled**: No `any` types in core logic
+- **Type imports**: Use `import type` for type-only imports
+- **Interface over type**: Prefer `interface` for object shapes
+- **Explicit return types**: Always declare return types on functions
+
+```typescript
+// Good
+interface HeroProps {
+  videoUrl: string;
+  posterUrl: string;
+}
+
+export function HeroSection({ videoUrl, posterUrl }: HeroProps): JSX.Element {
+  // ...
+}
+
+// Bad
+export function HeroSection(props: any) {
+  // ...
+}
+```
+
+### Next.js 15 App Router Patterns
+
+- **Server Components by default**: No `'use client'` unless interactivity required
+- **Client Components**: Only for state, effects, event handlers, browser APIs
+- **Data fetching**: Use async Server Components, not `useEffect`
+- **Metadata**: Export `metadata` object or `generateMetadata` function per page
+
+```typescript
+// Server Component (default)
+export default async function ClassesPage() {
+  const classes = await fetchClasses(); // Direct async call
+  return <ClassList classes={classes} />;
+}
+
+// Client Component (interactive)
+'use client';
+import { useState } from 'react';
+
+export function ContactForm() {
+  const [email, setEmail] = useState('');
+  // ...
+}
+```
+
+### Naming Conventions
+
+| Element | Convention | Example |
+|---------|------------|---------|
+| React Components | PascalCase | `HeroSection`, `ContactForm` |
+| Files (components) | PascalCase | `VideoBackground.tsx` |
+| Files (pages) | lowercase | `page.tsx`, `layout.tsx` |
+| Files (routes) | lowercase | `route.ts` |
+| Functions | camelCase | `fetchReviews`, `handleSubmit` |
+| Constants | UPPER_SNAKE_CASE | `MAX_VIDEO_SIZE_MB` |
+| CSS classes | lowercase-kebab | `hero-section`, `cta-button` |
+| Sanity fields | camelCase | `studentName`, `achievementTitle` |
+| API routes | lowercase-kebab | `/api/contact`, `/api/exit-intent` |
+| Environment vars | UPPER_SNAKE_CASE | `SANITY_PROJECT_ID` |
+
+### Import Organization
+
+```typescript
+// 1. React/Next.js imports
+import { Metadata } from 'next';
+import Link from 'next/link';
+
+// 2. Third-party libraries
+import { motion } from 'framer-motion';
+
+// 3. Local components
+import { HeroSection } from '@/components/hero/HeroSection';
+
+// 4. Utilities
+import { cn } from '@/lib/utils';
+
+// 5. Types
+import type { ClassData } from '@/types';
+```
+
+### Component Pattern (Primary)
+
+```typescript
+'use client'; // Only if interactive
+
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+
+interface ContactFormProps {
+  source?: string;
+  className?: string;
+}
+
+export function ContactForm({ source = 'contact-page', className }: ContactFormProps) {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source }),
+      });
+      
+      if (!res.ok) throw new Error('Submission failed');
+      // Success handling
+    } catch (error) {
+      console.error('Form submission error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className={cn('space-y-4', className)}>
+      {/* Form fields */}
+      <Button type="submit" disabled={loading}>
+        {loading ? 'Sending...' : 'Submit'}
+      </Button>
+    </form>
+  );
+}
+```
+
+---
+
+## 3. Logging Standards
+
+| Level | Usage | Example |
+|-------|-------|---------|
+| `console.error` | Errors that need attention | API failures, form submission errors |
+| `console.warn` | Unexpected but non-breaking | Missing optional data, fallback used |
+| `console.log` | Development only (remove in production) | Debugging state changes |
+| `console.info` | Important milestones | Server startup, successful deployments |
+
+**Production Logging:**
+- Remove `console.log` before commit
+- Use structured logging for API routes
+- Never log: passwords, email addresses, PII, API keys
+
+---
+
+## 4. Testing Approach
+
+**Framework:** Vitest + React Testing Library (unit), Playwright (E2E)
+
+**Strategy:**
+- Test critical paths: form submissions, API routes, data fetching
+- Test accessibility: ARIA labels, keyboard navigation
+- Visual regression tests for hero section and key components
+
+```typescript
+// Example: Form validation test
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ContactForm } from '@/components/forms/ContactForm';
+
+describe('ContactForm', () => {
+  it('shows error for invalid email', async () => {
+    render(<ContactForm />);
+    
+    const emailInput = screen.getByLabelText(/email/i);
+    const submitButton = screen.getByRole('button', { name: /submit/i });
+    
+    fireEvent.change(emailInput, { target: { value: 'invalid' } });
+    fireEvent.click(submitButton);
+    
+    expect(await screen.findByText(/invalid email/i)).toBeInTheDocument();
+  });
+});
+```
+
+**Test IDs:** Use `data-testid` for complex selectors
+**Commands:**
+- `npm run test` - Run unit tests
+- `npm run test:e2e` - Run Playwright E2E tests
+
+---
+
+## 5. Environment Variables
+
+| Variable | Description | Sensitivity | Example |
+|----------|-------------|-------------|---------|
+| `SANITY_PROJECT_ID` | Sanity project identifier | Low | `abc123xyz` |
+| `SANITY_DATASET` | Dataset name | Low | `production` |
+| `SANITY_API_TOKEN` | Write access token | **High** | `sk...` |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob access | **High** | `vercel_blob_...` |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary account | Low | `my-academy` |
+| `CLOUDINARY_API_KEY` | Cloudinary key | Medium | `123456789` |
+| `CLOUDINARY_API_SECRET` | Cloudinary secret | **High** | `abc...` |
+| `RESEND_API_KEY` | Email API key | **High** | `re_...` |
+| `UMAMI_WEBSITE_ID` | Analytics ID | Low | `abc-123` |
+| `GOOGLE_MAPS_API_KEY` | Maps integration | Medium | `AIza...` |
+| `GOOGLE_BUSINESS_API_KEY` | Reviews API | Medium | `AIza...` |
+| `GOOGLE_PLACE_ID` | Business location | Low | `ChIJ...` |
+| `SESSION_SECRET` | Session encryption | **High** | 32-byte hex |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL | Low | `https://academy.com` |
+
+**Note:** Only `NEXT_PUBLIC_*` variables are exposed to client. All others are server-only.
+
+---
+
+## 6. Data Models
+
+### Sanity Schemas
+
+**Instructor:**
+```typescript
+{ name, bio, credentials, photoUrl, specialties[] }
+```
+
+**Class:**
+```typescript
+{ title, description, level, duration, ageGroup, schedule[] }
+```
+
+**Achievement:**
+```typescript
+{ studentName, category, title, date, description, photos[], featured }
+```
+- Categories: `competition`, `promotion`, `spotlight`
+
+**Announcement:**
+```typescript
+{ title, body, date, priority }
+```
+
+---
+
+## 7. Common Commands
+
+```bash
+# Development
+npm run dev                 # Start dev server (localhost:3000)
+npm run build               # Build for production
+npm run start               # Start production server
+npm run lint                # Run ESLint
+npm run format              # Format with Prettier
+
+# Sanity CMS
+npm run sanity:dev          # Start Sanity Studio (localhost:3333)
+npm run sanity:deploy       # Deploy Sanity Studio
+
+# Testing
+npm run test                # Run unit tests
+npm run test:e2e            # Run E2E tests
+npm run test:coverage       # Generate coverage report
+
+# Deployment (automatic via Vercel)
+git push origin main        # Deploy to production
+git push origin staging     # Deploy to staging
+```
+
+---
+
+## 8. Checklists
+
+### File Creation Checklist
+- [ ] Component in correct directory (`components/`, not `app/`)
+- [ ] `'use client'` directive only if interactive
+- [ ] TypeScript interface for props
+- [ ] Explicit return type
+- [ ] Imports organized (React → Libraries → Local → Types)
+- [ ] Responsive design (mobile-first, TailwindCSS breakpoints)
+- [ ] Accessibility (ARIA labels, keyboard navigation)
+- [ ] Performance (lazy-load images, preload critical assets)
+
+### Code Review Checklist
+- [ ] No `any` types in TypeScript
+- [ ] No `console.log` in production code
+- [ ] Forms have validation (client + server)
+- [ ] API routes have rate limiting
+- [ ] Images optimized (AVIF/WebP, lazy-loaded)
+- [ ] Animations respect `prefers-reduced-motion`
+- [ ] Dark mode tested (all text has WCAG AA contrast)
+- [ ] Meta tags and Open Graph for SEO
+- [ ] Error handling for all async operations
+- [ ] Environment variables never exposed to client
+
+### Pre-Deploy Checklist
+- [ ] Lighthouse score 95+ (Performance, SEO, Accessibility)
+- [ ] All forms submit successfully
+- [ ] Environment variables set in Vercel
+- [ ] Schema.org markup validates (Google Rich Results Test)
+- [ ] Mobile one-tap actions work (tel:, mailto:, geo:)
+- [ ] Dark mode transitions smoothly
+- [ ] Exit-intent modal triggers correctly
+- [ ] Google Reviews display with accurate rating
+- [ ] All pages load in < 2 seconds (4G connection)
+
+---
+
+**Critical Performance Targets:**
+- LCP < 1.8s | CLS < 0.05 | FID < 50ms
+- Video: < 5MB desktop, < 2MB mobile
+- Conversion rate: 8-12% (vs. industry 0.2-0.5%)
