@@ -2,15 +2,18 @@
 
 ## Git Identity (Project-Specific)
 
-**This project uses a specific git identity. Always use:**
+**This project uses a specific git identity:**
 - **Username:** `charmas3r`
 - **Email:** `evansmith0115@gmail.com`
-- **Remote:** `https://github.com/charmas3r/carlson-gracie-site`
+- **Remote:** `git@github-charmas3r:charmas3r/carlson-gracie-site.git`
 
-The identity is already configured for this repository. If it needs to be reset:
+> **Note:** This project uses the `github-charmas3r` SSH host alias (configured in `~/.ssh/config`) to authenticate with the charmas3r GitHub account instead of the default esmith-arlo account.
+
+If the identity needs to be reset:
 ```bash
 git config user.name "charmas3r"
 git config user.email "evansmith0115@gmail.com"
+git remote set-url origin git@github-charmas3r:charmas3r/carlson-gracie-site.git
 ```
 
 
