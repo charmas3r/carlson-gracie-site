@@ -1,18 +1,20 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 
 interface VideoBackgroundProps {
   src: string;
   posterSrc?: string;
   className?: string;
+  parallaxY?: MotionValue<string>;
 }
 
 export function VideoBackground({
   src,
   posterSrc,
   className = '',
+  parallaxY,
 }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -63,25 +65,30 @@ export function VideoBackground({
 
   return (
     <>
-      {/* Video element */}
-      <motion.video
-        ref={videoRef}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isLoaded ? 1 : 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-        className={`absolute inset-0 h-full w-full object-cover ${className}`}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster={posterSrc}
-        aria-hidden="true"
+      {/* Video element with parallax */}
+      <motion.div
+        style={{ y: parallaxY }}
+        className="absolute inset-0 h-[120%] -top-[10%]"
       >
-        <source src={src} type="video/mp4" />
-        {/* Fallback for browsers that don't support video */}
-        Your browser does not support the video tag.
-      </motion.video>
+        <motion.video
+          ref={videoRef}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoaded ? 1 : 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className={`h-full w-full object-cover ${className}`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={posterSrc}
+          aria-hidden="true"
+        >
+          <source src={src} type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          Your browser does not support the video tag.
+        </motion.video>
+      </motion.div>
 
       {/* Dark gradient overlay for text readability */}
       <div

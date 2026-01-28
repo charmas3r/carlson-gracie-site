@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { VideoBackground } from './VideoBackground';
 import { Button } from '@/components/ui/button';
@@ -47,6 +48,30 @@ const scrollIndicatorVariants = {
 };
 
 export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  // Parallax scroll tracking
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+
+  // Background moves slower (0.5x) - creates depth
+  const backgroundY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? ['0%', '0%'] : ['0%', '30%']
+  );
+
+  // Content moves at normal speed but fades out
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? ['0%', '0%'] : ['0%', '20%']
+  );
+
   const scrollToContent = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -55,12 +80,15 @@ export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Video Background */}
-      <VideoBackground src={videoSrc} posterSrc={posterSrc} />
+    <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
+      {/* Video Background with Parallax */}
+      <VideoBackground src={videoSrc} posterSrc={posterSrc} parallaxY={backgroundY} />
 
-      {/* Content Overlay */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
+      {/* Content Overlay with Parallax */}
+      <motion.div
+        style={{ opacity: contentOpacity, y: contentY }}
+        className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center"
+      >
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -116,7 +144,7 @@ export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
         >
           <ChevronDown className="h-10 w-10" strokeWidth={1.5} />
         </motion.button>
-      </div>
+      </motion.div>
     </section>
   );
 }
