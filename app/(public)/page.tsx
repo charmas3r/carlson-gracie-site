@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Cloudinary hero video URL
+// Vercel Blob Storage hero video URL
 const HERO_VIDEO_URL =
-  'https://res.cloudinary.com/dssgz3ocp/video/upload/v1769527792/output-final-gracie_lbga7e.mp4';
+  'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/output-final-gracie.mp4';
 
 export default function HomePage() {
   return (
