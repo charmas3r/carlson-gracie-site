@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/schedule', label: 'Schedule' },
   { href: '/instructors', label: 'Instructors' },
   { href: '/why-choose-us', label: 'Why Us' },
+  { href: '/wall-of-champions', label: 'Champions' },
   { href: '/contact', label: 'Contact' },
 ];
 

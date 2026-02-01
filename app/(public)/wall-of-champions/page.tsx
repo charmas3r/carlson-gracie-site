@@ -1,0 +1,27 @@
+import type { Metadata } from 'next';
+import { WallOfChampionsContent } from './WallOfChampionsContent';
+
+export const metadata: Metadata = {
+  title: 'Wall of Champions | Student Achievements | Carlson Gracie San Diego',
+  description:
+    'Celebrate our students\' achievements in Brazilian Jiu-Jitsu. From competition victories to belt promotions, we honor every milestone at Carlson Gracie San Diego in Escondido.',
+  keywords: [
+    'BJJ achievements San Diego',
+    'BJJ competition results',
+    'belt promotions',
+    'BJJ student success',
+    'martial arts achievements',
+    'Escondido BJJ champions',
+    'Carlson Gracie champions',
+  ],
+  openGraph: {
+    title: 'Wall of Champions | Student Achievements | Carlson Gracie San Diego',
+    description:
+      'Celebrate our students\' achievements in Brazilian Jiu-Jitsu. From competition victories to belt promotions, we honor every milestone.',
+    type: 'website',
+  },
+};
+
+export default function WallOfChampionsPage() {
+  return <WallOfChampionsContent />;
+}
