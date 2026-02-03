@@ -198,7 +198,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="text-sm text-gray-500 hover:text-gray-400 transition-colors"
             >
-              Osso by Lucid Web Studios
+              Osso 🤙 Lucid Web Studios
             </a>
           </div>
         </div>
