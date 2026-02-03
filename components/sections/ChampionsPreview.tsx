@@ -4,37 +4,45 @@ import { motion } from 'framer-motion';
 import { Trophy, Medal, Star, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { SanityAchievement } from '@/lib/sanity';
 
-// Mock data for featured achievements - in production, this would come from Sanity CMS
-const featuredAchievements = [
+// Fallback data for featured achievements
+const fallbackAchievements: SanityAchievement[] = [
   {
-    id: '1',
+    _id: '1',
     studentName: 'Marcus Johnson',
     category: 'competition',
     title: 'IBJJF San Diego Open Champion',
     date: '2026-01-15',
     description: 'Gold medal in Adult Blue Belt Medium Heavy division.',
-    icon: Trophy,
+    featured: true,
   },
   {
-    id: '2',
+    _id: '2',
     studentName: 'Sofia Rodriguez',
     category: 'promotion',
     title: 'Promoted to Purple Belt',
     date: '2026-01-10',
     description: 'After 3 years of dedicated training, Sofia earned her purple belt.',
-    icon: Star,
+    featured: true,
   },
   {
-    id: '3',
+    _id: '3',
     studentName: 'Tyler Chen',
     category: 'spotlight',
     title: 'Student of the Month',
     date: '2026-01-01',
     description: '100% attendance and outstanding attitude on and off the mats.',
-    icon: Medal,
+    featured: true,
   },
 ];
+
+// Map categories to icons
+const categoryIcons = {
+  competition: Trophy,
+  promotion: Star,
+  spotlight: Medal,
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -58,7 +66,14 @@ const cardVariants = {
   },
 };
 
-export function ChampionsPreview() {
+interface ChampionsPreviewProps {
+  achievements?: SanityAchievement[];
+}
+
+export function ChampionsPreview({ achievements }: ChampionsPreviewProps) {
+  // Use Sanity data if available, otherwise fall back to mock data
+  const displayAchievements = achievements && achievements.length > 0 ? achievements : fallbackAchievements;
+
   return (
     <section className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto max-w-6xl px-4">
@@ -87,54 +102,57 @@ export function ChampionsPreview() {
           viewport={{ once: true }}
           className="grid gap-6 md:grid-cols-3 mb-10"
         >
-          {featuredAchievements.map((achievement) => (
-            <motion.div
-              key={achievement.id}
-              variants={cardVariants}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-            >
-              {/* Icon */}
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-full ${
-                    achievement.category === 'competition'
-                      ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400'
-                      : achievement.category === 'promotion'
-                        ? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400'
-                        : 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
-                  }`}
-                >
-                  <achievement.icon className="h-6 w-6" />
+          {displayAchievements.map((achievement) => {
+            const Icon = categoryIcons[achievement.category];
+            return (
+              <motion.div
+                key={achievement._id}
+                variants={cardVariants}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+              >
+                {/* Icon */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-full ${
+                      achievement.category === 'competition'
+                        ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-400'
+                        : achievement.category === 'promotion'
+                          ? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400'
+                          : 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
+                    }`}
+                  >
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">
+                      {achievement.studentName}
+                    </p>
+                    <p className="text-xs text-muted-foreground capitalize">
+                      {achievement.category}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-foreground">
-                    {achievement.studentName}
-                  </p>
-                  <p className="text-xs text-muted-foreground capitalize">
-                    {achievement.category}
-                  </p>
-                </div>
-              </div>
 
-              {/* Content */}
-              <h3 className="font-bold text-foreground mb-2">
-                {achievement.title}
-              </h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                {achievement.description}
-              </p>
+                {/* Content */}
+                <h3 className="font-bold text-foreground mb-2">
+                  {achievement.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  {achievement.description}
+                </p>
 
-              {/* Date */}
-              <p className="text-xs text-muted-foreground">
-                {new Date(achievement.date).toLocaleDateString('en-US', {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </p>
-            </motion.div>
-          ))}
+                {/* Date */}
+                <p className="text-xs text-muted-foreground">
+                  {new Date(achievement.date).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </p>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         {/* CTA */}
