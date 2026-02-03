@@ -110,7 +110,7 @@ export function Header() {
                 size="sm"
                 className="hidden md:inline-flex bg-primary hover:bg-primary/90 text-white"
               >
-                <Link href="/contact">Free Trial</Link>
+                <Link href="/contact">Free Week</Link>
               </Button>
 
               {/* Mobile Menu Button */}
@@ -206,7 +206,7 @@ export function Header() {
                       href="/contact"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      Start Your Free Trial
+                      Start Your Free Week
                     </Link>
                   </Button>
                 </div>

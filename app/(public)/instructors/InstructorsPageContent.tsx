@@ -4,13 +4,16 @@ import { motion } from 'framer-motion';
 import { Award, Medal, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
+import { SanityInstructor, urlFor } from '@/lib/sanity';
 
-const instructors = [
+// Fallback data for when Sanity has no content yet
+const fallbackInstructors: SanityInstructor[] = [
   {
+    _id: '1',
     name: 'Professor Carlos Silva',
     title: 'Head Instructor',
     belt: '4th Degree Black Belt',
-    image: null, // Placeholder
     bio: 'Professor Carlos has been training Brazilian Jiu-Jitsu for over 25 years. A multiple-time IBJJF champion, he brings world-class technique and a passion for teaching to every class.',
     achievements: [
       'IBJJF World Champion (2x)',
@@ -19,12 +22,14 @@ const instructors = [
       'Certified under Carlson Gracie Sr.',
     ],
     specialties: ['Competition Strategy', 'Guard Passing', 'Submissions'],
+    order: 0,
+    isActive: true,
   },
   {
+    _id: '2',
     name: 'Professor Maria Santos',
     title: 'Kids Program Director',
     belt: '2nd Degree Black Belt',
-    image: null,
     bio: 'Professor Maria specializes in youth development through martial arts. Her patient teaching style and child psychology background make her perfect for nurturing young champions.',
     achievements: [
       'Brazilian National Champion',
@@ -33,12 +38,14 @@ const instructors = [
       'CPR/First Aid Certified',
     ],
     specialties: ['Youth Development', 'Self-Defense', 'Confidence Building'],
+    order: 1,
+    isActive: true,
   },
   {
+    _id: '3',
     name: 'Coach Jake Thompson',
     title: 'Competition Coach',
     belt: 'Black Belt',
-    image: null,
     bio: 'Coach Jake is our competition team leader. An active competitor himself, he brings cutting-edge techniques and tournament strategies to help our students succeed on the competition circuit.',
     achievements: [
       'IBJJF No-Gi World Medalist',
@@ -47,6 +54,8 @@ const instructors = [
       '50+ tournament medals',
     ],
     specialties: ['No-Gi Grappling', 'Leg Locks', 'Wrestling'],
+    order: 2,
+    isActive: true,
   },
 ];
 
@@ -67,7 +76,14 @@ const cardVariants = {
   },
 };
 
-export function InstructorsPageContent() {
+interface InstructorsPageContentProps {
+  instructors?: SanityInstructor[];
+}
+
+export function InstructorsPageContent({ instructors }: InstructorsPageContentProps) {
+  // Use Sanity data if available, otherwise fall back to mock data
+  const displayInstructors = instructors && instructors.length > 0 ? instructors : fallbackInstructors;
+
   return (
     <div className="pt-20">
       {/* Hero */}
@@ -98,22 +114,33 @@ export function InstructorsPageContent() {
             viewport={{ once: true }}
             className="space-y-16"
           >
-            {instructors.map((instructor, index) => (
+            {displayInstructors.map((instructor, index) => (
               <motion.div
-                key={instructor.name}
+                key={instructor._id}
                 variants={cardVariants}
                 className={`flex flex-col gap-8 ${
                   index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'
                 }`}
               >
-                {/* Photo Placeholder */}
+                {/* Photo */}
                 <div className="lg:w-1/3">
-                  <div className="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <Users className="h-16 w-16 text-primary mx-auto mb-4" />
-                      <p className="text-muted-foreground">Photo Coming Soon</p>
+                  {instructor.image ? (
+                    <div className="aspect-square relative rounded-2xl overflow-hidden">
+                      <Image
+                        src={urlFor(instructor.image).width(400).height(400).url()}
+                        alt={instructor.name}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                  </div>
+                  ) : (
+                    <div className="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center">
+                      <div className="text-center p-8">
+                        <Users className="h-16 w-16 text-primary mx-auto mb-4" />
+                        <p className="text-muted-foreground">Photo Coming Soon</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Info */}
@@ -134,38 +161,42 @@ export function InstructorsPageContent() {
                     <p className="text-muted-foreground mb-6">{instructor.bio}</p>
 
                     {/* Achievements */}
-                    <div className="mb-6">
-                      <h3 className="font-semibold mb-3 flex items-center gap-2">
-                        <Award className="h-5 w-5 text-primary" />
-                        Achievements
-                      </h3>
-                      <ul className="grid grid-cols-2 gap-2">
-                        {instructor.achievements.map((achievement) => (
-                          <li
-                            key={achievement}
-                            className="flex items-center gap-2 text-sm"
-                          >
-                            <Medal className="h-4 w-4 text-yellow-500" />
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {instructor.achievements && instructor.achievements.length > 0 && (
+                      <div className="mb-6">
+                        <h3 className="font-semibold mb-3 flex items-center gap-2">
+                          <Award className="h-5 w-5 text-primary" />
+                          Achievements
+                        </h3>
+                        <ul className="grid grid-cols-2 gap-2">
+                          {instructor.achievements.map((achievement) => (
+                            <li
+                              key={achievement}
+                              className="flex items-center gap-2 text-sm"
+                            >
+                              <Medal className="h-4 w-4 text-yellow-500" />
+                              {achievement}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
 
                     {/* Specialties */}
-                    <div>
-                      <h3 className="font-semibold mb-3">Specialties</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {instructor.specialties.map((specialty) => (
-                          <span
-                            key={specialty}
-                            className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
-                          >
-                            {specialty}
-                          </span>
-                        ))}
+                    {instructor.specialties && instructor.specialties.length > 0 && (
+                      <div>
+                        <h3 className="font-semibold mb-3">Specialties</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {instructor.specialties.map((specialty) => (
+                            <span
+                              key={specialty}
+                              className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
+                            >
+                              {specialty}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -181,7 +212,7 @@ export function InstructorsPageContent() {
             Train with the Best
           </h2>
           <p className="text-white/90 text-lg mb-8">
-            Experience world-class instruction firsthand. Your first class is
+            Experience world-class instruction firsthand. Your first week is
             free.
           </p>
           <Button
@@ -189,7 +220,7 @@ export function InstructorsPageContent() {
             size="lg"
             className="bg-white text-primary hover:bg-white/90"
           >
-            <Link href="/contact">Book Your Free Trial</Link>
+            <Link href="/contact">Book Your Free Week</Link>
           </Button>
         </div>
       </section>

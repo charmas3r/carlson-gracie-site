@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getInstructors } from '@/lib/sanity';
 import { InstructorsPageContent } from './InstructorsPageContent';
 
 export const metadata: Metadata = {
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
     'Meet our world-class Brazilian Jiu-Jitsu instructors. Black belt certified with decades of combined experience in competition and teaching.',
 };
 
-export default function InstructorsPage() {
-  return <InstructorsPageContent />;
+export default async function InstructorsPage() {
+  const instructors = await getInstructors();
+  return <InstructorsPageContent instructors={instructors} />;
 }

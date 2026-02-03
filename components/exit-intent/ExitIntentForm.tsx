@@ -198,7 +198,7 @@ export function ExitIntentForm({ onSuccess }: ExitIntentFormProps) {
             Claiming...
           </span>
         ) : (
-          'Claim My Free Class'
+          'Claim My Free Week'
         )}
       </Button>
 

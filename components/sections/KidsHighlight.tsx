@@ -117,7 +117,7 @@ export function KidsHighlight() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90"
               >
-                <Link href="/kids">Book Free Kids Trial</Link>
+                <Link href="/kids">Book Free Kids Week</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link href="/kids">Learn More</Link>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getAchievements } from '@/lib/sanity';
 import { WallOfChampionsContent } from './WallOfChampionsContent';
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WallOfChampionsPage() {
-  return <WallOfChampionsContent />;
+export default async function WallOfChampionsPage() {
+  const achievements = await getAchievements();
+  return <WallOfChampionsContent achievements={achievements} />;
 }

@@ -2,25 +2,16 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Medal, Star, Award, Target, Zap } from 'lucide-react';
+import { Trophy, Medal, Star, Award, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { SanityAchievement } from '@/lib/sanity';
 
-interface Achievement {
-  id: string;
-  studentName: string;
-  category: 'competition' | 'promotion' | 'spotlight';
-  title: string;
-  date: string; // ISO format: '2026-01-15'
-  description: string;
-  featured?: boolean;
-}
-
-// Mock data for all achievements - in production, this would come from Sanity CMS
-const achievements: Achievement[] = [
+// Fallback data for when Sanity has no content yet
+const fallbackAchievements: SanityAchievement[] = [
   // Competition achievements
   {
-    id: '1',
+    _id: '1',
     studentName: 'Marcus Johnson',
     category: 'competition',
     title: 'IBJJF San Diego Open Champion',
@@ -29,41 +20,44 @@ const achievements: Achievement[] = [
     featured: true,
   },
   {
-    id: '4',
+    _id: '4',
     studentName: 'Alex Rivera',
     category: 'competition',
     title: 'Submission Only Tournament Winner',
     date: '2025-12-20',
     description: '5 submission victories in absolute division.',
+    featured: false,
   },
   {
-    id: '7',
+    _id: '7',
     studentName: 'Jessica Wong',
     category: 'competition',
     title: 'NAGA San Diego Silver Medalist',
     date: '2025-11-15',
-    description: 'Second place in Women\'s Advanced division.',
+    description: "Second place in Women's Advanced division.",
+    featured: false,
   },
   {
-    id: '10',
+    _id: '10',
     studentName: 'Daniel Martinez',
     category: 'competition',
     title: 'Grappling Industries Double Gold',
     date: '2025-10-28',
     description: 'First place in both Gi and No-Gi divisions.',
+    featured: false,
   },
   {
-    id: '13',
+    _id: '13',
     studentName: 'Emma Thompson',
     category: 'competition',
     title: 'American Nationals Qualifier',
     date: '2025-09-18',
     description: 'Bronze medal and qualification for nationals.',
+    featured: false,
   },
-
   // Promotion achievements
   {
-    id: '2',
+    _id: '2',
     studentName: 'Sofia Rodriguez',
     category: 'promotion',
     title: 'Promoted to Purple Belt',
@@ -72,41 +66,44 @@ const achievements: Achievement[] = [
     featured: true,
   },
   {
-    id: '5',
+    _id: '5',
     studentName: 'Kevin Park',
     category: 'promotion',
     title: 'Promoted to Blue Belt',
     date: '2025-12-15',
     description: 'First stripe to blue belt after 18 months of consistent training.',
+    featured: false,
   },
   {
-    id: '8',
+    _id: '8',
     studentName: 'Rachel Green',
     category: 'promotion',
     title: 'Promoted to Brown Belt',
     date: '2025-11-05',
     description: '7 years of dedication culminating in this major milestone.',
+    featured: false,
   },
   {
-    id: '11',
+    _id: '11',
     studentName: 'Tommy Anderson',
     category: 'promotion',
     title: 'Kids Blue Belt Achievement',
     date: '2025-10-20',
     description: 'Outstanding technique and attitude on and off the mats.',
+    featured: false,
   },
   {
-    id: '14',
+    _id: '14',
     studentName: 'Miguel Santos',
     category: 'promotion',
     title: 'Promoted to Black Belt',
     date: '2025-09-10',
     description: 'After 12 years of journey, achieving the highest rank in BJJ.',
+    featured: false,
   },
-
   // Spotlight achievements
   {
-    id: '3',
+    _id: '3',
     studentName: 'Tyler Chen',
     category: 'spotlight',
     title: 'Student of the Month',
@@ -115,36 +112,40 @@ const achievements: Achievement[] = [
     featured: true,
   },
   {
-    id: '6',
+    _id: '6',
     studentName: 'Sarah Mitchell',
     category: 'spotlight',
     title: 'Most Improved Student',
     date: '2025-12-05',
     description: 'Incredible progress in technique and confidence over 6 months.',
+    featured: false,
   },
   {
-    id: '9',
+    _id: '9',
     studentName: 'Brandon Lee',
     category: 'spotlight',
     title: 'Community Service Award',
     date: '2025-11-01',
     description: 'Volunteered 50+ hours teaching kids self-defense workshops.',
+    featured: false,
   },
   {
-    id: '12',
+    _id: '12',
     studentName: 'Isabella Gomez',
     category: 'spotlight',
     title: 'Perfect Attendance Award',
     date: '2025-10-15',
     description: 'Not missed a single class in 12 months of training.',
+    featured: false,
   },
   {
-    id: '15',
+    _id: '15',
     studentName: 'Chris Walker',
     category: 'spotlight',
     title: 'Leadership Excellence',
     date: '2025-09-05',
     description: 'Outstanding mentorship to new students and positive influence.',
+    featured: false,
   },
 ];
 
@@ -184,13 +185,20 @@ const cardVariants = {
   },
 };
 
-export function WallOfChampionsContent() {
+interface WallOfChampionsContentProps {
+  achievements?: SanityAchievement[];
+}
+
+export function WallOfChampionsContent({ achievements }: WallOfChampionsContentProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | 'competition' | 'promotion' | 'spotlight'>('all');
+
+  // Use Sanity data if available, otherwise fall back to mock data
+  const displayAchievements = achievements && achievements.length > 0 ? achievements : fallbackAchievements;
 
   // Filter achievements based on active filter
   const filteredAchievements = activeFilter === 'all'
-    ? achievements
-    : achievements.filter((achievement) => achievement.category === activeFilter);
+    ? displayAchievements
+    : displayAchievements.filter((achievement) => achievement.category === activeFilter);
 
   return (
     <div className="pt-20">
@@ -293,7 +301,7 @@ export function WallOfChampionsContent() {
                 const Icon = categoryIcons[achievement.category];
                 return (
                   <motion.div
-                    key={achievement.id}
+                    key={achievement._id}
                     variants={cardVariants}
                     whileHover={{ y: -5, transition: { duration: 0.2 } }}
                     layout
@@ -379,7 +387,7 @@ export function WallOfChampionsContent() {
               className="bg-white text-primary hover:bg-white/90"
               asChild
             >
-              <Link href="/contact">Start Your Free Trial</Link>
+              <Link href="/contact">Start Your Free Week</Link>
             </Button>
           </motion.div>
         </div>

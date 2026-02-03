@@ -5,11 +5,11 @@ import { cn } from '@/lib/utils';
 
 // Academy contact info - in production, this could come from env vars or CMS
 const ACADEMY_INFO = {
-  phone: '+17605551234', // Replace with actual phone
-  address: '123 Academy Way, Escondido, CA 92025', // Replace with actual address
-  email: 'info@carlsongracie-sandiego.com', // Replace with actual email
+  phone: '+17605007710',
+  address: '1980 E. Valley Parkway, Escondido, CA 92027',
+  email: 'info@carlsongracie-sandiego.com',
   googleMapsUrl:
-    'https://www.google.com/maps/search/?api=1&query=Carlson+Gracie+Escondido', // Replace with actual maps URL
+    'https://www.google.com/maps/search/?api=1&query=1980+E+Valley+Parkway+Escondido+CA+92027',
 };
 
 interface ActionButtonProps {
@@ -88,7 +88,7 @@ export function MobileActionBar() {
 
         {/* Email */}
         <ActionButton
-          href={`mailto:${ACADEMY_INFO.email}?subject=Free%20Trial%20Class%20Inquiry`}
+          href={`mailto:${ACADEMY_INFO.email}?subject=Free%20Trial%20Week%20Inquiry`}
           icon={<Mail className="h-5 w-5" />}
           label="Email"
         />
