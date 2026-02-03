@@ -192,6 +192,14 @@ export function Footer() {
             <p className="text-sm text-gray-500">
               Proudly serving Escondido, Valley Center, San Marcos, Vista & North County San Diego
             </p>
+            <a
+              href="https://www.lucidweb.studio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-gray-500 hover:text-gray-400 transition-colors"
+            >
+              Osso by Lucid Web Studios
+            </a>
           </div>
         </div>
       </div>
