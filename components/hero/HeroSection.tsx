@@ -100,7 +100,7 @@ export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
             variants={itemVariants}
             className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-white/80 md:text-base"
           >
-            San Diego&apos;s Premier Academy
+            Escondido&apos;s Premier Academy
           </motion.p>
 
           {/* Main Headline */}

@@ -6,14 +6,17 @@ import {
   ChampionsPreview,
   ValueProposition,
 } from '@/components/sections';
+import { getFeaturedAchievements, getFeaturedReviews } from '@/lib/sanity';
 
 export const metadata: Metadata = {
-  title: 'San Diego Brazilian Jiu-Jitsu Academy | World-Class BJJ Training',
+  title: 'Carlson Gracie Escondido | Escondido Brazilian Jiu-Jitsu | San Diego BJJ',
   description:
-    "San Diego's premier Brazilian Jiu-Jitsu academy. World-class instruction, family-friendly environment. Transform your body, sharpen your mind, build confidence. Schedule your free trial class today.",
+    "Escondido's premier Brazilian Jiu-Jitsu academy. World-class Carlson Gracie instruction, family-friendly environment. Transform your body, sharpen your mind, build confidence. Schedule your free trial week today.",
   keywords: [
+    'Carlson Gracie',
     'Brazilian Jiu-Jitsu',
     'BJJ',
+    'Escondido',
     'San Diego',
     'martial arts',
     'self-defense',
@@ -21,9 +24,9 @@ export const metadata: Metadata = {
     'kids BJJ',
   ],
   openGraph: {
-    title: 'San Diego Brazilian Jiu-Jitsu Academy',
+    title: 'Carlson Gracie Escondido | Escondido BJJ',
     description:
-      'Transform your body. Sharpen your mind. Build confidence. Join San Diego\'s premier BJJ academy.',
+      'Transform your body. Sharpen your mind. Build confidence. Join Escondido\'s premier Carlson Gracie BJJ academy.',
     type: 'website',
   },
 };
@@ -32,7 +35,12 @@ export const metadata: Metadata = {
 const HERO_VIDEO_URL =
   'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/output-final-gracie.mp4';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [featuredAchievements, featuredReviews] = await Promise.all([
+    getFeaturedAchievements(),
+    getFeaturedReviews(),
+  ]);
+
   return (
     <>
       {/* Hero Section with Video Background */}
@@ -45,10 +53,10 @@ export default function HomePage() {
       <KidsHighlight />
 
       {/* Google Reviews Section */}
-      <ReviewsWidget />
+      <ReviewsWidget sanityReviews={featuredReviews} />
 
       {/* Wall of Champions Preview */}
-      <ChampionsPreview />
+      <ChampionsPreview achievements={featuredAchievements} />
 
       {/* CTA Section */}
       <section className="bg-primary py-16">
@@ -57,10 +65,10 @@ export default function HomePage() {
             Ready to Start Your Journey?
           </h2>
           <p className="mb-8 text-lg text-white/90">
-            Your first class is FREE. No experience required.
+            Your first week is FREE. No experience required.
           </p>
           <button className="rounded-lg bg-white px-8 py-4 font-bold uppercase tracking-wider text-primary transition-all duration-300 hover:scale-105 hover:shadow-lg">
-            Claim Your Free Trial
+            Claim Your Free Week
           </button>
         </div>
       </section>

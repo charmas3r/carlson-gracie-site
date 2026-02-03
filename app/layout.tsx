@@ -8,16 +8,16 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'San Diego BJJ Academy | Brazilian Jiu-Jitsu',
-    template: '%s | San Diego BJJ Academy',
+    default: 'Carlson Gracie Escondido | Escondido Brazilian Jiu-Jitsu | San Diego BJJ',
+    template: '%s | Carlson Gracie Escondido',
   },
   description:
-    'Transform your body, sharpen your mind, build confidence. Premier Brazilian Jiu-Jitsu training in San Diego.',
+    'Transform your body, sharpen your mind, build confidence. Premier Brazilian Jiu-Jitsu training in Escondido, San Diego.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'San Diego BJJ Academy',
+    siteName: 'Carlson Gracie Escondido',
   },
   twitter: {
     card: 'summary_large_image',

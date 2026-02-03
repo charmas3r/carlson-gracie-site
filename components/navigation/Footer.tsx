@@ -23,6 +23,7 @@ const footerLinks = {
   ],
   locations: [
     { href: '/escondido-bjj', label: 'Escondido BJJ' },
+    { href: '/valley-center-bjj', label: 'Valley Center BJJ' },
     { href: '/north-county-san-diego-bjj', label: 'North County San Diego' },
   ],
 };
@@ -55,7 +56,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
-              San Diego&apos;s premier Brazilian Jiu-Jitsu academy. World-class
+              Escondido&apos;s premier Brazilian Jiu-Jitsu academy. World-class
               instruction for all ages and skill levels.
             </p>
 
@@ -186,10 +187,10 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-sm text-gray-500">
-              &copy; {currentYear} Carlson Gracie San Diego. All rights reserved.
+              &copy; {currentYear} Carlson Gracie Escondido. All rights reserved.
             </p>
             <p className="text-sm text-gray-500">
-              Proudly serving Escondido, San Marcos, Vista & North County San Diego
+              Proudly serving Escondido, Valley Center, San Marcos, Vista & North County San Diego
             </p>
           </div>
         </div>
