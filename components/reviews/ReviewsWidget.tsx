@@ -5,24 +5,71 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { StarRating } from './StarRating';
 import { ReviewCard } from './ReviewCard';
-import { MOCK_REVIEWS, type ReviewsData } from '@/lib/reviews';
+import { MOCK_REVIEWS, type ReviewsData, type Review } from '@/lib/reviews';
+import type { SanityReview } from '@/lib/sanity';
 import { cn } from '@/lib/utils';
 
 interface ReviewsWidgetProps {
   className?: string;
   autoRotateInterval?: number; // in milliseconds
+  sanityReviews?: SanityReview[]; // Optional reviews from Sanity CMS
+}
+
+// Convert Sanity review to component format
+function convertSanityReview(review: SanityReview, index: number): Review {
+  const date = new Date(review.date);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffDays = Math.abs(Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+
+  let relativeTime: string;
+  if (diffDays < 7) {
+    relativeTime = diffDays <= 1 ? 'Today' : `${diffDays} days ago`;
+  } else if (diffDays < 30) {
+    const weeks = Math.floor(diffDays / 7);
+    relativeTime = `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
+  } else if (diffDays < 365) {
+    const months = Math.floor(diffDays / 30);
+    relativeTime = `${months} ${months === 1 ? 'month' : 'months'} ago`;
+  } else {
+    const years = Math.floor(diffDays / 365);
+    relativeTime = `${years} ${years === 1 ? 'year' : 'years'} ago`;
+  }
+
+  return {
+    id: review._id,
+    author: review.author,
+    authorInitial: review.author.charAt(0).toUpperCase(),
+    rating: review.rating,
+    text: review.text,
+    date: review.date,
+    relativeTime,
+  };
 }
 
 export function ReviewsWidget({
   className,
   autoRotateInterval = 5000,
+  sanityReviews,
 }: ReviewsWidgetProps) {
-  const [reviewsData, setReviewsData] = useState<ReviewsData>(MOCK_REVIEWS);
+  const [reviewsData, setReviewsData] = useState<ReviewsData>(() => {
+    // If we have Sanity reviews, use them
+    if (sanityReviews && sanityReviews.length > 0) {
+      return {
+        ...MOCK_REVIEWS,
+        reviews: sanityReviews.map(convertSanityReview),
+      };
+    }
+    return MOCK_REVIEWS;
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Fetch reviews from API
+  // Fetch reviews from API (fallback if no Sanity reviews)
   useEffect(() => {
+    // Skip API fetch if we have Sanity reviews
+    if (sanityReviews && sanityReviews.length > 0) return;
+
     async function fetchReviews() {
       try {
         const response = await fetch('/api/reviews');
@@ -37,7 +84,7 @@ export function ReviewsWidget({
     }
 
     fetchReviews();
-  }, []);
+  }, [sanityReviews]);
 
   const { aggregateRating, reviews, googleBusinessUrl } = reviewsData;
 
@@ -82,13 +129,18 @@ export function ReviewsWidget({
             <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-4xl font-bold text-gray-900 dark:text-white">
-                  {aggregateRating.ratingValue}
+                  {aggregateRating.ratingValue.toFixed(1)}
                 </span>
                 <StarRating rating={aggregateRating.ratingValue} size="lg" />
               </div>
-              <span className="text-gray-600 dark:text-gray-400">
+              <a
+                href={googleBusinessUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 dark:text-gray-400 hover:text-primary hover:underline transition-colors"
+              >
                 ({aggregateRating.reviewCount}+ reviews on Google)
-              </span>
+              </a>
             </div>
           </motion.div>
         </div>
