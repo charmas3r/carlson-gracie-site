@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { getKidsSchedule, groupKidsScheduleByLevel } from '@/lib/sanity';
 import { KidsPageContent } from './KidsPageContent';
 
 export const metadata: Metadata = {
   title: 'Kids BJJ Program | Ages 4-15 | Carlson Gracie San Diego',
   description:
-    'Build confidence, discipline, and self-defense skills with our Kids Brazilian Jiu-Jitsu program. Age-appropriate classes for Little Champions (4-7), Kids (8-12), and Teens (13-15) in Escondido, San Diego.',
+    'Build confidence, discipline, and self-defense skills with our Kids Brazilian Jiu-Jitsu program. Age-appropriate classes for Little Champions (4-6), Kids (7-11), and Teens (12-15) in Escondido, San Diego.',
   keywords: [
     'kids BJJ San Diego',
     'kids martial arts',
@@ -16,6 +17,8 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function KidsPage() {
-  return <KidsPageContent />;
+export default async function KidsPage() {
+  const kidsSchedule = await getKidsSchedule();
+  const ageGroups = groupKidsScheduleByLevel(kidsSchedule);
+  return <KidsPageContent ageGroups={ageGroups} />;
 }

@@ -18,6 +18,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { contactFormSchema, type ContactFormData } from '@/lib/validation';
+import { ScheduleTimeSlot } from '@/lib/sanity';
 
 const benefits = [
   {
@@ -44,8 +45,32 @@ const programs = [
   { name: 'Competition Team', description: 'For those seeking tournaments' },
 ];
 
-export function EscondidoPageContent() {
+// Fallback schedule time slots
+const fallbackTimeSlots: ScheduleTimeSlot[] = [
+  {
+    time: 'Morning',
+    schedule: '9:00 AM - 90 min',
+    description: 'Train before work. Perfect for early risers.',
+  },
+  {
+    time: 'Afternoon',
+    schedule: '4:00 PM - 5:15 PM',
+    description: 'Kids classes available.',
+  },
+  {
+    time: 'Evening',
+    schedule: '6:30 PM - 9:00 PM',
+    description: 'Multiple classes after work hours.',
+  },
+];
+
+interface EscondidoPageContentProps {
+  timeSlots?: ScheduleTimeSlot[];
+}
+
+export function EscondidoPageContent({ timeSlots }: EscondidoPageContentProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const displayTimeSlots = timeSlots && timeSlots.length > 0 ? timeSlots : fallbackTimeSlots;
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error';
     message: string;
@@ -79,7 +104,7 @@ export function EscondidoPageContent() {
 
       setSubmitStatus({
         type: 'success',
-        message: "Thank you! We'll contact you within 24 hours to schedule your free trial.",
+        message: "Thank you! We'll contact you within 24 hours to schedule your free week.",
       });
       reset();
     } catch (error) {
@@ -121,15 +146,16 @@ export function EscondidoPageContent() {
               Just minutes from downtown Escondido via I-15.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
-                Book Your Free Trial
+              <Button size="lg" className="text-lg px-8" asChild>
+                <Link href="/contact">Book Your Free Week</Link>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="text-lg px-8 border-white text-white hover:bg-white hover:text-gray-900"
+                asChild
               >
-                View Schedule
+                <Link href="/schedule">View Schedule</Link>
               </Button>
             </div>
           </motion.div>
@@ -281,23 +307,7 @@ export function EscondidoPageContent() {
           </motion.div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                time: 'Early Bird',
-                schedule: '6:00 AM - 7:00 AM',
-                description: 'Train before work. Perfect for early risers.',
-              },
-              {
-                time: 'Lunch Hour',
-                schedule: '12:00 PM - 1:00 PM',
-                description: 'Midday training for local professionals.',
-              },
-              {
-                time: 'Evening',
-                schedule: '6:00 PM - 9:00 PM',
-                description: 'Multiple classes after work hours.',
-              },
-            ].map((slot) => (
+            {displayTimeSlots.map((slot) => (
               <motion.div
                 key={slot.time}
                 initial={{ opacity: 0, y: 20 }}
@@ -335,11 +345,11 @@ export function EscondidoPageContent() {
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8"
             >
               <h2 className="text-2xl font-bold mb-2">
-                Book Your Free Trial in Escondido
+                Book Your Free Week in Escondido
               </h2>
               <p className="text-muted-foreground mb-6">
                 Fill out the form below and we&apos;ll contact you within 24 hours
-                to schedule your complimentary class.
+                to schedule your complimentary week.
               </p>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -388,7 +398,7 @@ export function EscondidoPageContent() {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="(760) 555-1234"
+                    placeholder="(760) 500-7710"
                     {...register('phone')}
                     disabled={isSubmitting}
                   />
@@ -424,7 +434,7 @@ export function EscondidoPageContent() {
                 )}
 
                 <Button type="submit" disabled={isSubmitting} className="w-full" size="lg">
-                  {isSubmitting ? 'Sending...' : 'Claim My Free Trial'}
+                  {isSubmitting ? 'Sending...' : 'Claim My Free Week'}
                 </Button>
               </form>
             </motion.div>
@@ -442,7 +452,7 @@ export function EscondidoPageContent() {
                   <p>
                     <strong className="text-foreground">Address:</strong>
                     <br />
-                    123 Academy Way, Escondido, CA 92025
+                    1980 E. Valley Parkway, Escondido, CA 92027
                   </p>
                   <p>
                     <strong className="text-foreground">From Downtown Escondido:</strong>
@@ -460,17 +470,17 @@ export function EscondidoPageContent() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
+              {/* Map */}
               <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-64 flex items-center justify-center overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106715.32843844565!2d-117.14973385!3d33.1192432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbf439c1b13da1%3A0x5fcfb6f0c2a4a0a1!2sEscondido%2C%20CA!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.8!2d-117.0523!3d33.1244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbf4e8c1c1c1c1%3A0x0!2s1980+E+Valley+Pkwy%2C+Escondido%2C+CA+92027!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Carlson Gracie BJJ Escondido Location"
+                  title="Carlson Gracie BJJ - 1980 E Valley Pkwy, Escondido, CA 92027"
                 />
               </div>
 
@@ -500,14 +510,15 @@ export function EscondidoPageContent() {
           </h2>
           <p className="mb-8 text-lg text-white/90">
             Join hundreds of Escondido residents who have transformed their lives
-            through Brazilian Jiu-Jitsu. Your first class is on us.
+            through Brazilian Jiu-Jitsu. Your first week is on us.
           </p>
           <Button
             size="lg"
             variant="secondary"
             className="text-lg px-8"
+            asChild
           >
-            Start Your Free Trial Today
+            <Link href="/contact">Start Your Free Week Today</Link>
           </Button>
         </div>
       </section>

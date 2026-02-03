@@ -2,69 +2,101 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Users } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { SanityClassSchedule } from '@/lib/sanity';
 
-const schedule = {
+// Fallback data for when Sanity has no content yet
+const fallbackSchedule: Record<string, SanityClassSchedule[]> = {
   Monday: [
-    { time: '6:00 AM', class: 'Morning BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '12:00 PM', class: 'Lunch BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '4:00 PM', class: 'Little Champions', level: 'Ages 4-7', duration: '30 min' },
-    { time: '5:00 PM', class: 'Kids BJJ', level: 'Ages 8-12', duration: '45 min' },
-    { time: '6:00 PM', class: 'Fundamentals', level: 'All Levels', duration: '60 min' },
-    { time: '7:30 PM', class: 'No-Gi', level: 'All Levels', duration: '60 min' },
+    { _id: '1', time: '9:00 AM', className: 'Adults Jiu-Jitsu (Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Monday', isActive: true },
+    { _id: '2', time: '4:00 PM', className: 'Kids Jiu-Jitsu (Novice) - Gi', level: 'Ages 4-6', duration: '30 min', dayOfWeek: 'Monday', isActive: true },
+    { _id: '3', time: '4:30 PM', className: 'Kids Jiu-Jitsu (Intermediate) - Gi', level: 'Ages 7-11', duration: '45 min', dayOfWeek: 'Monday', isActive: true },
+    { _id: '4', time: '5:15 PM', className: 'Kids Jiu-Jitsu (Advanced) - Gi', level: 'Ages 12-Teens', duration: '60 min', dayOfWeek: 'Monday', isActive: true },
+    { _id: '5', time: '6:30 PM', className: 'Adults Jiu-Jitsu (Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Monday', isActive: true },
+    { _id: '6', time: '8:00 PM', className: 'Competition Adults Jiu-Jitsu (Gi)', level: 'Advanced', duration: '60 min', dayOfWeek: 'Monday', isActive: true },
   ],
   Tuesday: [
-    { time: '6:00 AM', class: 'Morning BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '12:00 PM', class: 'Lunch BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '5:30 PM', class: 'Teen Program', level: 'Ages 13-15', duration: '60 min' },
-    { time: '7:00 PM', class: 'Advanced BJJ', level: 'Blue Belt+', duration: '90 min' },
+    { _id: '7', time: '9:00 AM', className: 'Adults Jiu-Jitsu (No-Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Tuesday', isActive: true },
+    { _id: '8', time: '4:00 PM', className: 'Kids Jiu-Jitsu (Novice) - No-Gi', level: 'Ages 4-6', duration: '30 min', dayOfWeek: 'Tuesday', isActive: true },
+    { _id: '9', time: '4:30 PM', className: 'Kids Jiu-Jitsu (Intermediate) - No-Gi', level: 'Ages 7-11', duration: '45 min', dayOfWeek: 'Tuesday', isActive: true },
+    { _id: '10', time: '5:15 PM', className: 'Kids Jiu-Jitsu (Advanced) - No-Gi', level: 'Ages 12-Teens', duration: '60 min', dayOfWeek: 'Tuesday', isActive: true },
+    { _id: '11', time: '6:30 PM', className: 'Adults Jiu-Jitsu (No-Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Tuesday', isActive: true },
+    { _id: '12', time: '8:00 PM', className: 'Competition Adults Jiu-Jitsu (No-Gi)', level: 'Advanced', duration: '60 min', dayOfWeek: 'Tuesday', isActive: true },
   ],
   Wednesday: [
-    { time: '6:00 AM', class: 'Morning BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '12:00 PM', class: 'Lunch BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '4:00 PM', class: 'Little Champions', level: 'Ages 4-7', duration: '30 min' },
-    { time: '5:00 PM', class: 'Kids BJJ', level: 'Ages 8-12', duration: '45 min' },
-    { time: '6:00 PM', class: 'Fundamentals', level: 'All Levels', duration: '60 min' },
-    { time: '7:30 PM', class: 'No-Gi', level: 'All Levels', duration: '60 min' },
+    { _id: '13', time: '9:00 AM', className: 'Adults Jiu-Jitsu (Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Wednesday', isActive: true },
+    { _id: '14', time: '4:00 PM', className: 'Kids Jiu-Jitsu (Novice) - Gi', level: 'Ages 4-6', duration: '30 min', dayOfWeek: 'Wednesday', isActive: true },
+    { _id: '15', time: '4:30 PM', className: 'Kids Jiu-Jitsu (Intermediate) - Gi', level: 'Ages 7-11', duration: '45 min', dayOfWeek: 'Wednesday', isActive: true },
+    { _id: '16', time: '5:15 PM', className: 'Kids Jiu-Jitsu (Advanced) - Gi', level: 'Ages 12-Teens', duration: '60 min', dayOfWeek: 'Wednesday', isActive: true },
+    { _id: '17', time: '6:30 PM', className: 'Adults Jiu-Jitsu (Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Wednesday', isActive: true },
+    { _id: '18', time: '8:00 PM', className: 'Competition Adults Jiu-Jitsu (Gi)', level: 'Advanced', duration: '60 min', dayOfWeek: 'Wednesday', isActive: true },
   ],
   Thursday: [
-    { time: '6:00 AM', class: 'Morning BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '12:00 PM', class: 'Lunch BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '5:30 PM', class: 'Teen Program', level: 'Ages 13-15', duration: '60 min' },
-    { time: '7:00 PM', class: 'Advanced BJJ', level: 'Blue Belt+', duration: '90 min' },
+    { _id: '19', time: '9:00 AM', className: 'Adults Jiu-Jitsu (No-Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Thursday', isActive: true },
+    { _id: '20', time: '4:00 PM', className: 'Kids Jiu-Jitsu (Novice) - No-Gi', level: 'Ages 4-6', duration: '30 min', dayOfWeek: 'Thursday', isActive: true },
+    { _id: '21', time: '4:30 PM', className: 'Kids Jiu-Jitsu (Intermediate) - No-Gi', level: 'Ages 7-11', duration: '45 min', dayOfWeek: 'Thursday', isActive: true },
+    { _id: '22', time: '5:15 PM', className: 'Kids Jiu-Jitsu (Advanced) - No-Gi', level: 'Ages 12-Teens', duration: '60 min', dayOfWeek: 'Thursday', isActive: true },
+    { _id: '23', time: '6:30 PM', className: 'Adults Jiu-Jitsu (No-Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Thursday', isActive: true },
+    { _id: '24', time: '8:00 PM', className: 'Competition Adults Jiu-Jitsu (No-Gi)', level: 'Advanced', duration: '60 min', dayOfWeek: 'Thursday', isActive: true },
   ],
   Friday: [
-    { time: '6:00 AM', class: 'Morning BJJ', level: 'All Levels', duration: '60 min' },
-    { time: '12:00 PM', class: 'Open Mat', level: 'All Levels', duration: '90 min' },
-    { time: '4:00 PM', class: 'Little Champions', level: 'Ages 4-7', duration: '30 min' },
-    { time: '5:00 PM', class: 'Kids BJJ', level: 'Ages 8-12', duration: '45 min' },
-    { time: '6:00 PM', class: 'Fundamentals', level: 'All Levels', duration: '60 min' },
+    { _id: '25', time: '9:00 AM', className: 'Adults Jiu-Jitsu (Gi)', level: 'All Levels', duration: '90 min', dayOfWeek: 'Friday', isActive: true },
+    { _id: '26', time: '4:00 PM', className: 'Kids Jiu-Jitsu (Novice) - Gi', level: 'Ages 4-6', duration: '30 min', dayOfWeek: 'Friday', isActive: true },
+    { _id: '27', time: '4:30 PM', className: 'Kids Jiu-Jitsu (Intermediate) - Gi', level: 'Ages 7-11', duration: '45 min', dayOfWeek: 'Friday', isActive: true },
+    { _id: '28', time: '5:15 PM', className: 'Kids Jiu-Jitsu (Advanced) - Gi', level: 'Ages 12-Teens', duration: '60 min', dayOfWeek: 'Friday', isActive: true },
+    { _id: '29', time: '6:30 PM', className: 'Jiu-Jitsu Open Mat', level: 'All Levels', duration: '90 min', dayOfWeek: 'Friday', isActive: true },
+    { _id: '30', time: '8:00 PM', className: 'Competition Adults Jiu-Jitsu (Gi)', level: 'Advanced', duration: '60 min', dayOfWeek: 'Friday', isActive: true },
   ],
   Saturday: [
-    { time: '9:00 AM', class: 'All Levels BJJ', level: 'All Levels', duration: '90 min' },
-    { time: '10:30 AM', class: 'Advanced BJJ', level: 'Blue Belt+', duration: '90 min' },
-    { time: '11:00 AM', class: 'Teen Program', level: 'Ages 13-15', duration: '60 min' },
-    { time: '12:00 PM', class: 'Competition Team', level: 'Invite Only', duration: '120 min' },
+    { _id: '31', time: '9:00 AM', className: 'Private Lessons', level: 'Private', duration: '90 min', dayOfWeek: 'Saturday', isActive: true },
+    { _id: '32', time: '10:00 AM', className: 'Jiu-Jitsu Open Mat', level: 'All Levels', duration: '90 min', dayOfWeek: 'Saturday', isActive: true },
   ],
-  Sunday: [],
+  Sunday: [
+    { _id: '33', time: '10:00 AM', className: 'Wrestling/Jiu-Jitsu Open Mat', level: 'All Levels', duration: '90 min', dayOfWeek: 'Sunday', isActive: true },
+  ],
 };
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+// Helper to convert time string to minutes for sorting
+function timeToMinutes(time: string): number {
+  const match = time.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+  if (!match) return 0;
+  let hours = parseInt(match[1], 10);
+  const minutes = parseInt(match[2], 10);
+  const period = match[3].toUpperCase();
+  if (period === 'PM' && hours !== 12) hours += 12;
+  if (period === 'AM' && hours === 12) hours = 0;
+  return hours * 60 + minutes;
+}
+
+// Sort classes by time
+function sortByTime(classes: SanityClassSchedule[]): SanityClassSchedule[] {
+  return [...classes].sort((a, b) => timeToMinutes(a.time) - timeToMinutes(b.time));
+}
+
 const levelColors: Record<string, string> = {
   'All Levels': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-  'Blue Belt+': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-  'Ages 4-7': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-  'Ages 8-12': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
-  'Ages 13-15': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
-  'Invite Only': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+  'Advanced': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+  'Ages 4-6': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+  'Ages 7-11': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400',
+  'Ages 12-Teens': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
+  'Private': 'bg-gray-100 text-gray-800 dark:bg-gray-700/30 dark:text-gray-400',
 };
 
-export function SchedulePageContent() {
+interface SchedulePageContentProps {
+  schedule?: Record<string, SanityClassSchedule[]>;
+}
+
+export function SchedulePageContent({ schedule }: SchedulePageContentProps) {
   const [selectedDay, setSelectedDay] = useState('Monday');
+
+  // Check if schedule has any content
+  const hasContent = schedule && Object.values(schedule).some(day => day.length > 0);
+  const displaySchedule = hasContent ? schedule : fallbackSchedule;
 
   return (
     <div className="pt-20">
@@ -114,10 +146,10 @@ export function SchedulePageContent() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-4"
           >
-            {schedule[selectedDay as keyof typeof schedule].length > 0 ? (
-              schedule[selectedDay as keyof typeof schedule].map((item, index) => (
+            {displaySchedule[selectedDay]?.length > 0 ? (
+              sortByTime(displaySchedule[selectedDay]).map((item) => (
                 <div
-                  key={index}
+                  key={item._id}
                   className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg flex flex-col sm:flex-row sm:items-center gap-4"
                 >
                   <div className="flex items-center gap-4 sm:w-32">
@@ -125,7 +157,7 @@ export function SchedulePageContent() {
                     <span className="font-semibold">{item.time}</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg">{item.class}</h3>
+                    <h3 className="font-bold text-lg">{item.className}</h3>
                     <p className="text-sm text-muted-foreground">
                       {item.duration}
                     </p>
@@ -142,8 +174,8 @@ export function SchedulePageContent() {
               ))
             ) : (
               <div className="text-center py-12 text-muted-foreground">
-                <p className="text-lg">No classes scheduled for Sunday</p>
-                <p>Rest and recover!</p>
+                <p className="text-lg">No classes scheduled for {selectedDay}</p>
+                <p>Check back soon or contact us for updates!</p>
               </div>
             )}
           </motion.div>
@@ -151,10 +183,10 @@ export function SchedulePageContent() {
           {/* CTA */}
           <div className="mt-12 text-center">
             <p className="text-muted-foreground mb-4">
-              First class is always FREE!
+              First week is always FREE!
             </p>
             <Button asChild size="lg">
-              <Link href="/contact">Book Your Free Trial</Link>
+              <Link href="/contact">Book Your Free Week</Link>
             </Button>
           </div>
         </div>

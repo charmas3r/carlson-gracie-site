@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Instagram } from 'lucide-react';
 
 const footerLinks = {
   programs: [
@@ -19,7 +19,6 @@ const footerLinks = {
   resources: [
     { href: '/contact', label: 'Contact Us' },
     { href: '/faq', label: 'FAQ' },
-    { href: '/blog', label: 'Blog' },
     { href: '/privacy', label: 'Privacy Policy' },
   ],
   locations: [
@@ -29,16 +28,14 @@ const footerLinks = {
 };
 
 const contactInfo = {
-  phone: '+1 (760) 555-1234',
+  phone: '+1 (760) 500-7710',
   email: 'info@carlsongracie-sandiego.com',
-  address: '123 Academy Way, Escondido, CA 92025',
+  address: '1980 E. Valley Parkway, Escondido, CA 92027',
   hours: 'Mon-Fri: 6am-9pm, Sat: 9am-2pm',
 };
 
 const socialLinks = [
-  { href: 'https://facebook.com', icon: Facebook, label: 'Facebook' },
-  { href: 'https://instagram.com', icon: Instagram, label: 'Instagram' },
-  { href: 'https://youtube.com', icon: Youtube, label: 'YouTube' },
+  { href: 'https://www.instagram.com/cgt_escondido/', icon: Instagram, label: 'Instagram' },
 ];
 
 export function Footer() {

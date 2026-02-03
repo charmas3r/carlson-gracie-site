@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { getSchedule, getScheduleTimeSlots } from '@/lib/sanity';
 import { EscondidoPageContent } from './EscondidoPageContent';
 
 export const metadata: Metadata = {
   title: 'Brazilian Jiu-Jitsu Classes in Escondido | Carlson Gracie BJJ',
   description:
-    'Premier BJJ classes in Escondido, CA. Serving Escondido, Rancho Bernardo & surrounding North County communities. Kids & adult programs. Easy I-15 access. Book your free trial today!',
+    'Premier BJJ classes in Escondido, CA. Serving Escondido, Rancho Bernardo & surrounding North County communities. Kids & adult programs. Easy I-15 access. Book your free week today!',
   keywords: [
     'BJJ Escondido',
     'Brazilian Jiu-Jitsu Escondido',
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Brazilian Jiu-Jitsu Classes in Escondido | Carlson Gracie BJJ',
     description:
-      'Premier BJJ classes in Escondido. World-class instruction for all ages. Easy I-15 access from Rancho Bernardo. Free trial class available!',
+      'Premier BJJ classes in Escondido. World-class instruction for all ages. Easy I-15 access from Rancho Bernardo. Free trial week available!',
     type: 'website',
   },
 };
@@ -31,14 +32,14 @@ const localBusinessSchema = {
   description:
     'Premier Brazilian Jiu-Jitsu academy serving Escondido and North County San Diego. Expert instruction for adults and kids.',
   url: 'https://carlsongracie-sandiego.com/escondido-bjj',
-  telephone: '+17605551234',
+  telephone: '+17605007710',
   email: 'info@carlsongracie-sandiego.com',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '123 Academy Way',
+    streetAddress: '1980 E. Valley Parkway',
     addressLocality: 'Escondido',
     addressRegion: 'CA',
-    postalCode: '92025',
+    postalCode: '92027',
     addressCountry: 'US',
   },
   geo: {
@@ -83,14 +84,17 @@ const localBusinessSchema = {
   ],
 };
 
-export default function EscondidoBJJPage() {
+export default async function EscondidoBJJPage() {
+  const schedule = await getSchedule();
+  const timeSlots = getScheduleTimeSlots(schedule);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
-      <EscondidoPageContent />
+      <EscondidoPageContent timeSlots={timeSlots} />
     </>
   );
 }

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { getSchedule, getSaturdaySchedule } from '@/lib/sanity';
 import { NorthCountyPageContent } from './NorthCountyPageContent';
 
 export const metadata: Metadata = {
   title: 'North County San Diego BJJ | Brazilian Jiu-Jitsu Classes',
   description:
-    'Premier Brazilian Jiu-Jitsu classes serving North County San Diego: Escondido, San Marcos, Vista, Carlsbad, Encinitas, Oceanside & Rancho Bernardo. Family-friendly, world-class instruction. Book your free trial!',
+    'Premier Brazilian Jiu-Jitsu classes serving North County San Diego: Escondido, San Marcos, Vista, Carlsbad, Encinitas, Oceanside & Rancho Bernardo. Family-friendly, world-class instruction. Book your free week!',
   keywords: [
     'North County BJJ',
     'North County San Diego Brazilian Jiu-Jitsu',
@@ -33,14 +34,14 @@ const localBusinessSchema = {
   description:
     'Premier Brazilian Jiu-Jitsu academy serving all of North County San Diego. Expert instruction for adults and kids in a family-friendly environment.',
   url: 'https://carlsongracie-sandiego.com/north-county-san-diego-bjj',
-  telephone: '+17605551234',
+  telephone: '+17605007710',
   email: 'info@carlsongracie-sandiego.com',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '123 Academy Way',
+    streetAddress: '1980 E. Valley Parkway',
     addressLocality: 'Escondido',
     addressRegion: 'CA',
-    postalCode: '92025',
+    postalCode: '92027',
     addressCountry: 'US',
   },
   geo: {
@@ -106,14 +107,17 @@ const localBusinessSchema = {
   ],
 };
 
-export default function NorthCountyBJJPage() {
+export default async function NorthCountyBJJPage() {
+  const schedule = await getSchedule();
+  const saturdaySchedule = getSaturdaySchedule(schedule);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
-      <NorthCountyPageContent />
+      <NorthCountyPageContent saturdaySchedule={saturdaySchedule} />
     </>
   );
 }

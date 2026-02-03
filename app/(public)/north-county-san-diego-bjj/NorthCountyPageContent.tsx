@@ -19,6 +19,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { contactFormSchema, type ContactFormData } from '@/lib/validation';
+import { SaturdayClassInfo } from '@/lib/sanity';
 
 const servingAreas = [
   { city: 'San Marcos', drive: '12 min via CA-78' },
@@ -56,8 +57,21 @@ const familyBenefits = [
   },
 ];
 
-export function NorthCountyPageContent() {
+// Fallback Saturday schedule
+const fallbackSaturdaySchedule: SaturdayClassInfo = {
+  kidsTime: '9:00 AM',
+  kidsDescription: 'All ages welcome. Perfect for families with school-age children.',
+  adultsTime: '10:00 AM',
+  adultsDescription: 'Parents train while kids attend the earlier session.',
+};
+
+interface NorthCountyPageContentProps {
+  saturdaySchedule?: SaturdayClassInfo;
+}
+
+export function NorthCountyPageContent({ saturdaySchedule }: NorthCountyPageContentProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const displaySaturdaySchedule = saturdaySchedule || fallbackSaturdaySchedule;
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error';
     message: string;
@@ -91,7 +105,7 @@ export function NorthCountyPageContent() {
 
       setSubmitStatus({
         type: 'success',
-        message: "Thank you! We'll contact you within 24 hours to schedule your free trial.",
+        message: "Thank you! We'll contact you within 24 hours to schedule your free week.",
       });
       reset();
     } catch (error) {
@@ -133,15 +147,16 @@ export function NorthCountyPageContent() {
               surrounding communities with world-class instruction.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
-                Book Your Free Family Trial
+              <Button size="lg" className="text-lg px-8" asChild>
+                <Link href="/contact">Book Your Free Family Week</Link>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="text-lg px-8 border-white text-white hover:bg-white hover:text-gray-900"
+                asChild
               >
-                View Kids Schedule
+                <Link href="/schedule">View Schedule</Link>
               </Button>
             </div>
           </motion.div>
@@ -315,10 +330,10 @@ export function NorthCountyPageContent() {
               <Clock className="h-10 w-10 text-primary mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">Saturday Kids Classes</h3>
               <p className="text-primary font-semibold text-lg mb-2">
-                9:00 AM - 10:00 AM
+                {displaySaturdaySchedule.kidsTime}
               </p>
               <p className="text-muted-foreground">
-                All ages welcome. Perfect for families with school-age children.
+                {displaySaturdaySchedule.kidsDescription}
               </p>
             </motion.div>
 
@@ -330,12 +345,12 @@ export function NorthCountyPageContent() {
               className="bg-white dark:bg-gray-800 rounded-xl p-8 text-center shadow-sm"
             >
               <Clock className="h-10 w-10 text-primary mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Saturday All-Levels BJJ</h3>
+              <h3 className="text-xl font-bold mb-2">Saturday Open Mat</h3>
               <p className="text-primary font-semibold text-lg mb-2">
-                10:30 AM - 12:00 PM
+                {displaySaturdaySchedule.adultsTime}
               </p>
               <p className="text-muted-foreground">
-                Parents train while kids attend the earlier session.
+                {displaySaturdaySchedule.adultsDescription}
               </p>
             </motion.div>
           </div>
@@ -362,7 +377,7 @@ export function NorthCountyPageContent() {
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8"
             >
               <h2 className="text-2xl font-bold mb-2">
-                Book Your Free Trial
+                Book Your Free Week
               </h2>
               <p className="text-muted-foreground mb-6">
                 Whether you&apos;re in San Marcos, Vista, Carlsbad, or anywhere in
@@ -415,7 +430,7 @@ export function NorthCountyPageContent() {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="(760) 555-1234"
+                    placeholder="(760) 500-7710"
                     {...register('phone')}
                     disabled={isSubmitting}
                   />
@@ -451,7 +466,7 @@ export function NorthCountyPageContent() {
                 )}
 
                 <Button type="submit" disabled={isSubmitting} className="w-full" size="lg">
-                  {isSubmitting ? 'Sending...' : 'Claim My Free Trial'}
+                  {isSubmitting ? 'Sending...' : 'Claim My Free Week'}
                 </Button>
               </form>
             </motion.div>
@@ -469,7 +484,7 @@ export function NorthCountyPageContent() {
                   <p>
                     <strong className="text-foreground">Address:</strong>
                     <br />
-                    123 Academy Way, Escondido, CA 92025
+                    1980 E. Valley Parkway, Escondido, CA 92027
                   </p>
                   <div>
                     <strong className="text-foreground">Directions:</strong>
@@ -510,14 +525,14 @@ export function NorthCountyPageContent() {
               {/* Map */}
               <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-64 flex items-center justify-center overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212915.36754788284!2d-117.35!3d33.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dc0c1db3f4c0a3%3A0x3c3f5c3c8f8f8f8f!2sNorth%20County%20San%20Diego!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.8!2d-117.0523!3d33.1244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbf4e8c1c1c1c1%3A0x0!2s1980+E+Valley+Pkwy%2C+Escondido%2C+CA+92027!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Carlson Gracie BJJ North County San Diego"
+                  title="Carlson Gracie BJJ - 1980 E Valley Pkwy, Escondido, CA 92027"
                 />
               </div>
 
@@ -548,14 +563,15 @@ export function NorthCountyPageContent() {
           <p className="mb-8 text-lg text-white/90">
             Families from San Marcos to Oceanside have discovered the
             life-changing benefits of Brazilian Jiu-Jitsu at our academy. Your
-            first class is free—no obligation, no pressure.
+            first week is free—no obligation, no pressure.
           </p>
           <Button
             size="lg"
             variant="secondary"
             className="text-lg px-8"
+            asChild
           >
-            Start Your Free Trial Today
+            <Link href="/contact">Start Your Free Week Today</Link>
           </Button>
         </div>
       </section>

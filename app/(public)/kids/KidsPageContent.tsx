@@ -15,16 +15,18 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import Link from 'next/link';
+import { KidsAgeGroup } from '@/lib/sanity';
 
-const ageGroups = [
+// Fallback data when Sanity has no content
+const fallbackAgeGroups: KidsAgeGroup[] = [
   {
     id: 'little-champions',
-    title: 'Little Champions',
-    ages: '4-7 years',
+    title: 'Little Champions (Novice)',
+    ages: '4-6 years',
+    level: 'Ages 4-6',
     duration: '30 min',
-    schedule: 'Mon, Wed, Fri - 4:00 PM',
+    scheduleDays: 'Mon, Tue, Wed, Thu, Fri - 4:00 PM',
     description:
       'Introduction to BJJ through fun games and activities. Focus on motor skills, listening, and basic movements.',
     highlights: [
@@ -37,10 +39,11 @@ const ageGroups = [
   },
   {
     id: 'kids',
-    title: 'Kids BJJ',
-    ages: '8-12 years',
+    title: 'Kids BJJ (Intermediate)',
+    ages: '7-11 years',
+    level: 'Ages 7-11',
     duration: '45 min',
-    schedule: 'Mon, Wed, Fri - 5:00 PM',
+    scheduleDays: 'Mon, Tue, Wed, Thu, Fri - 4:30 PM',
     description:
       'Structured classes with technique drilling, belt progression, and supervised sparring. Building discipline and confidence.',
     highlights: [
@@ -53,10 +56,11 @@ const ageGroups = [
   },
   {
     id: 'teens',
-    title: 'Teen Program',
-    ages: '13-15 years',
+    title: 'Teen Program (Advanced)',
+    ages: '12-15 years',
+    level: 'Ages 12-Teens',
     duration: '60 min',
-    schedule: 'Tue, Thu - 5:30 PM, Sat - 11:00 AM',
+    scheduleDays: 'Mon, Tue, Wed, Thu, Fri - 5:15 PM',
     description:
       'Advanced training preparing teens for adult classes. Competition opportunities and leadership development.',
     highlights: [
@@ -137,8 +141,15 @@ const faqs = [
   },
 ];
 
-export function KidsPageContent() {
+interface KidsPageContentProps {
+  ageGroups?: KidsAgeGroup[];
+}
+
+export function KidsPageContent({ ageGroups }: KidsPageContentProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Use Sanity data if available, otherwise fallback
+  const displayAgeGroups = ageGroups && ageGroups.length > 0 ? ageGroups : fallbackAgeGroups;
 
   return (
     <div className="pt-20">
@@ -166,7 +177,7 @@ export function KidsPageContent() {
                 size="lg"
                 className="bg-white text-primary hover:bg-white/90"
               >
-                Book Free Kids Trial
+                Book Free Kids Week
               </Button>
               <Button
                 size="lg"
@@ -237,7 +248,7 @@ export function KidsPageContent() {
           </motion.div>
 
           <div className="grid gap-8 lg:grid-cols-3">
-            {ageGroups.map((group, index) => (
+            {displayAgeGroups.map((group, index) => (
               <motion.div
                 key={group.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -262,7 +273,7 @@ export function KidsPageContent() {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">
-                    {group.schedule}
+                    {group.scheduleDays}
                   </p>
 
                   <ul className="space-y-2">
@@ -344,7 +355,7 @@ export function KidsPageContent() {
             Ready to Get Started?
           </h2>
           <p className="text-xl text-white/90 mb-8">
-            Book a FREE trial class for your child. No commitment required.
+            Book a FREE trial week for your child. No commitment required.
           </p>
           <Button
             size="lg"

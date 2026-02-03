@@ -148,11 +148,11 @@ export function WhyChooseUsPageContent() {
                 proven at the highest levels of competition and real-world
                 self-defense.
               </p>
-              <p className="font-semibold">
-                &ldquo;Punch a black belt in the face, he becomes a brown belt.
-                Punch him again, purple...&rdquo;
-              </p>
-              <p className="text-white/70 text-sm mt-2">
+              <blockquote className="border-l-4 border-white/50 pl-4 italic">
+                &ldquo;Always enter like a kitten and leave like a lion. But NEVER
+                enter like a lion and leave like a kitten. Always be humble.&rdquo;
+              </blockquote>
+              <p className="text-white/70 text-sm mt-4">
                 — Carlson Gracie Sr.
               </p>
             </motion.div>
@@ -168,14 +168,14 @@ export function WhyChooseUsPageContent() {
           </h2>
           <p className="text-xl text-white/90 mb-8">
             See for yourself why students choose Carlson Gracie San Diego.
-            Your first class is always free.
+            Your first week is always free.
           </p>
           <Button
             asChild
             size="lg"
             className="bg-white text-primary hover:bg-white/90"
           >
-            <Link href="/contact">Book Your Free Trial</Link>
+            <Link href="/contact">Book Your Free Week</Link>
           </Button>
         </div>
       </section>

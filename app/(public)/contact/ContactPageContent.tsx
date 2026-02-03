@@ -8,19 +8,28 @@ import { Phone, Mail, MapPin, Clock, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { contactFormSchema, type ContactFormData } from '@/lib/validation';
+import { BusinessHours } from '@/lib/sanity';
 
 const contactInfo = {
-  phone: '+1 (760) 555-1234',
+  phone: '+1 (760) 500-7710',
   email: 'info@carlsongracie-sandiego.com',
-  address: '123 Academy Way, Escondido, CA 92025',
-  hours: [
-    { days: 'Monday - Friday', time: '6:00 AM - 9:00 PM' },
-    { days: 'Saturday', time: '9:00 AM - 2:00 PM' },
-    { days: 'Sunday', time: 'Closed' },
-  ],
+  address: '1980 E. Valley Parkway, Escondido, CA 92027',
+  googleMapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=1980+E+Valley+Pkwy,+Escondido,+CA+92027',
 };
 
-export function ContactPageContent() {
+// Fallback hours if Sanity has no data
+const fallbackHours: BusinessHours[] = [
+  { days: 'Monday - Friday', time: '9:00 AM - 9:00 PM' },
+  { days: 'Saturday', time: '9:00 AM - 12:00 PM' },
+  { days: 'Sunday', time: '10:00 AM - 12:00 PM' },
+];
+
+interface ContactPageContentProps {
+  businessHours?: BusinessHours[];
+}
+
+export function ContactPageContent({ businessHours }: ContactPageContentProps) {
+  const displayHours = businessHours && businessHours.length > 0 ? businessHours : fallbackHours;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error';
@@ -295,12 +304,12 @@ export function ContactPageContent() {
                       {contactInfo.address}
                     </p>
                     <a
-                      href="https://maps.google.com"
+                      href={contactInfo.googleMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary text-sm hover:underline"
                     >
-                      Get Directions
+                      Get Directions →
                     </a>
                   </div>
                 </div>
@@ -311,10 +320,10 @@ export function ContactPageContent() {
                   <div>
                     <p className="font-semibold mb-2">Hours</p>
                     <ul className="space-y-1">
-                      {contactInfo.hours.map((item) => (
+                      {displayHours.map((item) => (
                         <li
                           key={item.days}
-                          className="flex justify-between text-sm"
+                          className="flex justify-between text-sm gap-4"
                         >
                           <span className="text-muted-foreground">
                             {item.days}
@@ -327,11 +336,18 @@ export function ContactPageContent() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-64 flex items-center justify-center">
-                <p className="text-muted-foreground">
-                  Google Maps Embed Coming Soon
-                </p>
+              {/* Google Map */}
+              <div className="bg-gray-200 dark:bg-gray-700 rounded-2xl h-64 overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.8!2d-117.0523!3d33.1244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbf4e8c1c1c1c1%3A0x0!2s1980+E+Valley+Pkwy%2C+Escondido%2C+CA+92027!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Carlson Gracie BJJ - 1980 E Valley Pkwy, Escondido, CA 92027"
+                />
               </div>
             </motion.div>
           </div>
