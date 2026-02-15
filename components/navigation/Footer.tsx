@@ -49,9 +49,9 @@ export function Footer() {
           {/* Brand & Contact */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
-              <span className="text-2xl font-bold">
+              <span className="text-2xl font-[family-name:var(--font-anton)] uppercase tracking-wide">
                 <span className="text-white">Carlson Gracie</span>{' '}
-                <span className="text-primary">BJJ</span>
+                <span className="text-primary">Escondido</span>
               </span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">

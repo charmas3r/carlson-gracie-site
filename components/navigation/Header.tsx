@@ -58,7 +58,7 @@ export function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2 font-bold text-xl"
+              className="flex items-center gap-2 font-[family-name:var(--font-anton)] text-xl uppercase tracking-wide"
             >
               <span
                 className={cn(
@@ -70,7 +70,7 @@ export function Header() {
               >
                 Carlson Gracie
               </span>
-              <span className="text-primary">BJJ</span>
+              <span className="text-primary">Escondido</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -150,9 +150,9 @@ export function Header() {
               <div className="flex flex-col h-full">
                 {/* Menu Header */}
                 <div className="flex items-center justify-between p-4 border-b dark:border-gray-800">
-                  <span className="font-bold text-lg">
+                  <span className="font-[family-name:var(--font-anton)] text-lg uppercase tracking-wide">
                     <span className="text-foreground">Carlson Gracie</span>{' '}
-                    <span className="text-primary">BJJ</span>
+                    <span className="text-primary">Escondido</span>
                   </span>
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}

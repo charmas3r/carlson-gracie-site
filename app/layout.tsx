@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Anton } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { Analytics } from '@/components/Analytics';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
+const anton = Anton({ weight: '400', subsets: ['latin'], variable: '--font-anton' });
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${anton.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
