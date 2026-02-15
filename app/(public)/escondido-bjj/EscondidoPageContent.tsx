@@ -123,8 +123,13 @@ export function EscondidoPageContent({ timeSlots }: EscondidoPageContentProps) {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/mat-texture.png')] opacity-5" />
+      <section className="relative bg-gray-900 text-white py-20 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: 'url(https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/Photo%20Jul%2030%202025%2C%207%2057%2011%20PM.webp)' }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
         <div className="mx-auto max-w-6xl px-4 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
