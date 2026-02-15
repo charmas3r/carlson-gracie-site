@@ -13,7 +13,7 @@ export default function PublicLayout({
       <Header />
 
       {/* Main Content */}
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen overflow-x-hidden">{children}</main>
 
       {/* Footer */}
       <Footer />
