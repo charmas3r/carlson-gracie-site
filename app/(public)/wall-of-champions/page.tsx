@@ -3,9 +3,9 @@ import { getAchievements } from '@/lib/sanity';
 import { WallOfChampionsContent } from './WallOfChampionsContent';
 
 export const metadata: Metadata = {
-  title: 'Wall of Champions | Student Achievements | Carlson Gracie San Diego',
+  title: 'Wall of Champions | Student Achievements | Carlson Gracie Escondido',
   description:
-    'Celebrate our students\' achievements in Brazilian Jiu-Jitsu. From competition victories to belt promotions, we honor every milestone at Carlson Gracie San Diego in Escondido.',
+    'Celebrate our students\' achievements in Brazilian Jiu-Jitsu. From competition victories to belt promotions, we honor every milestone at Carlson Gracie Escondido in Escondido.',
   keywords: [
     'BJJ achievements San Diego',
     'BJJ competition results',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'Carlson Gracie champions',
   ],
   openGraph: {
-    title: 'Wall of Champions | Student Achievements | Carlson Gracie San Diego',
+    title: 'Wall of Champions | Student Achievements | Carlson Gracie Escondido',
     description:
       'Celebrate our students\' achievements in Brazilian Jiu-Jitsu. From competition victories to belt promotions, we honor every milestone.',
     type: 'website',

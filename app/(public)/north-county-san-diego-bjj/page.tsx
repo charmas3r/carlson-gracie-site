@@ -30,7 +30,7 @@ const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   '@id': 'https://carlsongracie-sandiego.com/#organization',
-  name: 'Carlson Gracie San Diego - North County BJJ',
+  name: 'Carlson Gracie Escondido - North County BJJ',
   description:
     'Premier Brazilian Jiu-Jitsu academy serving all of North County San Diego. Expert instruction for adults and kids in a family-friendly environment.',
   url: 'https://carlsongracie-sandiego.com/north-county-san-diego-bjj',

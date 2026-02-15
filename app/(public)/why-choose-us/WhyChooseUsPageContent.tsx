@@ -84,7 +84,7 @@ const galleryImages = [
   },
   {
     src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/Photo%20Feb%2002%202026%2C%206%2041%2009%20PM.webp',
-    alt: 'BJJ community training together at Carlson Gracie San Diego Escondido',
+    alt: 'BJJ community training together at Carlson Gracie Escondido Escondido',
     span: 'md:col-span-2',
   },
   {
@@ -164,7 +164,7 @@ export function WhyChooseUsPageContent() {
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Not all BJJ academies are the same. Here&apos;s what makes
-              Carlson Gracie San Diego the best choice for your martial arts journey.
+              Carlson Gracie Escondido the best choice for your martial arts journey.
             </p>
           </motion.div>
         </div>
@@ -387,7 +387,7 @@ export function WhyChooseUsPageContent() {
             Experience the Difference
           </h2>
           <p className="text-xl text-white/90 mb-8">
-            See for yourself why students choose Carlson Gracie San Diego.
+            See for yourself why students choose Carlson Gracie Escondido.
             Your first week is always free.
           </p>
           <Button

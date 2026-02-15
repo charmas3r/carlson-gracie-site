@@ -3,7 +3,7 @@ import { getKidsSchedule, groupKidsScheduleByLevel } from '@/lib/sanity';
 import { KidsPageContent } from './KidsPageContent';
 
 export const metadata: Metadata = {
-  title: 'Kids BJJ Program | Ages 4-15 | Carlson Gracie San Diego',
+  title: 'Kids BJJ Program | Ages 4-15 | Carlson Gracie Escondido',
   description:
     'Build confidence, discipline, and self-defense skills with our Kids Brazilian Jiu-Jitsu program. Age-appropriate classes for Little Champions (4-6), Kids (7-11), and Teens (12-15) in Escondido, San Diego.',
   keywords: [
