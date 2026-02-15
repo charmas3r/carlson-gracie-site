@@ -1,6 +1,6 @@
 'use client';
 
-import { Phone, MapPin, Mail, Calendar } from 'lucide-react';
+import { Phone, MapPin, Calendar, Gift } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Academy contact info - in production, this could come from env vars or CMS
@@ -64,12 +64,11 @@ export function MobileActionBar() {
         role="navigation"
         aria-label="Quick contact actions"
       >
-        {/* Call - Primary action */}
+        {/* Call */}
         <ActionButton
           href={`tel:${ACADEMY_INFO.phone}`}
           icon={<Phone className="h-5 w-5" />}
           label="Call"
-          isPrimary
         />
 
         {/* Map/Directions */}
@@ -79,18 +78,19 @@ export function MobileActionBar() {
           label="Map"
         />
 
-        {/* Email */}
-        <ActionButton
-          href={`mailto:${ACADEMY_INFO.email}?subject=Free%20Trial%20Week%20Inquiry`}
-          icon={<Mail className="h-5 w-5" />}
-          label="Email"
-        />
-
         {/* Schedule */}
         <ActionButton
           href="/schedule"
           icon={<Calendar className="h-5 w-5" />}
           label="Schedule"
+        />
+
+        {/* Free Week - Primary action */}
+        <ActionButton
+          href="/contact"
+          icon={<Gift className="h-5 w-5" />}
+          label="Free Week"
+          isPrimary
         />
       </nav>
     </>
