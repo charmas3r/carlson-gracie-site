@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'sb2gnofm9xtbm3op.public.blob.vercel-storage.com',
+      },
     ],
   },
   experimental: {

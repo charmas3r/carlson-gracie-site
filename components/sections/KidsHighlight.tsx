@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Shield, Users, Trophy, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -133,22 +134,14 @@ export function KidsHighlight() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            {/* Placeholder for kids training image */}
-            <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent overflow-hidden relative">
-              {/* Decorative elements */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary/20">
-                    <Users className="h-10 w-10 text-primary" />
-                  </div>
-                  <p className="text-lg font-semibold text-foreground">
-                    Kids Training Photo
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Coming soon from photo shoot
-                  </p>
-                </div>
-              </div>
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden relative">
+              <Image
+                src="https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids-photo.webp"
+                alt="Kids BJJ training at Carlson Gracie Escondido"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
 
               {/* Age badges */}
               <div className="absolute bottom-4 left-4 right-4 flex justify-center gap-2">

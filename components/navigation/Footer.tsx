@@ -14,7 +14,6 @@ const footerLinks = {
     { href: '/instructors', label: 'Instructors' },
     { href: '/schedule', label: 'Schedule' },
     { href: '/why-choose-us', label: 'Why Choose Us' },
-    { href: '/wall-of-champions', label: 'Wall of Champions' },
   ],
   resources: [
     { href: '/contact', label: 'Contact Us' },

@@ -3,10 +3,9 @@ import { HeroSection } from '@/components/hero';
 import { ReviewsWidget } from '@/components/reviews';
 import {
   KidsHighlight,
-  ChampionsPreview,
   ValueProposition,
 } from '@/components/sections';
-import { getFeaturedAchievements, getFeaturedReviews } from '@/lib/sanity';
+import { getFeaturedReviews } from '@/lib/sanity';
 
 export const metadata: Metadata = {
   title: 'Carlson Gracie Escondido | Escondido Brazilian Jiu-Jitsu | San Diego BJJ',
@@ -33,16 +32,16 @@ export const metadata: Metadata = {
 
 // Vercel Blob Storage hero video URL
 const HERO_VIDEO_URL =
-  'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/output-final-gracie.mp4';
+  'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/hero-video-trimmed-optimized.mp4';
 
 export default async function HomePage() {
-  const [featuredAchievements, featuredReviews] = await Promise.all([
-    getFeaturedAchievements(),
-    getFeaturedReviews(),
-  ]);
+  const featuredReviews = await getFeaturedReviews();
 
   return (
     <>
+      {/* Preload hero video so the browser starts downloading immediately */}
+      <link rel="preload" href={HERO_VIDEO_URL} as="video" type="video/mp4" />
+
       {/* Hero Section with Video Background */}
       <HeroSection videoSrc={HERO_VIDEO_URL} />
 
@@ -54,9 +53,6 @@ export default async function HomePage() {
 
       {/* Google Reviews Section */}
       <ReviewsWidget sanityReviews={featuredReviews} />
-
-      {/* Wall of Champions Preview */}
-      <ChampionsPreview achievements={featuredAchievements} />
 
       {/* CTA Section */}
       <section className="bg-primary py-16">

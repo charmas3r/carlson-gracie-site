@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/theme/ThemeToggle';
+
 import { cn } from '@/lib/utils';
 
 const navLinks = [
@@ -14,7 +14,6 @@ const navLinks = [
   { href: '/schedule', label: 'Schedule' },
   { href: '/instructors', label: 'Instructors' },
   { href: '/why-choose-us', label: 'Why Us' },
-  { href: '/wall-of-champions', label: 'Champions' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -94,16 +93,6 @@ export function Header() {
 
             {/* Right side - CTA + Theme Toggle */}
             <div className="flex items-center gap-2 md:gap-4">
-              {/* Theme Toggle */}
-              <div
-                className={cn(
-                  'transition-colors',
-                  !isScrolled && '[&_button]:text-white [&_button]:hover:bg-white/10'
-                )}
-              >
-                <ThemeToggle />
-              </div>
-
               {/* CTA Button - Desktop */}
               <Button
                 asChild

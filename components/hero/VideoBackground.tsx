@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { motion, MotionValue } from 'framer-motion';
 
 interface VideoBackgroundProps {
   src: string;
@@ -21,7 +21,6 @@ export function VideoBackground({
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    // Check for reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
 
@@ -35,21 +34,19 @@ export function VideoBackground({
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || prefersReducedMotion) return;
 
-    // Attempt to play video when loaded
-    const handleCanPlay = () => {
+    // Mark loaded as soon as first frame is available
+    const handleLoaded = () => setIsLoaded(true);
+
+    // If the video already has data (cached), mark immediately
+    if (video.readyState >= 2) {
       setIsLoaded(true);
-      if (!prefersReducedMotion) {
-        video.play().catch(() => {
-          // Autoplay was prevented, video will show poster
-          console.log('Video autoplay prevented');
-        });
-      }
-    };
+      return;
+    }
 
-    video.addEventListener('canplay', handleCanPlay);
-    return () => video.removeEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadeddata', handleLoaded);
+    return () => video.removeEventListener('loadeddata', handleLoaded);
   }, [prefersReducedMotion]);
 
   // If user prefers reduced motion, show static poster image
@@ -65,17 +62,17 @@ export function VideoBackground({
 
   return (
     <>
+      {/* Dark background visible immediately while video loads */}
+      <div className="absolute inset-0 bg-gray-900" aria-hidden="true" />
+
       {/* Video element with parallax */}
       <motion.div
         style={{ y: parallaxY }}
         className="absolute inset-0 h-[120%] -top-[10%]"
       >
-        <motion.video
+        <video
           ref={videoRef}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isLoaded ? 1 : 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className={`h-full w-full object-cover ${className}`}
+          className={`h-full w-full object-cover transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${className}`}
           autoPlay
           muted
           loop
@@ -85,9 +82,7 @@ export function VideoBackground({
           aria-hidden="true"
         >
           <source src={src} type="video/mp4" />
-          {/* Fallback for browsers that don't support video */}
-          Your browser does not support the video tag.
-        </motion.video>
+        </video>
       </motion.div>
 
       {/* Dark gradient overlay for text readability */}
