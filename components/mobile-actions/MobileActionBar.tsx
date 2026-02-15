@@ -1,6 +1,6 @@
 'use client';
 
-import { Phone, MessageSquare, MapPin, Mail } from 'lucide-react';
+import { Phone, MapPin, Mail, Calendar } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Academy contact info - in production, this could come from env vars or CMS
@@ -72,13 +72,6 @@ export function MobileActionBar() {
           isPrimary
         />
 
-        {/* Text/SMS */}
-        <ActionButton
-          href={`sms:${ACADEMY_INFO.phone}`}
-          icon={<MessageSquare className="h-5 w-5" />}
-          label="Text"
-        />
-
         {/* Map/Directions */}
         <ActionButton
           href={ACADEMY_INFO.googleMapsUrl}
@@ -91,6 +84,13 @@ export function MobileActionBar() {
           href={`mailto:${ACADEMY_INFO.email}?subject=Free%20Trial%20Week%20Inquiry`}
           icon={<Mail className="h-5 w-5" />}
           label="Email"
+        />
+
+        {/* Schedule */}
+        <ActionButton
+          href="/schedule"
+          icon={<Calendar className="h-5 w-5" />}
+          label="Schedule"
         />
       </nav>
     </>
