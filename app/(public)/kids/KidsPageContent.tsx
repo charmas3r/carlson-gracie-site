@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Shield,
   Brain,
@@ -13,8 +13,12 @@ import {
   ChevronUp,
   Clock,
   CheckCircle,
+  X,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 import Link from 'next/link';
 import { KidsAgeGroup } from '@/lib/sanity';
 
@@ -141,12 +145,70 @@ const faqs = [
   },
 ];
 
+const galleryImages = [
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/Photo%20Aug%2007%202025%2C%205%2026%2049%20PM%20-%20Edited.webp',
+    alt: 'Kids Brazilian Jiu-Jitsu class training at Carlson Gracie Escondido',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/Photo%20Feb%2014%202026%2C%2010%2036%2022%20AM%20%281%29.webp',
+    alt: 'Youth BJJ students practicing techniques at Escondido martial arts academy',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/Photo%20Jun%2023%202025%2C%208%2003%2033%20PM.webp',
+    alt: 'Children learning self-defense through Jiu-Jitsu in Escondido CA',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/Photo%20May%2030%202025%2C%205%2049%2008%20PM.webp',
+    alt: 'Kids martial arts sparring session at Carlson Gracie Jiu-Jitsu Escondido',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/Photo%20Nov%2024%202025%2C%208%2004%2043%20PM.webp',
+    alt: 'Young students building confidence through BJJ training in Escondido',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/Photo%20Oct%2004%202025%2C%2010%2039%2016%20AM%20-%20Edited.webp',
+    alt: 'Kids Jiu-Jitsu program developing discipline at Escondido BJJ gym',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/Photo%20Oct%2005%202025%2C%201%2010%2027%20PM.webp',
+    alt: 'Youth grappling class at Carlson Gracie Brazilian Jiu-Jitsu Escondido',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/Photo%20Oct%2020%202025%2C%203%2059%2047%20PM.webp',
+    alt: 'Children practicing BJJ drills at Escondido kids martial arts program',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/kids%20gallery/blue%20belt%20kid.webp',
+    alt: 'Young blue belt student at Carlson Gracie Jiu-Jitsu academy in Escondido',
+  },
+];
+
 interface KidsPageContentProps {
   ageGroups?: KidsAgeGroup[];
 }
 
 export function KidsPageContent({ ageGroups }: KidsPageContentProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const openLightbox = useCallback((index: number) => {
+    setLightboxIndex(index);
+    document.body.style.overflow = 'hidden';
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+    document.body.style.overflow = '';
+  }, []);
+
+  const navigateLightbox = useCallback((direction: 'prev' | 'next') => {
+    setLightboxIndex((current) => {
+      if (current === null) return null;
+      if (direction === 'next') return (current + 1) % galleryImages.length;
+      return (current - 1 + galleryImages.length) % galleryImages.length;
+    });
+  }, []);
 
   // Use Sanity data if available, otherwise fallback
   const displayAgeGroups = ageGroups && ageGroups.length > 0 ? ageGroups : fallbackAgeGroups;
@@ -294,6 +356,110 @@ export function KidsPageContent({ ageGroups }: KidsPageContentProps) {
           </div>
         </div>
       </section>
+
+      {/* Kids Gallery Section */}
+      <section className="py-20 bg-background">
+        <div className="mx-auto max-w-6xl px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold md:text-4xl mb-4">
+              Our Kids in Action
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              See our young martial artists building skills, confidence, and
+              friendships on the mats in Escondido.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            {galleryImages.map((image, index) => (
+              <motion.button
+                key={image.src}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ scale: 1.03 }}
+                onClick={() => openLightbox(index)}
+                className="relative aspect-square overflow-hidden rounded-xl shadow-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-300 hover:scale-110"
+                  loading="lazy"
+                />
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+            onClick={closeLightbox}
+          >
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 z-10 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+              aria-label="Close gallery lightbox"
+            >
+              <X className="h-6 w-6" />
+            </button>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); navigateLightbox('prev'); }}
+              className="absolute left-4 z-10 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+              aria-label="Previous photo"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); navigateLightbox('next'); }}
+              className="absolute right-4 z-10 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+              aria-label="Next photo"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            <motion.div
+              key={lightboxIndex}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="relative h-[80vh] w-full max-w-4xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={galleryImages[lightboxIndex].src}
+                alt={galleryImages[lightboxIndex].alt}
+                fill
+                sizes="90vw"
+                className="object-contain"
+                priority
+              />
+            </motion.div>
+
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
+              {lightboxIndex + 1} / {galleryImages.length}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* FAQ Section */}
       <section className="py-20 bg-background">
