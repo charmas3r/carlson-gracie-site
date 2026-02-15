@@ -33,7 +33,7 @@ const localBusinessSchema = {
     'Premier Brazilian Jiu-Jitsu academy serving Escondido and North County San Diego. Expert instruction for adults and kids.',
   url: 'https://carlsongracie-sandiego.com/escondido-bjj',
   telephone: '+17605007710',
-  email: 'info@carlsongracie-sandiego.com',
+  email: 'mikerabello@gmail.com',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '1980 E. Valley Parkway',

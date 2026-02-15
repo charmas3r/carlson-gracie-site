@@ -35,7 +35,7 @@ const localBusinessSchema = {
     'Premier Brazilian Jiu-Jitsu academy serving all of North County San Diego. Expert instruction for adults and kids in a family-friendly environment.',
   url: 'https://carlsongracie-sandiego.com/north-county-san-diego-bjj',
   telephone: '+17605007710',
-  email: 'info@carlsongracie-sandiego.com',
+  email: 'mikerabello@gmail.com',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '1980 E. Valley Parkway',

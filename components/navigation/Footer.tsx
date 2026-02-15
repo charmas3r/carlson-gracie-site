@@ -29,7 +29,7 @@ const footerLinks = {
 
 const contactInfo = {
   phone: '+1 (760) 500-7710',
-  email: 'info@carlsongracie-sandiego.com',
+  email: 'mikerabello@gmail.com',
   address: '1980 E. Valley Parkway, Escondido, CA 92027',
   hours: 'Mon-Fri: 6am-9pm, Sat: 9am-2pm',
 };

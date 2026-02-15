@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Phone, Mail, MapPin, Clock, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { contactFormSchema, type ContactFormData } from '@/lib/validation';
@@ -12,7 +12,7 @@ import { BusinessHours } from '@/lib/sanity';
 
 const contactInfo = {
   phone: '+1 (760) 500-7710',
-  email: 'info@carlsongracie-sandiego.com',
+  email: 'mikerabello@gmail.com',
   address: '1980 E. Valley Parkway, Escondido, CA 92027',
   googleMapsUrl: 'https://www.google.com/maps/dir/?api=1&destination=1980+E+Valley+Pkwy,+Escondido,+CA+92027',
 };
@@ -204,6 +204,23 @@ export function ContactPageContent({ businessHours }: ContactPageContentProps) {
                   )}
                 </div>
 
+                {/* Free Trial Request */}
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-primary/5 border border-primary/20">
+                  <input
+                    type="checkbox"
+                    id="freeTrialRequest"
+                    {...register('freeTrialRequest')}
+                    className="mt-1 h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                    disabled={isSubmitting}
+                  />
+                  <label htmlFor="freeTrialRequest" className="text-sm cursor-pointer">
+                    <span className="font-semibold">I&apos;d like to request a FREE 1-week trial!</span>
+                    <span className="block text-muted-foreground mt-0.5">
+                      No commitment required. Try unlimited classes for a full week.
+                    </span>
+                  </label>
+                </div>
+
                 {/* Status Message */}
                 {submitStatus && (
                   <div
@@ -251,22 +268,6 @@ export function ContactPageContent({ businessHours }: ContactPageContentProps) {
                     </div>
                     <div>
                       <p className="font-semibold">Call Us</p>
-                      <p className="text-muted-foreground">
-                        {contactInfo.phone}
-                      </p>
-                    </div>
-                  </a>
-
-                  {/* Text */}
-                  <a
-                    href={`sms:${contactInfo.phone.replace(/\D/g, '')}`}
-                    className="flex items-center gap-4 p-4 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                  >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-900 text-white dark:bg-gray-600">
-                      <MessageSquare className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">Text Us</p>
                       <p className="text-muted-foreground">
                         {contactInfo.phone}
                       </p>

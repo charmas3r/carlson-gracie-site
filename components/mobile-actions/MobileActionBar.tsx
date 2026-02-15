@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 const ACADEMY_INFO = {
   phone: '+17605007710',
   address: '1980 E. Valley Parkway, Escondido, CA 92027',
-  email: 'info@carlsongracie-sandiego.com',
+  email: 'mikerabello@gmail.com',
   googleMapsUrl:
     'https://www.google.com/maps/search/?api=1&query=1980+E+Valley+Parkway+Escondido+CA+92027',
 };
