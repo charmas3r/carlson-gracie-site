@@ -8,6 +8,7 @@ interface VideoBackgroundProps {
   posterSrc?: string;
   className?: string;
   parallaxY?: MotionValue<string>;
+  onVideoPlay?: () => void;
 }
 
 export function VideoBackground({
@@ -15,6 +16,7 @@ export function VideoBackground({
   posterSrc,
   className = '',
   parallaxY,
+  onVideoPlay,
 }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,15 +41,22 @@ export function VideoBackground({
     // Mark loaded as soon as first frame is available
     const handleLoaded = () => setIsLoaded(true);
 
+    // Notify parent when video starts playing
+    const handlePlay = () => onVideoPlay?.();
+
     // If the video already has data (cached), mark immediately
     if (video.readyState >= 2) {
       setIsLoaded(true);
-      return;
+    } else {
+      video.addEventListener('loadeddata', handleLoaded);
     }
 
-    video.addEventListener('loadeddata', handleLoaded);
-    return () => video.removeEventListener('loadeddata', handleLoaded);
-  }, [prefersReducedMotion]);
+    video.addEventListener('playing', handlePlay);
+    return () => {
+      video.removeEventListener('loadeddata', handleLoaded);
+      video.removeEventListener('playing', handlePlay);
+    };
+  }, [prefersReducedMotion, onVideoPlay]);
 
   // If user prefers reduced motion, show static poster image
   if (prefersReducedMotion && posterSrc) {

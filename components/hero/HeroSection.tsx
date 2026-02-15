@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { VideoBackground } from './VideoBackground';
@@ -50,6 +50,11 @@ const scrollIndicatorVariants = {
 export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const [showContent, setShowContent] = useState(false);
+
+  const handleVideoPlay = useCallback(() => {
+    setTimeout(() => setShowContent(true), 2000);
+  }, []);
 
   // Parallax scroll tracking
   const { scrollYProgress } = useScroll({
@@ -82,7 +87,7 @@ export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
   return (
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
       {/* Video Background with Parallax */}
-      <VideoBackground src={videoSrc} posterSrc={posterSrc} parallaxY={backgroundY} />
+      <VideoBackground src={videoSrc} posterSrc={posterSrc} parallaxY={backgroundY} onVideoPlay={handleVideoPlay} />
 
       {/* Content Overlay with Parallax */}
       <motion.div
@@ -92,7 +97,7 @@ export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          animate={showContent ? 'visible' : 'hidden'}
           className="max-w-4xl"
         >
           {/* Small top label */}
@@ -137,7 +142,7 @@ export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
         <motion.button
           variants={scrollIndicatorVariants}
           initial="initial"
-          animate="animate"
+          animate={showContent ? 'animate' : 'initial'}
           onClick={scrollToContent}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer text-white/70 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent"
           aria-label="Scroll to content"
