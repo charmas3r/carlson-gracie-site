@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useCallback, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Award,
   Users,
@@ -9,8 +10,12 @@ import {
   Target,
   Star,
   CheckCircle,
+  X,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const reasons = [
@@ -61,7 +66,84 @@ const values = [
   'Humility to always keep learning',
 ];
 
+const galleryImages = [
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/CGESCO-01.webp',
+    alt: 'Carlson Gracie Escondido BJJ academy training session',
+    span: 'md:col-span-2 md:row-span-2',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/CGESCO-05.webp',
+    alt: 'Brazilian Jiu-Jitsu sparring at Carlson Gracie Escondido gym',
+    span: '',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/CGESCO-06.webp',
+    alt: 'Students drilling techniques at Escondido Jiu-Jitsu academy',
+    span: '',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/Photo%20Feb%2002%202026%2C%206%2041%2009%20PM.webp',
+    alt: 'BJJ community training together at Carlson Gracie San Diego Escondido',
+    span: 'md:col-span-2',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/Photo%20Feb%2018%202025%2C%208%2002%2015%20PM.webp',
+    alt: 'Martial arts instruction at Escondido Brazilian Jiu-Jitsu school',
+    span: '',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/Photo%20Jul%2030%202025%2C%207%2057%2011%20PM.webp',
+    alt: 'Jiu-Jitsu practitioners rolling at Carlson Gracie Escondido',
+    span: '',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/Photo%20May%2031%202025%2C%2010%2001%2031%20AM.webp',
+    alt: 'Team photo at Carlson Gracie Brazilian Jiu-Jitsu Escondido academy',
+    span: '',
+  },
+  {
+    src: 'https://sb2gnofm9xtbm3op.public.blob.vercel-storage.com/why-choose-us/Photo%20Nov%2024%202025%2C%208%2004%2044%20PM.webp',
+    alt: 'BJJ belt promotion ceremony at Carlson Gracie Escondido',
+    span: '',
+  },
+];
+
 export function WhyChooseUsPageContent() {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState(0);
+
+  const openLightbox = useCallback((index: number) => {
+    setLightboxIndex(index);
+    document.body.style.overflow = 'hidden';
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+    setDirection(0);
+    document.body.style.overflow = '';
+  }, []);
+
+  const navigateLightbox = useCallback((dir: 'prev' | 'next') => {
+    setDirection(dir === 'next' ? 1 : -1);
+    setLightboxIndex((current) => {
+      if (current === null) return null;
+      if (dir === 'next') return (current + 1) % galleryImages.length;
+      return (current - 1 + galleryImages.length) % galleryImages.length;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') navigateLightbox('next');
+      if (e.key === 'ArrowLeft') navigateLightbox('prev');
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxIndex, closeLightbox, navigateLightbox]);
+
   return (
     <div className="pt-20">
       {/* Hero */}
@@ -159,6 +241,138 @@ export function WhyChooseUsPageContent() {
           </div>
         </div>
       </section>
+
+      {/* Gallery Section */}
+      <section className="py-20 bg-background overflow-hidden">
+        <div className="mx-auto max-w-6xl px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-14"
+          >
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-3">
+              Life on the Mats
+            </p>
+            <h2 className="text-3xl font-bold md:text-4xl mb-4">
+              Inside Our Academy
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Real moments from our Escondido academy — the training, the
+              camaraderie, and the growth that happens every day.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] md:auto-rows-[240px] gap-3 md:gap-4">
+            {galleryImages.map((image, index) => (
+              <motion.button
+                key={image.src}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.5, delay: index * 0.07 }}
+                onClick={() => openLightbox(index)}
+                className={`group relative overflow-hidden rounded-2xl cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${image.span}`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes={image.span.includes('col-span-2') ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 50vw, 25vw'}
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                  <p className="text-white text-sm font-medium drop-shadow-lg">
+                    {image.alt}
+                  </p>
+                </div>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox */}
+      <AnimatePresence mode="wait">
+        {lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm"
+            onClick={closeLightbox}
+          >
+            {/* Close */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 z-20 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 transition-colors backdrop-blur-sm"
+              aria-label="Close gallery"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Counter */}
+            <div className="absolute top-4 left-4 z-20 rounded-full bg-white/10 px-4 py-2 text-white text-sm font-medium backdrop-blur-sm">
+              {lightboxIndex + 1} / {galleryImages.length}
+            </div>
+
+            {/* Prev */}
+            <button
+              onClick={(e) => { e.stopPropagation(); navigateLightbox('prev'); }}
+              className="absolute left-4 z-20 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 transition-colors backdrop-blur-sm"
+              aria-label="Previous photo"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+
+            {/* Next */}
+            <button
+              onClick={(e) => { e.stopPropagation(); navigateLightbox('next'); }}
+              className="absolute right-4 z-20 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 transition-colors backdrop-blur-sm"
+              aria-label="Next photo"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            {/* Image */}
+            <AnimatePresence mode="popLayout" custom={direction}>
+              <motion.div
+                key={lightboxIndex}
+                custom={direction}
+                initial={{ opacity: 0, x: direction * 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: direction * -100 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                className="relative h-[85vh] w-full max-w-5xl mx-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={galleryImages[lightboxIndex].src}
+                  alt={galleryImages[lightboxIndex].alt}
+                  fill
+                  sizes="95vw"
+                  className="object-contain"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Caption */}
+            <motion.p
+              key={`caption-${lightboxIndex}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm text-center max-w-lg px-4"
+            >
+              {galleryImages[lightboxIndex].alt}
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* CTA */}
       <section className="py-20 bg-primary">
