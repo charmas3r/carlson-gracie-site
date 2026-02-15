@@ -18,7 +18,6 @@ const footerLinks = {
   resources: [
     { href: '/contact', label: 'Contact Us' },
     { href: '/faq', label: 'FAQ' },
-    { href: '/privacy', label: 'Privacy Policy' },
   ],
   locations: [
     { href: '/escondido-bjj', label: 'Escondido BJJ' },
