@@ -183,15 +183,9 @@ export function KidsPageContent({ ageGroups }: KidsPageContentProps) {
               <Button
                 size="lg"
                 className="bg-white text-primary hover:bg-white/90"
+                asChild
               >
-                Book Free Kids Week
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10"
-              >
-                Download Info Packet
+                <Link href="/contact">Book Free Kids Week</Link>
               </Button>
             </div>
           </motion.div>

@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import Link from 'next/link';
 import { VideoBackground } from './VideoBackground';
 import { Button } from '@/components/ui/button';
 
@@ -128,12 +129,15 @@ export function HeroSection({ videoSrc, posterSrc }: HeroSectionProps) {
           {/* CTA Button */}
           <motion.div variants={itemVariants}>
             <Button
+              asChild
               size="lg"
               className="group relative overflow-hidden bg-primary px-8 py-6 text-lg font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105 hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] md:px-12 md:py-7 md:text-xl"
             >
-              <span className="relative z-10">Start Your Journey</span>
-              {/* Button glow effect */}
-              <span className="absolute inset-0 -z-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <Link href="/contact">
+                <span className="relative z-10">Start Your Journey</span>
+                {/* Button glow effect */}
+                <span className="absolute inset-0 -z-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </Link>
             </Button>
           </motion.div>
         </motion.div>
