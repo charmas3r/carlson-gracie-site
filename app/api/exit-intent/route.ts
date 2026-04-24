@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 import { exitIntentFormSchema } from '@/lib/validation';
+import {
+  sendExitIntentAdminNotification,
+  sendExitIntentConfirmation,
+} from '@/lib/email';
 import { ZodError } from 'zod';
 
 // Rate limiting: simple in-memory store (for production, use Vercel KV)
@@ -56,25 +60,18 @@ export async function POST(request: Request) {
     // Server-side validation
     const validatedData = exitIntentFormSchema.parse(body);
 
-    // TODO: Integrate with Resend for email confirmation
-    // For now, log the submission (in production, save to Sanity CMS and send email)
-    console.log('Exit Intent Lead Captured:', {
-      ...validatedData,
-      timestamp: new Date().toISOString(),
-      source: 'exit-intent-modal',
-    });
+    const [confirmation, notification] = await Promise.all([
+      sendExitIntentConfirmation(validatedData),
+      sendExitIntentAdminNotification(validatedData),
+    ]);
 
-    // TODO: Send confirmation email via Resend
-    // await sendExitIntentConfirmation(validatedData);
-
-    // TODO: Save to Sanity CMS
-    // await sanityClient.create({
-    //   _type: 'lead',
-    //   name: validatedData.name,
-    //   email: validatedData.email,
-    //   source: 'exit-intent',
-    //   createdAt: new Date().toISOString(),
-    // });
+    if (!confirmation.success || !notification.success) {
+      console.error('Exit-intent email send partial failure:', {
+        confirmation,
+        notification,
+        submission: validatedData,
+      });
+    }
 
     return NextResponse.json({
       success: true,

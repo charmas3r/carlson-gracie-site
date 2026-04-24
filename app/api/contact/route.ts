@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { contactFormSchema } from '@/lib/validation';
+import { sendAdminNotification, sendContactConfirmation } from '@/lib/email';
 import { ZodError } from 'zod';
 
 // Rate limiting
@@ -46,14 +47,18 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validatedData = contactFormSchema.parse(body);
 
-    // Log the submission (in production, send to CRM/email)
-    console.log('Contact Form Submission:', {
-      ...validatedData,
-      timestamp: new Date().toISOString(),
-    });
+    const [confirmation, notification] = await Promise.all([
+      sendContactConfirmation(validatedData),
+      sendAdminNotification(validatedData),
+    ]);
 
-    // TODO: Send email via Resend
-    // TODO: Save to Sanity CMS
+    if (!confirmation.success || !notification.success) {
+      console.error('Contact email send partial failure:', {
+        confirmation,
+        notification,
+        submission: validatedData,
+      });
+    }
 
     return NextResponse.json({
       success: true,
